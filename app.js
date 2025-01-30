@@ -12,7 +12,7 @@ var app = express(); // Initialize the Express application
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views', 'pages'));
 
-app.get('/index', (req, res) => {
+app.get('/', (req, res) => {
   res.render('index'); // Looks for 'views/pages/index.ejs'
 });
 
