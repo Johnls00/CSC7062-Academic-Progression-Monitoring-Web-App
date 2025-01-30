@@ -1,0 +1,56 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css";
+
+:root {
+    --yellow-colour: #F9C92B;
+    --red-colour: #ED3B24;
+    --blue-colour: #254993;
+    --teal-colour: #CDE4CB;
+    --pastel-pink-colour: #EAA6B2;
+}
+
+header {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; 
+    flex-direction: column;  
+    text-align: center; /* Ensure text-based elements are centered */
+    
+}
+
+header .navbar {
+    
+    background-color: var(--teal-colour);
+    width: 90%;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;    
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+header .navbar-item-logo {
+    background-color: #0b617e;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;    
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+
+
+header .container-index .main-content {
+    background-color: white;
+    align-content: center;
+}
+
+header .navbar-brand {
+    display: flex;
+    justify-content: space-between; /* This will space out items, aligning the brand to the left and buttons to the right */
+    align-items: center; /* Vertically centers the items */
+  }
+  
+header .navbar-end {
+    display: flex; 
+    justify-content: flex-end; 
+  }
