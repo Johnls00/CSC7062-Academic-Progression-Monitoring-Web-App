@@ -8,41 +8,41 @@
     --pastel-pink-colour: #EAA6B2;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Header styling */
 header {
     display: flex;
-    justify-content: center; /* Center horizontally */
+    justify-content: center; 
     align-items: center; 
     flex-direction: column;  
     text-align: center; /* Ensure text-based elements are centered */
-    
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 header .navbar {
-    
     background-color: var(--teal-colour);
     width: 90%;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;    
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
 }
 
 header .navbar-item-logo {
     background-color: #0b617e;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;    
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
 }
 
-
-
-header .container-index .main-content {
-    background-color: white;
-    align-content: center;
-}
 
 header .navbar-brand {
     display: flex;
@@ -53,4 +53,47 @@ header .navbar-brand {
 header .navbar-end {
     display: flex; 
     justify-content: flex-end; 
+  }
+
+
+/* Footer styling */
+footer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    background-color: #333;
+    color: white;
+    height: 2%;
+    width: 90%;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    padding: 0%;
+}
+
+/* Main content styling */
+
+.container-index {
+    min-height: 100vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 0%;
+    padding: 0%;
+    /* align-content: center; */
+
+  }
+  
+.content {
+    flex: 1;
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center;     
   }
