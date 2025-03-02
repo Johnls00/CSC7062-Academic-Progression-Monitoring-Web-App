@@ -1,0 +1,21 @@
+/* Footer styling */
+footer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    background-color: #333;
+    color: white;
+    height: 2%;
+    width: 90%;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    padding: 0%;
+}

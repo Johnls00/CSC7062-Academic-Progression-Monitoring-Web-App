@@ -1,0 +1,40 @@
+/* Header styling */
+header {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column;  
+    text-align: center; 
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+header .navbar {
+    width: 90%;
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
+
+header .navbar-item-logo {
+    /* resize: both;
+    background-color: #0b617e; */
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
+
+header .navbar-brand {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;  
+  }
+  
+header .navbar-end {
+    display: flex; 
+    justify-content: flex-end; 
+  }
