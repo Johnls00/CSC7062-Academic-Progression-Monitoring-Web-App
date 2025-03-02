@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views', 'pages'));
 
 app.get('/', (req, res) => {
-  res.render('index'); // Looks for 'views/pages/index.ejs'
+  res.render('index'); // Looks for 'views/pages/index.ejs' 
 });
 
 // Serve static files (CSS, images, etc.)
@@ -26,6 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/user', require('./routes/user')); 
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

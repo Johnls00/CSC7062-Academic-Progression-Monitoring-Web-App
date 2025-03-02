@@ -1,3 +1,5 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css";
+
 .main-content    {
     display: flex;
     justify-content: center;
@@ -7,6 +9,8 @@
     width: 90%;
     height: 90%;
 }
+
+
 
 .box   {
     display: flex;
@@ -41,7 +45,4 @@
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 
-    
-
-    
   }
