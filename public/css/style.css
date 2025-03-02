@@ -1,16 +1,45 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css";
 
+
 :root {
     --yellow-colour: #F9C92B;
     --red-colour: #ED3B24;
     --blue-colour: #254993;
     --teal-colour: #CDE4CB;
     --pastel-pink-colour: #EAA6B2;
+
+    /* Neutral shades */
+    --white: #ffffff;
+    --light-gray: #f7f7f7;
+    --dark-gray: #333333;
+    --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
-html, body {
-    height: 100%;
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, var(--teal-colour), var(--pastel-pink-colour));
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.main-content {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Header styling */
@@ -19,7 +48,7 @@ header {
     justify-content: center; 
     align-items: center; 
     flex-direction: column;  
-    text-align: center; /* Ensure text-based elements are centered */
+    text-align: center; 
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
@@ -48,8 +77,8 @@ header .navbar-item-logo {
 
 header .navbar-brand {
     display: flex;
-    justify-content: space-between; /* This will space out items, aligning the brand to the left and buttons to the right */
-    align-items: center; /* Vertically centers the items */
+    justify-content: space-between; 
+    align-items: center;  
   }
   
 header .navbar-end {
