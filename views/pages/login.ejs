@@ -1,20 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Academic Progress Monitoring - Login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/login.css">
 </head>
-<body class="container-signin">
-    <%- include('../layouts/header.ejs') %>
 
-    <div class="main-content">
-        <h1>Welcome to My Web App</h1>
-        <p>This is the home page.</p>
+<body class="container-index">
+    <div class="content">
+        <div class="main-content">
+            <form class="box">
+                <h1 class="title">Welcome to the Academic Progress Monitoring System 🎓</h1>
+                <h2 class="title">Login</h2>
+                
+                <div class="field">
+                    <label class="label">Email: </label>
+                    <div class="control">
+                        <input class="input" type="email" placeholder="e.g. alex@example.com">
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label">Password: </label>
+                    <div class="control">
+                        <input class="input" type="password" placeholder="********">
+                    </div>
+                </div>
+                
+                <button class="button is-primary">Sign in</button>
 
+                <p class="register-text">
+                    Don’t have an account? <a href="#">Register here</a>.
+                </p>
+            </form>
+        </div>
     </div>
+</body>
 
-    <%- include('../layouts/footer.ejs') %>
 </html>
