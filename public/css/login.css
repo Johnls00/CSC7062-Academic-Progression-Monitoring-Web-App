@@ -1,0 +1,133 @@
+/* styles.css */
+:root {
+    --yellow-colour: #F9C92B;
+    --red-colour: #ED3B24;
+    --blue-colour: #254993;
+    --teal-colour: #CDE4CB;
+    --pastel-pink-colour: #EAA6B2;
+
+    /* Neutral shades */
+    --white: #ffffff;
+    --light-gray: #f7f7f7;
+    --dark-gray: #333333;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, var(--teal-colour), var(--pastel-pink-colour));
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.main-content {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form.box {
+    width: 100%;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 6px 15px var(--shadow-color);
+    background-color: var(--white);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+form.box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px var(--shadow-color);
+}
+
+h1.title {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--blue-colour);
+    margin-bottom: 10px;
+}
+
+h2.title {
+    text-align: center;
+    font-size: 1.4rem;
+    color: var(--pastel-pink-colour);
+    margin-bottom: 20px;
+}
+
+.field {
+    margin-bottom: 20px;
+}
+
+.label {
+    font-weight: 600;
+    color: var(--blue-colour);
+    font-size: 1rem;
+}
+
+.input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--light-gray);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--light-gray);
+}
+
+.input:focus {
+    border-color: var(--yellow-colour);
+    box-shadow: 0 0 8px rgba(249, 201, 43, 0.3);
+    background-color: var(--white);
+}
+
+.button.is-primary {
+    width: 100%;
+    padding: 14px;
+    background: var(--blue-colour);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button.is-primary:hover {
+    background: var(--yellow-colour);
+    color: var(--blue-colour);
+    box-shadow: 0 4px 8px rgba(249, 201, 43, 0.4);
+}
+
+.register-text {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--dark-gray);
+    font-size: 1rem;
+}
+
+.register-text a {
+    color: var(--red-colour);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.register-text a:hover {
+    color: var(--yellow-colour);
+    text-decoration: underline;
+}
