@@ -1,48 +1,71 @@
-@import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css";
-
-.main-content    {
+.main-content {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     margin-top: 0rem;
-    width: 90%;
-    height: 90%;
+    width: 100%;  /* Make the main content stretch full width */
+    height: 90%;  /* Adjust this as needed */
 }
 
+h1 {
+    align-items: left;
+}
 
+.table {
+    table-layout: fixed; /* Ensure fixed column width for consistency */
+    width: 100%; /* Ensure the table stretches across the full width of its container */
+    background-color: white;
+   
+}
 
-.box   {
+th, td {
+    text-align: left; /* Align the content to the left */
+    padding: 8px; /* Add padding for better readability */
+    color: black !important;
+}
+
+th {
+    font-weight: bold; /* Make headings bold */
+}
+
+.box {
     display: flex;
-    width: 90%;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    flex-direction: column;
-    align-self: center;
+    width: 90vw;  /* Stretch box to full width */
+    padding: 20px;
+    box-sizing: border-box;  /* Ensures padding doesn't affect the width */
+    
 }
 
 .columns {
     display: flex;
     flex-direction: row;
     margin-top: 1rem;
-
+    width: 100%;  /* Stretch columns to full width */
 }
 
-.columns .content
-{
+.columns .content {
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
 }
 
-.container-index {
-
+.container-users {
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-image: url('/images/watercolor-clouds-background.png');
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
-  }
+    min-height: 100vh;  /* Ensure the container takes full screen height */
+}
+
+.box {
+    width: 100%;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 6px 15px var(--shadow-color);
+    background-color: var(--white);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
