@@ -6,15 +6,53 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/contact.css">
 </head>
-<body class="container-signin">
-    <%- include('../layouts/header.ejs') %>
 
-    <div class="main-content">
-        <h1>Welcome to My Web App</h1>
-        <p>This is the home page.</p>
+<body class="container-index">
+    <div class="content">
+        <div class="main-content">
+            <form class="box">
+                <h1 class="title">Contact Us</h1>
 
+                <img src="images/Contact-Image-child-with-speakerphone.png" alt="Contact Image child with speakerphone" style="max-width: 100%; height: auto;" />
+                
+                <h2 class="title">Get In Touch — We're Here to Help!</h2>
+            
+                <div class="field">
+                    <label class="label">Name: </label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="e.g. Alex Smith">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Email: </label>
+                    <div class="control">
+                        <input class="input" type="email" placeholder="e.g. alex@example.com">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Subject: </label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="e.g. Subject of issue">
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <label class="label">Message: </label>
+                    <div class="control">
+                        <textarea class="textarea" placeholder="Describe your issue here..." rows="6"></textarea>
+                    </div>
+                </div>
+                
+                <button class="button is-primary">Submit</button>
+
+            </form>
+        </div>
     </div>
+</body>
 
-    <%- include('../layouts/footer.ejs') %>
+
 </html>
