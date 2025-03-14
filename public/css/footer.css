@@ -6,10 +6,10 @@ footer {
     text-align: center;
     align-items: center;
     align-content: center;
-    background-color: #333;
-    color: white;
-    height: 2%;
-    width: 90%;
+    background-color: --light-gray;
+    color: --light-gray;
+    height: 2vh;
+    width: 90vw;
     border-radius: 1rem;
     -webkit-border-radius: 1rem;
     -moz-border-radius: 1rem;

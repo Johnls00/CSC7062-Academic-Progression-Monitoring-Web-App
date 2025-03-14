@@ -6,7 +6,7 @@
     <title>Student Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/user_view.css">
+    <link rel="stylesheet" href="/css/user.css">
     
 </head>
 
@@ -21,39 +21,48 @@
             <!-- create column for side bar -->
             <div class="column is-one-quarter-tablet">
 
-                <!--side-->
+                <!-- Side -->
                 <div class="box">
                     <div class="p-5">
                         <div class="is-size-5-desktop is-size-5-tablet is-size-4-mobile has-text-weight-semibold">
-                            
+                        Student Profile
+                        
+            
+                        <ul class="mt-4 ml-4 profile-information">
+                            <li>
+                                <p><span>Name: </span>John Doe</p>
+                            </li>
+                            <li>
+                                <p><span>Student Number: </span>123456789</p>
+                            </li>
+                            <li>
+                                <p><span>Pathway: </span>Software Development</p>
+                            </li>
+                            <li>
+                                <p><span>Email: </span> gandalf@jswizard.com</p>
+                            </li>
+                            <li>
+                                <p><span>Year of Study: </span>2nd Year</p>
+                            </li>
+                        </ul>
+
+                        Progression Summary 
+                        <ul class="mt-4 ml-4 profile-information">
+                            <li>
+                                <p><span>Total Credits Earned: </span>120</p>
+                            </li>
+                            <li>
+                                <p><span>Average Grade: </span>75%</p>
+                            </li>
+                            <li>
+                                <p><span>Progression Status: </span>Accepted to year 2</p>
+                            </li>
+                        </ul>
                         </div>
-                        <div>Student Profile</div>
                     </div>
-
-                    <ul class=" mt-4 ml-4 profile-information ">
-                        <li>
-                            <p><span>Name: </span>John Doe</p>
-                        </li>
-                        <li>
-                            <p><span>Student Number: </span>123456789</p>
-                        </li>
-                        <li>
-                            <p><span>Pathway: </span>Software Development</p>
-                        </li>
-                        <li>
-                            <p><span>Email: </span> gandalf@jswizard.com</p>
-                        </li>
-                        <li>
-                            <p><span>Year of Study: </span>2nd Yea</p>
-                        </li>
-
-                    </ul>
-
                 </div>
-
-
+            
             </div>
-
             <!-- create column for content and nav bar -->
             <div class="column">
 
@@ -64,28 +73,33 @@
                     <table class="table is-fullwidth" >
                         <thead>
                             <tr>
-                                <th>Module</th>
+                                <th>Module Code</th>
+                                <th>Module Name</th>
                                 <th>Grade</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td>SD101</td>
                                 <td>Programming Fundamentals</td>
                                 <td>A</td>
                                 <td><span class="tag is-success">Pass</span></td>
                             </tr>
                             <tr>
+                                <td>SD102</td>
                                 <td>Data Structures</td>
                                 <td>B+</td>
                                 <td><span class="tag is-success">Pass</span></td>
                             </tr>
                             <tr>
+                                <td>SD103</td>
                                 <td>Web Development</td>
                                 <td>C</td>
                                 <td><span class="tag is-warning">Fail</span></td>
                             </tr>
                             <tr>
+                                <td>SD104</td>
                                 <td>Software Engineering</td>
                                 <td>A-</td>
                                 <td><span class="tag is-success">Pass</span></td>
@@ -94,9 +108,6 @@
                     </table>
 
                 </div>
-
-
-               
 
                 <!-- Services -->
                 <div class="has-background-white p-6 mtopclear mybk3 rounded-box">
@@ -153,8 +164,6 @@
 
                     </div>
                 </div>
-
-                
 
             </div>
 
