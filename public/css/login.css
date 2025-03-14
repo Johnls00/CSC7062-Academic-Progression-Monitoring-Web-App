@@ -91,3 +91,7 @@ h2.title {
     color: var(--yellow-colour);
     text-decoration: underline;
 }
+
+.main-content {
+    max-width: 600px;
+}
