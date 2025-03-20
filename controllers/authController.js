@@ -1,7 +1,7 @@
 // controllers/authController.js
 
 exports.showHome = (req, res) => {
-    res.render('/index', { title: 'Home' });
+    res.render('public/index', { title: 'Home' });
   };
   
   exports.showLogin = (req, res) => {
@@ -9,8 +9,8 @@ exports.showHome = (req, res) => {
   };
   
   exports.handleLogin = (req, res) => {
-    // Add your authentication logic here.
-    // For example: verify credentials, set req.user, etc.
+    // Add authentication logic here.
+    
     res.redirect('/dashboard');
   };
   
@@ -19,11 +19,11 @@ exports.showHome = (req, res) => {
   };
   
   exports.handleRegister = (req, res) => {
-    // Add registration logic here (e.g., create new user record)
+    // Add registration logic here 
     res.redirect('/login');
   };
   
   exports.handleLogout = (req, res) => {
-    // Add logout logic (e.g., destroy session)
+    // Add logout logic 
     res.redirect('/login');
   };
