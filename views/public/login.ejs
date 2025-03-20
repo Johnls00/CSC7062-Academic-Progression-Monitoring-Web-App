@@ -13,27 +13,31 @@
 <body class="container-index">
     <div class="content">
         <div class="main-content">
-            <form class="box">
+            <form class="box" action="/login" method="POST">
                 <h1 class="title">Welcome to the Academic Progress Monitoring System 🎓</h1>
                 <img src="images/child-reading.png" alt="child reading cartoon" />
-                
+            
+                <% if (typeof error !== 'undefined') { %>
+                    <div class="notification is-danger"><%= error %></div>
+                <% } %>
+            
                 <h2 class="title">Login</h2>
                 <div class="field">
                     <label class="label">Email: </label>
                     <div class="control">
-                        <input class="input" type="email" placeholder="e.g. alex@example.com">
+                        <input class="input" type="email" name="email" placeholder="e.g. alex@example.com" required>
                     </div>
                 </div>
-                
+            
                 <div class="field">
                     <label class="label">Password: </label>
                     <div class="control">
-                        <input class="input" type="password" placeholder="********">
+                        <input class="input" type="password" name="password" placeholder="********" required>
                     </div>
                 </div>
-                
-                <button class="button is-primary">Sign in</button>
-
+            
+                <button type="submit" class="button is-primary">Sign in</button>
+            
                 <p class="register-text">
                     Trouble signing in? <a href="/contact">Contact us here</a>.
                 </p>

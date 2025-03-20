@@ -2,7 +2,7 @@
 
 // Check if user is authenticated
 function ensureAuth(req, res, next) {
-  if (req.isAuthenticated && req.isAuthenticated()) {
+  if (req.session.user) {
     return next();
   }
   res.redirect('/login');
@@ -10,18 +10,18 @@ function ensureAuth(req, res, next) {
 
 // Ensure user is a student
 function ensureStudent(req, res, next) {
-  if (req.user && req.user.role === 'student') {
+  if (req.session.user && req.session.user.role === 'student') {
     return next();
   }
-  res.redirect('/dashboard'); // or a suitable route
+  res.redirect('/login'); // Redirect to login if not a student
 }
 
 // Ensure user is an admin
 function ensureAdmin(req, res, next) {
-  if (req.user && req.user.role === 'admin') {
+  if (req.session.user && req.session.user.role === 'admin') {
     return next();
   }
-  res.redirect('/admin'); // or a suitable route
+  res.redirect('/login'); // Redirect to login if not an admin
 }
 
 module.exports = { ensureAuth, ensureStudent, ensureAdmin };

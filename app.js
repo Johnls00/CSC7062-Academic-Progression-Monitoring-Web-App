@@ -7,34 +7,44 @@ const connection = require('./config/config'); // Your DB connection/configurati
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 require('dotenv').config();
-
-// Import main routes
-const routes = require('./routes');
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-
-console.log('Views directory:', path.join(__dirname, 'views'));
+const bcrypt = require('bcryptjs'); // Using bcryptjs because had issues with bcrypt
+const bodyParser = require('body-parser');
 
 // Logging and JSON parsing middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-// Session configuration
+// Session middleware
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'defaultsecret',
-  resave: false,
-  saveUninitialized: true
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }  // Set to true if using HTTPS
 }));
 
 // Serve static files (CSS, images, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Use routes
-app.use(routes);
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+// Import routers
+const authRoutes = require('./routes/auth');
+const studentRoutes = require('./routes/student');
+const adminRoutes = require('./routes/admin');
+const indexRoutes = require('./routes/index'); 
+
+// Use routers
+app.use('/', indexRoutes);       // Base route
+app.use('/auth', authRoutes);    // Authentication routes
+app.use('/student', studentRoutes);  // Student-specific routes
+app.use('/admin', adminRoutes);  // Admin-specific routes
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
