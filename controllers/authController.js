@@ -3,7 +3,11 @@
 exports.showHome = (req, res) => {
     res.render('public/index', { title: 'Home' });
   };
-  
+
+  exports.showContact = (req, res) => {
+    res.render('public/contact', { title: 'Contact Us' });
+  };
+
   exports.showLogin = (req, res) => {
     res.render('public/login', { title: 'Login' });
   };

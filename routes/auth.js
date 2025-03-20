@@ -17,4 +17,6 @@ router.post('/register', authController.handleRegister);
 // Logout route (clears session and redirects to home/login)
 router.get('/logout', authController.handleLogout);
 
+router.get('/contact', authController.showContact);
+
 module.exports = router;
