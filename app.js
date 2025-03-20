@@ -9,11 +9,11 @@ require('dotenv').config();
 var indexRouter = require('./routes/index');
 
 // view engine setup
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views', 'pages'));
 
 app.get('/', (req, res) => {
-  res.render('index'); // Looks for 'views/pages/index.ejs' 
+  res.render('public/index'); 
 });
 
 // Serve static files (CSS, images, etc.)
@@ -41,7 +41,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error/error');
 });
 
 module.exports = app;

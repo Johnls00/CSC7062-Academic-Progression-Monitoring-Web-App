@@ -1,21 +1,20 @@
-var express = require('express');
-var router = express.Router();
+// routes/index.js
+const express = require('express');
+const router = express.Router();
 
-/* GET home page. */
-router.get('/index', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+// Import all route files
+const authRoutes = require('./auth');
+const studentRoutes = require('./student');
+const adminRoutes = require('./admin');
 
-router.get('/signup', function(req, res, next) {
-  res.render('signup', { title: 'Express' }); 
-});
+// Use the routes - note that each file handles its own endpoints
+router.use('/', authRoutes);
+router.use('/', studentRoutes);
+router.use('/', adminRoutes);
 
-router.get('/login', function(req, res, next) {
-  res.render('login', { title: 'Express' }); 
-});
-
-router.get('/contact', function(req, res, next) {
-  res.render('contact', { title: 'Express' }); 
+// 404 Error Handler (any unmatched routes)
+router.use((req, res) => {
+  res.status(404).render('error/404', { title: 'Page Not Found' });
 });
 
 module.exports = router;
