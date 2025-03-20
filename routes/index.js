@@ -2,6 +2,10 @@
 const express = require('express');
 const router = express.Router();
 
+router.get('/', (req, res) => {
+  res.render('public/index', { title: 'Home' });
+});
+
 // Import all route files
 const authRoutes = require('./auth');
 const studentRoutes = require('./student');

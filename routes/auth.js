@@ -1,22 +1,29 @@
-// routes/auth.js
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
 
-// Home/Landing page
+// Home page
 router.get('/', authController.showHome);
 
-// Login page (GET displays the form, POST processes login)
+// Login page
 router.get('/login', authController.showLogin);
 router.post('/login', authController.handleLogin);
 
-// Register page (if registration is allowed; similar split as login)
-router.get('/register', authController.showRegister);
-router.post('/register', authController.handleRegister);
+// Register page
+//router.get('/register', authController.showRegister);
+//router.post('/register', authController.handleRegister);
 
-// Logout route (clears session and redirects to home/login)
-router.get('/logout', authController.handleLogout);
-
+// Contact page
 router.get('/contact', authController.showContact);
+
+// Logout route
+//router.get('/logout', authController.handleLogout);
+
+//might not need 
+// const studentRoutes = require('./student');
+// const adminRoutes = require('./admin');
+
+// router.use('/', studentRoutes);
+// router.use('/', adminRoutes);
 
 module.exports = router;
