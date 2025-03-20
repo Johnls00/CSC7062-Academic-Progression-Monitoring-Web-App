@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <!-- Bulma CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Navigation Header -->
+  <header class="mTop">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasic">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+  
+      <div id="navbarBasic" class="navbar-menu">
+        <div class="navbar-start">
+          <!-- You can add additional common links here -->
+        </div>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <% if (user && user.role === 'student') { %>
+                <a class="button is-primary rounded-button" href="/dashboard">
+                  <strong>Dashboard</strong>
+                </a>
+                <a class="button is-light" href="/my-courses">Courses</a>
+                <a class="button is-light" href="/progress">Progress</a>
+                <a class="button is-light" href="/profile">Profile</a>
+                <a class="button is-danger" href="/logout">Logout</a>
+              <% } else if (user && user.role === 'admin') { %>
+                <a class="button is-primary rounded-button" href="/admin">
+                  <strong>Admin Dashboard</strong>
+                </a>
+                <a class="button is-light" href="/admin/students">Students</a>
+                <a class="button is-light" href="/admin/courses">Courses</a>
+                <a class="button is-danger" href="/logout">Logout</a>
+              <% } else { %>
+                <a class="button is-primary rounded-button" href="/login">Login</a>
+                <a class="button is-light" href="/register">Register</a>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
