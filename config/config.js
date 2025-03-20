@@ -6,7 +6,7 @@ const connection = mysql.createPool({
     password: 'root',       // '' XAMPP or 'root' MAMP
     database: 'APMS',       // your DB name
     port: '8889',           // XAMPP 3306 or 8889 MAMP
-});
+}).promise();
 
 connection.getConnection((err)=>{
     if(err) return console.log(err.message);
