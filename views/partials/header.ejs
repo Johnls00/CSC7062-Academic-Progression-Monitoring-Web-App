@@ -1,7 +1,7 @@
 
   <!-- Navigation Header -->
   <header class="mTop">
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="has-background-white navbar rounded-box" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasic">
           <span aria-hidden="true"></span>
@@ -19,9 +19,11 @@
               <a class="button is-primary rounded-button" href="/student-dashboard">
                 <strong>Dashboard</strong>
               </a>
+              <a class="button is-light" href="/profile">Profile</a>
               <a class="button is-light" href="/courses">Courses</a>
               <a class="button is-light" href="/progress">Progress</a>
-              <a class="button is-light" href="/profile">Profile</a>
+              <a class="button is-light" href="/notification">Notifications</a>
+              
             
             <% } else if (user && user.role === 'admin') { %>
               <a class="button is-primary rounded-button" href="/admin">
@@ -42,7 +44,7 @@
               <!-- <% if (user && user.role === 'student') { %> -->
                 
                
-                <a class="button is-danger" href="/logout">Logout</a>
+                <a class="button is-danger" href="/logout">Log Out</a>
               <% } else if (user && user.role === 'admin') { %>
                 
                 <a class="button is-danger" href="/logout">Logout</a>

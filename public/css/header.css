@@ -1,5 +1,9 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css";
+@import url('variables.css');
+
 /* Header styling */
 header {
+    background-color: var(--white) !important; 
     background: #ffffff;
     display: flex;
     justify-content: center; 
@@ -11,6 +15,7 @@ header {
 }
 
 header .navbar {
+    background-color: var(--white) !important; 
     background: #ffffff;
     width: 90%;
     border-radius: 10rem;
@@ -22,6 +27,7 @@ header .navbar {
 }
 
 header .navbar-item-logo {
+    
     background-color: #91a0a5; 
     border-radius: 1rem;
     -webkit-border-radius: 1rem;
