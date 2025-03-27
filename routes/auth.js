@@ -16,14 +16,9 @@ router.post('/login', authController.handleLogin);
 // Contact page
 router.get('/contact', authController.showContact);
 
-// Logout route
-//router.get('/logout', authController.handleLogout);
+//Logout route
+router.get('/logout', authController.handleLogout);
 
-//might not need 
-// const studentRoutes = require('./student');
-// const adminRoutes = require('./admin');
 
-// router.use('/', studentRoutes);
-// router.use('/', adminRoutes);
 
 module.exports = router;

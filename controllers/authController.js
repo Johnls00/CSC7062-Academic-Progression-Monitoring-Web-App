@@ -103,6 +103,7 @@ exports.handleLogout = (req, res) => {
             console.error('Logout error:', err);
             return res.status(500).render('public/login', { title: 'Login', error: 'Logout failed' });
         }
+        console.log("Session destroyed", req.session); // Debugging line
         res.redirect('/login');
     });
 };
