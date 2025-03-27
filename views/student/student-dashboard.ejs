@@ -6,123 +6,41 @@
     <title>Student Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
     
 </head>
 
 
 <body class="container-users">
-    
-
     <div class="container mTop">
-
+        <%- include('../partials/header.ejs') %>
+        
         <!-- create row -->
-        <div class="columns is-variable is-multiline">
+        <div class="columns is-variable is-multiline " style="align-items: center;">
 
-            <!-- create column for side bar -->
-            <div class="column is-one-quarter-tablet">
-
-                <!-- Side -->
-                <div class="box">
-                    <div class="p-5">
-                        <div class="is-size-5-desktop is-size-5-tablet is-size-4-mobile has-text-weight-semibold">
-                        Student Profile
-                        
-            
-                        <ul class="mt-4 ml-4 profile-information">
-                            <li>
-                                <p><span>Name: </span>John Doe</p>
-                            </li>
-                            <li>
-                                <p><span>Student Number: </span>123456789</p>
-                            </li>
-                            <li>
-                                <p><span>Pathway: </span>Software Development</p>
-                            </li>
-                            <li>
-                                <p><span>Email: </span> gandalf@jswizard.com</p>
-                            </li>
-                            <li>
-                                <p><span>Year of Study: </span>2nd Year</p>
-                            </li>
-                        </ul>
-
-                        Progression Summary 
-                        <ul class="mt-4 ml-4 profile-information">
-                            <li>
-                                <p><span>Total Credits Earned: </span>120</p>
-                            </li>
-                            <li>
-                                <p><span>Average Grade: </span>75%</p>
-                            </li>
-                            <li>
-                                <p><span>Progression Status: </span>Accepted to year 2</p>
-                            </li>
-                        </ul>
-                        </div>
-                    </div>
-                </div>
-            
-            </div>
             <!-- create column for content and nav bar -->
             <div class="column">
 
-
-                <!-- nav bar -->
-                <div class="box">
-
-                    <table class="table is-fullwidth" >
-                        <thead>
-                            <tr>
-                                <th>Module Code</th>
-                                <th>Module Name</th>
-                                <th>Grade</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>SD101</td>
-                                <td>Programming Fundamentals</td>
-                                <td>A</td>
-                                <td><span class="tag is-success">Pass</span></td>
-                            </tr>
-                            <tr>
-                                <td>SD102</td>
-                                <td>Data Structures</td>
-                                <td>B+</td>
-                                <td><span class="tag is-success">Pass</span></td>
-                            </tr>
-                            <tr>
-                                <td>SD103</td>
-                                <td>Web Development</td>
-                                <td>C</td>
-                                <td><span class="tag is-warning">Fail</span></td>
-                            </tr>
-                            <tr>
-                                <td>SD104</td>
-                                <td>Software Engineering</td>
-                                <td>A-</td>
-                                <td><span class="tag is-success">Pass</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                </div>
-
                 <!-- Services -->
                 <div class="has-background-white p-6 mtopclear mybk3 rounded-box">
-                    <div class="content">
-                        <h3 class="title"> <span></span>Services</h3>
+                    <class="content">
+
+                        <h2 class="title">Welcome, Student!</h2>
+                        <p>Welcome to your student dashboard.</p>
+                        <p>Here you can view your academic progress, access your courses, and more.</p>
+                        <p>Use the Services hub below to access different sections of the dashboard.</p>
+                        <p>Your academic progress at a glance.</p> 
+
+                        <h2 class="title " style="padding-top: 1rem;"> <span></span>Services</h2>
 
                         <div class="columns is-mobile is-multiline">
                             <div
                                 class="column is-flex  is-justify-content-center is-align-items-center  is-one-quarter-tablet is-half-mobile  ">
                                 <div class="card cardH">
                                     <div class="card-content">
-                                        <span class="material-icons">menu_book</span>
+                                        <span class="material-icons">Courses</span>
                                         <div class="content is-size-7">
-                                            Wisdom - The wisest being with a deep knowledge of history, culture ...
+                                            Here you can view all the courses you are enrolled on, view grades and course status.
                                         </div>
                                     </div>
                                 </div>
@@ -132,9 +50,9 @@
                                 class="column is-flex  is-justify-content-center is-align-items-center is-one-quarter-tablet is-half-mobile">
                                 <div class="card cardH">
                                     <div class="card-content">
-                                        <span class="material-icons">star</span>
+                                        <span class="material-icons">Progress</span>
                                         <div class="content is-size-7">
-                                            Magical powers - Cast beams of light, start and direct fires, and more.
+                                           View your overall academic record, progress decission and more.
                                         </div>
                                     </div>
                                 </div>
@@ -143,9 +61,9 @@
                                 class="column is-flex  is-justify-content-center is-align-items-center is-one-quarter-tablet is-half-mobile">
                                 <div class="card cardH">
                                     <div class="card-content">
-                                        <span class="material-icons"> psychology</span>
+                                        <span class="material-icons">Notifications</span>
                                         <div class="content is-size-7">
-                                            Telepathy - Read people's minds and control their minds.
+                                            View, recieve and send messages to your administators. Here you can contact advisors for assistance and get feedback.
                                         </div>
                                     </div>
                                 </div>
@@ -154,9 +72,9 @@
                                 class="column is-flex  is-justify-content-center is-align-items-center is-one-quarter-tablet is-half-mobile">
                                 <div class="card cardH">
                                     <div class="card-content">
-                                        <span class="material-icons">face_shake</span>
+                                        <span class="material-icons">Profile</span>
                                         <div class="content is-size-7">
-                                            Telekinesis - Can move objects and persons with his mind.
+                                            View your Academic profile overview, update your personal information and more.
                                         </div>
                                     </div>
                                 </div>

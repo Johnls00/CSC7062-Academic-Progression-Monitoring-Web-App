@@ -5,7 +5,7 @@ const studentController = require('../controllers/studentController');
 const { ensureAuth, ensureStudent } = require('../middleware/auth');
 
 router.get('/student-dashboard', ensureAuth, ensureStudent, studentController.showDashboard);
-router.get('/student-dashboard/my-courses', ensureAuth, ensureStudent, studentController.showCourses);
+router.get('/student-dashboard/courses', ensureAuth, ensureStudent, studentController.showCourses);
 router.get('/student-dashboard/progress', ensureAuth, ensureStudent, studentController.showProgress);
 router.get('/student-dashboard/notifications', ensureAuth, ensureStudent, studentController.showNotifications);
 
@@ -14,4 +14,4 @@ router.get('/student-dashboard/profile', ensureAuth, ensureStudent, studentContr
 // router.get('/submit/:moduleId', ensureAuth, ensureStudent, studentController.showSubmit);
 // router.post('/submit/:moduleId', ensureAuth, ensureStudent, studentController.handleSubmit);
 
-module.exports = router;
+module.exports = router; 
