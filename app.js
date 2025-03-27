@@ -34,10 +34,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // Import routers
-const authRoutes = require('./routes/auth');
-const studentRoutes = require('./routes/student');
-const adminRoutes = require('./routes/admin');
-const indexRoutes = require('./routes/index'); 
+const authRoutes = require('./routes/auth'); // Authentication routes
+const studentRoutes = require('./routes/student'); // Student-specific routes
+const adminRoutes = require('./routes/admin'); // Admin-specific routes
+const indexRoutes = require('./routes/index'); // Base route
 
 // Use routers
 app.use('/', indexRoutes);       // Base route
