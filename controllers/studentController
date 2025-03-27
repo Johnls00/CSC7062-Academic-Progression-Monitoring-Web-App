@@ -6,26 +6,26 @@ exports.showDashboard = (req, res) => {
   res.render('student/student-dashboard', { title: 'Student Dashboard', user: req.session.user });
 };
 
-// exports.showCourses = (req, res) => {
-//   const courses = []; // Replace with actual data retrieval logic
-//   res.render('student/courses', { title: 'My Courses', user: req.user, courses });
-// };
+exports.showCourses = (req, res) => {
+  const courses = []; // Replace with actual data retrieval logic
+  res.render('student/courses', { title: 'My Courses', user: req.user, courses });
+};
 
-// exports.showProgress = (req, res) => {
-//   res.render('student/progress', { title: 'Progress', user: req.user });
-// };
+exports.showProgress = (req, res) => {
+  res.render('student/progress', { title: 'Progress', user: req.user });
+};
 
-// exports.showNotifications = (req, res) => {
-//   res.render('student/notifications', { title: 'Notifications', user: req.user });
-// };
+exports.showNotifications = (req, res) => {
+  res.render('student/notifications', { title: 'Notifications', user: req.user });
+};
 
-// exports.showProfile = (req, res) => {
-//   res.render('student/profile', { title: 'Profile', user: req.user });
-// };
+exports.showProfile = (req, res) => {
+  res.render('student/profile', { title: 'Profile', user: req.user });
+};
 
 // exports.updateProfile = (req, res) => {
 //   // Process the profile update logic here
-//   res.redirect('/profile');
+//   res.redirect('student/profile', { title: 'Student Profile', user: req.session.user });
 // };
 
 // exports.showSubmit = (req, res) => {
