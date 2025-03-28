@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Courses</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/courses.css" />
+  </head>
+
+  <body class="container-main">
+    <div class="container mTop">
+      <%- include('../partials/header.ejs') %>
+
+      <div class="has-background-white p-6 mtopclear mybk3 rounded-box">
+        <h2 class="title">Courses</h2>
+        <p>Here you can view all the courses you are enrolled in.</p>
+        <p>Click on a course to view more details.</p>
+
+        <!-- create column for module table -->
+        <div class="column">
+          <!-- Module table -->
+          <!-- <div class="has-background-white p-6 mtopclear mybk3"> -->
+          <class ="content">
+            <table class="table is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Module Code</th>
+                  <th>Module Name</th>
+                  <th>Grade</th>
+                  <th>Grade Result</th>
+                  <th>Resit Grade</th>
+                  <th>Resit Result</th>
+                  <th>Year of study</th>
+                  <th>Entry Level</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% courses.forEach((course) => { %>
+                  <tr>
+                    <!-- <td><%= course.module_code %></td> -->
+                    <!-- <td><%= course.module_name %></td> -->
+                    <td><%= course.first_grade %></td>
+                    <td><%= course.grade_result %></td>
+                    <td><%= course.resit_grade %></td>
+                    <td><%= course.resit_result %></td>
+                    <td><%= course.academic_year %></td>
+                    <td><%= course.entry_level %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </class>
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
