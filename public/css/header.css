@@ -1,67 +1,96 @@
-@import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css";
-@import url('variables.css');
+/* @import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"; */
+@import url("variables.css");
 
 /* Header styling */
 header {
-    background-color: var(--white) !important; 
-    background: #ffffff;
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    flex-direction: column;  
-    text-align: center; 
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+  background-color: var(--white) !important;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 0rem;
+  margin-bottom: 1rem;
+  padding-top: 0px !important;
 }
 
 header .navbar {
-    background-color: var(--white) !important; 
-    background: #ffffff;
-    width: 90%;
-    border-radius: 10rem;
-    -webkit-border-radius: 10rem;
-    -moz-border-radius: 10rem;
-    -ms-border-radius: 10rem;
-    -o-border-radius: 10rem;
-    overflow: hidden;
+  background-color: var(--white) !important;
+  background: #ffffff;
+  width: 90%;
+  border-radius: 10rem;
+  -webkit-border-radius: 10rem;
+  -moz-border-radius: 10rem;
+  -ms-border-radius: 10rem;
+  -o-border-radius: 10rem;
+  overflow: hidden;
 }
 
 header .navbar-item-logo {
-    
-    background-color: #91a0a5; 
-    border-radius: 1rem;
-    -webkit-border-radius: 1rem;
-    -moz-border-radius: 1rem;
-    -ms-border-radius: 1rem;
-    -o-border-radius: 1rem;
+  background-color: #91a0a5;
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
 }
 
 header .navbar-brand {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;  
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 header .navbar-end {
-    display: flex; 
-    justify-content: flex-end; 
-  }
+  display: flex;
+  justify-content: flex-end;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 90%; /* Stretch box to full width */
+  padding: 20px;
+  box-sizing: border-box; /* Ensures padding doesn't affect the width */
+}
+
+.button {
+    /* padding: 1rem; */
+    margin-left: 0.5rem;
+}
 
 .button.is-primary {
-    width: 100%;
-    padding: 12px;
-    background: var(--blue-colour);
-    color: var(--white);
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  padding: 12px;
+  background: var(--blue-colour);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .button.is-primary:hover {
-    background: var(--yellow-colour);
-    color: var(--blue-colour);
-    box-shadow: 0 4px 8px rgba(249, 201, 43, 0.4);
+  background: var(--yellow-colour);
+  color: var(--blue-colour);
+  box-shadow: 0 4px 8px rgba(249, 201, 43, 0.4);
+}
+
+.mTop {
+  padding-top: 30px;
+}
+
+
+.rounded-box {
+  border-radius: 15px;
+}
+
+.rounded-button {
+  border-radius: 50px;
 }

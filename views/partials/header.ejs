@@ -1,6 +1,10 @@
 
+<head>
+  <link rel="stylesheet" href="/css/header.css">
+</head>
+
   <!-- Navigation Header -->
-  <header class="mTop">
+  <header class="mTop rounded-box">
     <nav class="has-background-white navbar rounded-box" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasic">
@@ -15,7 +19,7 @@
           <div class="navbar-item">
             
             <a class="buttons">
-              <!-- <% if (user && user.role === 'student') { %> -->
+              <% if (user && user.role === 'student') { %>
               <a class="button is-primary rounded-button" href="/student-dashboard">
                 <strong>Dashboard</strong>
               </a>
@@ -23,7 +27,7 @@
               <a class="button is-light" href="/student-dashboard/courses">Courses</a>
               <a class="button is-light" href="/student-dashboard/progress">Progress</a>
               <a class="button is-light" href="/student-dashboard/notifications">Notifications</a>
-              
+            </a> 
             
             <% } else if (user && user.role === 'admin') { %>
               <a class="button is-primary rounded-button" href="/admin">
@@ -32,16 +36,16 @@
               <a class="button is-light" href="/admin/students">Students</a>
               <a class="button is-light" href="/admin/courses">Courses</a>
             
-            % } else { %>
-            
+            <% } else { %>
             <% } %>
-          </a>
+            </a>
           </div>
         </div>
+        
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <!-- <% if (user && user.role === 'student') { %> -->
+              <% if (user && user.role === 'student') { %>
                 
                
                 <a class="button is-danger" href="/logout">Log Out</a>
