@@ -1,4 +1,4 @@
-@import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css";
+/* @import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"; */
 @import url('variables.css');
 
 
@@ -13,11 +13,21 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
+    font-size: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     padding: 20px;
+}
+
+@media (min-width: 768px) {
+    body {
+        padding: 0;
+        margin: 0;
+        height: auto;
+        font-size: 1.2rem;
+    }
 }
 
 .main-content {
@@ -30,7 +40,7 @@ body {
 
 /* Main content styling */
 
-.container-index {
+.container-main {
     min-height: 100vh;
     flex: 1;
     display: flex;
