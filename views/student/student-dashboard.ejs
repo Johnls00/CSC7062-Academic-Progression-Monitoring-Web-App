@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/dashboard.css">
     
 </head>
 
-
-<body class="container-users">
+<body class="container-main">
     <div class="container mTop">
+        <% console.log('user data', user); %>
+        
         <%- include('../partials/header.ejs') %>
+
         
         <!-- create row -->
-        <div class="columns is-variable is-multiline " style="align-items: center;">
+        <!-- <div class="columns is-variable is-multiline " style="align-items: center;"> -->
 
             <!-- create column for content and nav bar -->
             <div class="column">
@@ -34,47 +37,45 @@
                         <h2 class="title " style="padding-top: 1rem;"> <span></span>Services</h2>
 
                         <div class="columns is-mobile is-multiline">
-                            <div
-                                class="column is-flex  is-justify-content-center is-align-items-center  is-one-quarter-tablet is-half-mobile  ">
-                                <div class="card cardH">
-                                    <div class="card-content">
-                                        <span class="material-icons">Courses</span>
-                                        <div class="content is-size-7">
-                                            Here you can view all the courses you are enrolled on, view grades and course status.
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div
-                                class="column is-flex  is-justify-content-center is-align-items-center is-one-quarter-tablet is-half-mobile">
-                                <div class="card cardH">
-                                    <div class="card-content">
-                                        <span class="material-icons">Progress</span>
-                                        <div class="content is-size-7">
-                                           View your overall academic record, progress decission and more.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="column is-flex  is-justify-content-center is-align-items-center is-one-quarter-tablet is-half-mobile">
-                                <div class="card cardH">
-                                    <div class="card-content">
-                                        <span class="material-icons">Notifications</span>
-                                        <div class="content is-size-7">
-                                            View, recieve and send messages to your administators. Here you can contact advisors for assistance and get feedback.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div
-                                class="column is-flex  is-justify-content-center is-align-items-center is-one-quarter-tablet is-half-mobile">
-                                <div class="card cardH">
+                            <div class="column is-flex is-justify-content-center is-align-items-center is-one-quarter-tablet is-half-mobile">
+                                <div class="card cardH" onclick="window.location.href='/student-dashboard/profile';" style="cursor: pointer;">
                                     <div class="card-content">
                                         <span class="material-icons">Profile</span>
                                         <div class="content is-size-7">
-                                            View your Academic profile overview, update your personal information and more.
+                                            View your Academic profile overview, update your personal information, and more.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="column is-flex is-justify-content-center is-align-items-center is-one-quarter-tablet is-half-mobile">
+                                <div class="card cardH" onclick="window.location.href='/student-dashboard/courses';" style="cursor: pointer;">
+                                    <div class="card-content">
+                                        <span class="material-icons">Courses</span>
+                                        <div class="content is-size-7">
+                                            View all the courses you are enrolled on, view grades, and course status.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="column is-flex is-justify-content-center is-align-items-center is-one-quarter-tablet is-half-mobile">
+                                <div class="card cardH" onclick="window.location.href='/student-dashboard/progress';" style="cursor: pointer;">
+                                    <div class="card-content">
+                                        <span class="material-icons">Progress</span>
+                                        <div class="content is-size-7">
+                                            View your overall academic record, progress decision, and more.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="column is-flex is-justify-content-center is-align-items-center is-one-quarter-tablet is-half-mobile">
+                                <div class="card cardH" onclick="window.location.href='/student-dashboard/notifications';" style="cursor: pointer;">
+                                    <div class="card-content">
+                                        <span class="material-icons">Notifications</span>
+                                        <div class="content is-size-7">
+                                            View, receive, and send messages to your administrators. Contact advisors for assistance and get feedback.
                                         </div>
                                     </div>
                                 </div>
@@ -86,7 +87,7 @@
 
             </div>
 
-        </div>
+        <!-- </div> -->
 
     </div>
 </body>
