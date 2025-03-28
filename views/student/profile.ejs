@@ -6,52 +6,51 @@
     <title>Student Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/dashboard.css">
-    
+    <!-- <link rel="stylesheet" href="/css/profile.css"> -->
 </head>
 
-
 <body class="container-users">
-    <div class="container mTop">
+    <div class="container mt-5">
         <%- include('../partials/header.ejs') %>
-        
-<div class="box">
-    <div class="p-5">
-        <div class="is-size-5-desktop is-size-5-tablet is-size-4-mobile has-text-weight-semibold">
-            <h1 class="title"> <span></span>Student Profile</h1>
 
-        <ul class="mt-4 ml-4 profile-information">
-            <li>
-                <p><span>Name: </span>John Doe</p>
-            </li>
-            <li>
-                <p><span>Student Number: </span>123456789</p>
-            </li>
-            <li>
-                <p><span>Pathway: </span>Software Development</p>
-            </li>
-            <li>
-                <p><span>Email: </span> gandalf@jswizard.com</p>
-            </li>
-            <li>
-                <p><span>Year of Study: </span>2nd Year</p>
-            </li>
-        </ul>
+        <div class="box">
+            <div class="p-5">
+                <div class="is-size-5-desktop is-size-5-tablet is-size-4-mobile has-text-weight-semibold">
+                    <h1 class="title">Student Profile</h1>
 
-        <h1 class="title"> <span></span>Progression Summary </h1>
-        <ul class="mt-4 ml-4 profile-information">
-            <li>
-                <p><span>Total Credits Earned: </span>120</p>
-            </li>
-            <li>
-                <p><span>Average Grade: </span>75%</p>
-            </li>
-            <li>
-                <p><span>Progression Status: </span>Accepted to year 2</p>
-            </li>
-        </ul>
+                    <ul class="mt-4 ml-4 profile-information">
+                        <li>
+                            <p><span>Name: </span>John Doe</p>
+                        </li>
+                        <li>
+                            <p><span>Student Number: </span>123456789</p>
+                        </li>
+                        <li>
+                            <p><span>Pathway: </span>Software Development</p>
+                        </li>
+                        <li>
+                            <p><span>Email: </span> gandalf@jswizard.com</p>
+                        </li>
+                        <li>
+                            <p><span>Year of Study: </span>2nd Year</p>
+                        </li>
+                    </ul>
+
+                    <h1 class="title">Progression Summary</h1>
+                    <ul class="mt-4 ml-4 profile-information">
+                        <li>
+                            <p><span>Total Credits Earned: </span>120</p>
+                        </li>
+                        <li>
+                            <p><span>Average Grade: </span>75%</p>
+                        </li>
+                        <li>
+                            <p><span>Progression Status: </span>Accepted to year 2</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 </body>
 </html>
