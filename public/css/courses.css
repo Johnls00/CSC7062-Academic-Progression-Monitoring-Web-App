@@ -82,12 +82,12 @@ th {
   margin-top: 1rem;
 }
 
-.container-users {
+/* .container-users {
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100vh; /* Ensure the container takes full screen height */
-}
+  min-height: 100vh; Ensure the container takes full screen height
+} */
 
 .box {
   width: 100%;
