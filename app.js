@@ -3,7 +3,7 @@ const createError = require('http-errors');
 const app = express(); // Initialize the Express application
 const session = require('express-session');
 const path = require('path');
-const connection = require('./config/config'); // Your DB connection/configuration
+const connection = require('./config/config'); // DB connection/configuration
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 require('dotenv').config();
@@ -23,8 +23,16 @@ app.use(session({
     secret: 'your-secret-key',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }  // Set to true if using HTTPS
+    cookie: { secure: false, maxAge: 3600000 }  // Set to true if using HTTPS
 }));
+
+// Middleware to print session data for every request debugging
+// This is useful for debugging purposes
+app.use((req, res, next) => {
+  console.log("Session at middleware level:", req.session);
+  next();
+});
+
 
 // Serve static files (CSS, images, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
@@ -61,5 +69,14 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error/error', { title: 'Error' });
 });
+
+// app.get('/student-dashboard/courses', (req, res) => {
+//   const user = req.user;  // Assuming you have a middleware that sets req.user
+//   const courses = [
+//       { id: 1, name: 'Mathematics', description: 'Advanced Algebra' },
+//       { id: 2, name: 'Physics', description: 'Classical Mechanics' }
+//   ];
+//   res.render('student/courses', { user, courses });
+// });
 
 module.exports = app;
