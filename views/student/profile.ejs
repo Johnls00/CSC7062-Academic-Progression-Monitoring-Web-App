@@ -1,56 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <!-- <link rel="stylesheet" href="/css/profile.css"> -->
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Profile</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/profile.css" />
+  </head>
 
-<body class="container-users">
-    <div class="container mt-5">
-        <%- include('../partials/header.ejs') %>
+  <body class="container-main">
+    <div class="container mTop">
+      <%- include('../partials/header.ejs') %>
 
-        <div class="box">
-            <div class="p-5">
-                <div class="is-size-5-desktop is-size-5-tablet is-size-4-mobile has-text-weight-semibold">
-                    <h1 class="title">Student Profile</h1>
-
-                    <ul class="mt-4 ml-4 profile-information">
-                        <li>
-                            <p><span>Name: </span>John Doe</p>
-                        </li>
-                        <li>
-                            <p><span>Student Number: </span>123456789</p>
-                        </li>
-                        <li>
-                            <p><span>Pathway: </span>Software Development</p>
-                        </li>
-                        <li>
-                            <p><span>Email: </span> gandalf@jswizard.com</p>
-                        </li>
-                        <li>
-                            <p><span>Year of Study: </span>2nd Year</p>
-                        </li>
-                    </ul>
-
-                    <h1 class="title">Progression Summary</h1>
-                    <ul class="mt-4 ml-4 profile-information">
-                        <li>
-                            <p><span>Total Credits Earned: </span>120</p>
-                        </li>
-                        <li>
-                            <p><span>Average Grade: </span>75%</p>
-                        </li>
-                        <li>
-                            <p><span>Progression Status: </span>Accepted to year 2</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+      <section class="hero is-info mb-5 rounded-box">
+        <div class="hero-body">
+          <p class="title">Welcome, John Doe</p>
+          <p class="subtitle">Student Profile Overview</p>
         </div>
+      </section>
+
+      <div class="columns is-variable is-6">
+        <div class="column">
+          <div class="card">
+            <header class="card-header">
+              <p class="card-header-title">Personal Information</p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                <ul class="profile-information">
+                  <li><strong>Name:</strong> John Doe</li>
+                  <li><strong>Student Number:</strong> 123456789</li>
+                  <li><strong>Pathway:</strong> Software Development</li>
+                  <li><strong>Email:</strong> gandalf@jswizard.com</li>
+                  <li><strong>Year of Study:</strong> 2nd Year</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="card">
+            <header class="card-header">
+              <p class="card-header-title">Progression Summary</p>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                <ul class="profile-information">
+                  <li><strong>Total Credits Earned:</strong> 120</li>
+                  <li><strong>Average Grade:</strong> 75%</li>
+                  <li><strong>Progression Status:</strong> Accepted to year 2</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-</body>
+  </body>
 </html>
