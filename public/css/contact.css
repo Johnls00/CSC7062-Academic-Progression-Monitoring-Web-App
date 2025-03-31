@@ -1,134 +1,140 @@
 .main-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Ensure it takes full viewport height */
-    padding: 10px; /* Add padding to prevent overflow */
-    box-sizing: border-box; /* Include padding in height calculation */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensure it takes full viewport height */
+  padding: 10px; /* Add padding to prevent overflow */
+  box-sizing: border-box; /* Include padding in height calculation */
 }
 
 .box {
-    width: 100%;
-    max-width: 600px; /* Limit max width to fit laptop screens */
-    height: auto; /* Let the height adjust naturally */
-    max-height: 90vh; /* Prevent the box from exceeding the viewport */
-    margin: auto;
-    padding: 20px;
-    border-radius: 16px;
-    box-shadow: 0 6px 15px var(--shadow-color);
-    background-color: var(--white);
-    overflow-y: auto; /* Enable scrolling if content overflows */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  max-width: 600rem;
+  height: auto;
+  /*Limitmaxwidthtofitlaptopscreens*/max-height: 90vh;
+  /*Lettheheightadjustnaturally*/margin: auto;
+  /*Preventtheboxfromexceedingtheviewport*/padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 6px 15px var(--shadow-color);
+  background-color: var(--white);
+  overflow-y: auto;
+  /*Enablescrollingifcontentoverflows*/transition: transform 0.2s ease, box-shadow 0.2s ease;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
 }
 
 form.box:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px var(--shadow-color);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px var(--shadow-color);
 }
 
 h1.title {
-    text-align: center;
-    font-size: 1.8rem;
-    color: var(--blue-colour);
-    margin-bottom: 10px;
+  text-align: center;
+  font-size: 1.8rem;
+  color: var(--blue-colour);
+  margin-bottom: 10px;
 }
 
 h2.title {
-    text-align: left;
-    font-size: 1.4rem;
-    color: var(--pastel-pink-colour);
-    margin: 5px 0 !important;
+  text-align: left;
+  font-size: 1.4rem;
+  color: var(--pastel-pink-colour);
+  margin: 5px 0 !important;
 }
 
 .field {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .label {
-    font-weight: 600;
-    color: var(--blue-colour);
-    font-size: 1rem;
+  font-weight: 600;
+  color: var(--blue-colour);
+  font-size: 1rem;
 }
 
-.input, .textarea {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid var(--light-gray);
-    border-radius: 8px;
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: var(--light-gray);
-    color: var(--dark-gray);
+.input,
+.textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid var(--light-gray);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--light-gray);
+  color: var(--dark-gray);
 }
 
-.input:focus, .textarea:focus {
-    border-color: var(--yellow-colour);
-    box-shadow: 0 0 8px rgba(249, 201, 43, 0.3);
-    background-color: var(--white);
+.input:focus,
+.textarea:focus {
+  border-color: var(--yellow-colour);
+  box-shadow: 0 0 8px rgba(249, 201, 43, 0.3);
+  background-color: var(--white);
 }
 
 .textarea {
-    height: 120px;
-    resize: vertical;
+  height: 120px;
+  resize: vertical;
 }
 
 .button.is-primary {
-    width: 100%;
-    padding: 12px;
-    background: var(--blue-colour);
-    color: var(--white);
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  padding: 12px;
+  background: var(--blue-colour);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .button.is-primary:hover {
-    background: var(--yellow-colour);
-    color: var(--blue-colour);
-    box-shadow: 0 4px 8px rgba(249, 201, 43, 0.4);
+  background: var(--yellow-colour);
+  color: var(--blue-colour);
+  box-shadow: 0 4px 8px rgba(249, 201, 43, 0.4);
 }
 
 .register-text {
-    text-align: center;
-    margin-top: 20px;
-    color: var(--dark-gray);
-    font-size: 0.9rem;
+  text-align: center;
+  margin-top: 20px;
+  color: var(--dark-gray);
+  font-size: 0.9rem;
 }
 
 .register-text a {
-    color: var(--red-colour);
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease, text-decoration 0.3s ease;
+  color: var(--red-colour);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
 .register-text a:hover {
-    color: var(--yellow-colour);
-    text-decoration: underline;
+  color: var(--yellow-colour);
+  text-decoration: underline;
 }
 
 .contact-image {
-    max-width: 200px; /* Adjusted to fit within the box */
-    width: 100%;
-    height: auto;
-    margin: 0 auto 10px; /* Centered and spaced */
-    display: block;
+  max-width: 200px; /* Adjusted to fit within the box */
+  width: 100%;
+  height: auto;
+  margin: 0 auto 10px; /* Centered and spaced */
+  display: block;
 }
 
 @media screen and (max-width: 1024px) {
-    .box {
-        max-width: 90%; /* Reduce width for smaller screens */
-        max-height: 80vh; /* Adjust height to fit smaller screens */
-    }
+  .box {
+    max-width: 90%; /* Reduce width for smaller screens */
+    max-height: 80vh; /* Adjust height to fit smaller screens */
+  }
 
-    h1.title {
-        font-size: 1.6rem;
-    }
+  h1.title {
+    font-size: 1.6rem;
+  }
 
-    h2.title {
-        font-size: 1.2rem;
-    }
+  h2.title {
+    font-size: 1.2rem;
+  }
 }
