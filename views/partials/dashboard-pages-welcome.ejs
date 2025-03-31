@@ -1,0 +1,20 @@
+<head>
+  <link rel="stylesheet" href="/css/dashboard-pages-welcome.css" />
+</head>
+
+<section class="hero is-info mb-5 rounded-box">
+  <div class="hero-body">
+    <p class="title">Welcome, John Doe</p>
+    <% if (title === 'Student Dashboard') { %>
+    <p class="subtitle">Academic Progress Monitoring System Dashboard</p>
+    <% } else if (title === 'Student Profile') { %>
+    <p class="subtitle">Student Profile Overview</p>
+    <% } else if (title === 'Progress') { %>
+    <p class="subtitle">Student Progress Overview</p>
+    <% } else if (title === 'Courses') { %>
+    <p class="subtitle">Student Courses Overview</p>
+    <% } else if (title === 'Notifications') { %>
+    <p class="subtitle">Student Notifications Overview</p>
+    <% } %>
+  </div>
+</section>
