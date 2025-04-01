@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notifications page</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/progress.css" />
+  </head>
+
+  <body class="container-main">
+    <div class="container mTop">
+      <% console.log('user data', user); %> <%-
+      include('../partials/header.ejs') %> <%-
+      include('../partials/dashboard-pages-welcome.ejs') %>
+
+      <div class="has-background-white p-6 mtopclear mybk3 rounded-box">
+        <h2 class="title">Notifications</h2>
+        <p>Here you can view your notifications.</p>
+
+        <div class="columns is-mobile is-multiline">
+          <!-- <% notifications.forEach(notification => { %> -->
+            <div class="column is-flex is-justify-content-center is-align-items-center is-one-quarter-tablet is-half-mobile">
+              <div class="card cardH" style="cursor: pointer;">
+                <div class="card-content">
+                  <span class="material-icons">Notifications</span>
+                  <div class="content is-size-7">
+                    <!-- <strong><%= notification.title %></strong> -->
+                    <!-- <p><%= notification.message %></p> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- <% }) %> -->
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </body>
+</html>
