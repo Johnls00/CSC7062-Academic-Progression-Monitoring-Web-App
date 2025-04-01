@@ -31,10 +31,10 @@
             <div class="card-content">
               <div class="content">
                 <ul class="profile-information">
-                  <li><strong>Name:</strong> John Doe</li>
-                  <li><strong>Student Number:</strong> 123456789</li>
+                  <li><strong>Name:</strong> <%= studentData[0].first_name %> <%= studentData[0].last_name %> </li>
+                  <li><strong>Student Number:</strong> <%= studentData[0].sId %> </li>
                   <li><strong>Pathway:</strong> Software Development</li>
-                  <li><strong>Email:</strong> gandalf@jswizard.com</li>
+                  <li><strong>Email:</strong> <%= user.email %> </li>
                   <li><strong>Year of Study:</strong> 2nd Year</li>
                 </ul>
               </div>
