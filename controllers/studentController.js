@@ -8,12 +8,9 @@ exports.showDashboard = async (req, res) => {
     console.log("User ID:", userId); // Debugging line
     const studentData = await studentModel.getStudentData(userId);
 
-    if (!studentData) {
-      console.warn("No student found with user ID:", userId);
-      return res.status(404).send("Student not found");
-    }
+    
     console.log("Student data:", studentData); // Debugging line
-    const student_id = studentData[0].student_id;
+    const student_id = studentData[0].student_id; // Debugging line
     console.log("Student ID:", student_id); // Debugging line
 
     res.render("student/student-dashboard", {
@@ -29,6 +26,9 @@ exports.showDashboard = async (req, res) => {
 
 // Show courses page with data
 exports.showCourses = async (req, res) => {
+  const userId = req.session.user.user_id;
+  const studentData = await studentModel.getStudentData(userId);
+
   // try {
   //   console.log("Session data in showCourses:", req.session); // Debugging line
   //   if (!req.session.user) {
@@ -67,25 +67,37 @@ exports.showCourses = async (req, res) => {
   res.render("student/courses", {
     title: "Courses",
     user: req.session.user,
+    studentData,
     courses: [],
   });
 };
 
-exports.showProgress = (req, res) => {
-  res.render("student/progress", { title: "Progress", user: req.session.user });
+exports.showProgress = async (req, res) => {
+  const userId = req.session.user.user_id;
+  const studentData = await studentModel.getStudentData(userId);
+  
+  res.render("student/progress", { title: "Progress", user: req.session.user ,studentData});
 };
 
-exports.showNotifications = (req, res) => {
+exports.showNotifications = async (req, res) => {
+  const userId = req.session.user.user_id;
+  const studentData = await studentModel.getStudentData(userId);
+
   res.render("student/notifications", {
     title: "Notifications",
     user: req.session.user,
+    studentData,
   });
 };
 
-exports.showProfile = (req, res) => {
+exports.showProfile = async (req, res) => {
+  const userId = req.session.user.user_id;
+  const studentData = await studentModel.getStudentData(userId);
+
   res.render("student/profile", {
     title: "Student Profile",
     user: req.session.user,
+    studentData,
   });
 };
 

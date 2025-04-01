@@ -4,7 +4,7 @@
 
 <section class="hero is-info mb-5 rounded-box">
   <div class="hero-body">
-    <p class="title">Welcome, John Doe</p>
+    <p class="title">Welcome, <%= studentData[0].first_name %> <%= studentData[0].last_name %> </p>
     <% if (title === 'Student Dashboard') { %>
     <p class="subtitle">Academic Progress Monitoring System Dashboard</p>
     <% } else if (title === 'Student Profile') { %>

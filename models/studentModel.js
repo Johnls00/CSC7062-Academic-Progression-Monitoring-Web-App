@@ -33,6 +33,11 @@ const connection = require('../config/config');
       "SELECT * FROM `student` WHERE `user_id` = ?",
       [userId]
     );
+    if (!studentData) {
+      console.warn("No student found with user ID:", userId);
+      return res.status(404).send("Student not found");
+    }
+    
     if (studentData.length === 0) {
       return null; // No student found
     }
