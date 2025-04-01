@@ -29,7 +29,7 @@
 }
 
 form.box:hover {
-  transform: translateY(-2px);
+  /* transform: translateY(-2px); */
   box-shadow: 0 10px 20px var(--shadow-color);
 }
 
@@ -120,11 +120,13 @@ h2.title {
 }
 
 .contact-image {
-  max-width: 200px; /* Adjusted to fit within the box */
+  max-width: 200rem; /* Adjusted to fit within the box */
   width: 100%;
   height: auto;
-  margin: 0 auto 10px; /* Centered and spaced */
+  margin: 0 auto 2rem; /* Centered and spaced */
   display: block;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 @media screen and (max-width: 1024px) {
@@ -135,9 +137,11 @@ h2.title {
 
   h1.title {
     font-size: 1.6rem;
+    text-align: center;
   }
 
   h2.title {
     font-size: 1.2rem;
+    text-align: center;
   }
 }
