@@ -1,7 +1,18 @@
 // controllers/adminController.js
 
-exports.showDashboard = (req, res) => {
-    res.render('admin/dashboard', { title: 'Admin Dashboard', user: req.user });
+exports.showDashboard = async (req, res) => {
+  try {
+    // console.log("Rendering admin dashboard:", req.session.user);
+    const userId = req.session.user.user_id;
+    // console.log("User ID:", userId); // Debugging line
+    
+    res.render('admin/admin-dashboard', { title: 'Admin Dashboard', user: req.session.user });
+  
+  } catch (err) {
+    console.error("Error in showDashboard controller:", err);
+    return res.status(500).send("Internal Server Error"); 
+  }
+  
   };
   
   // exports.listStudents = (req, res) => {

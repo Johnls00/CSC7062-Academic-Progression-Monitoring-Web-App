@@ -5,7 +5,7 @@ const adminController = require('../controllers/adminController');
 const { ensureAuth, ensureAdmin } = require('../middleware/auth');
 
 // Admin Dashboard
-router.get('/admin-dashboard', ensureAuth, ensureAdmin, adminController.showDashboard);
+router.get('/admin/admin-dashboard', ensureAuth, ensureAdmin, adminController.showDashboard);
 
 // Manage Students
 // router.get('/admin/students', ensureAuth, ensureAdmin, adminController.listStudents);
