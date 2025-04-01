@@ -1,7 +1,7 @@
 .hero {
     background: var(--blue-colour) !important;
     /* color: var(--blue-colour); */
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 1rem;
     -webkit-border-radius: 1rem;
     -moz-border-radius: 1rem;
@@ -17,7 +17,20 @@
 
   .title {
 
-    /* font-size: 1.5rem; */
+    font-size: 2rem;
     font-weight: bold;
     color: var(--pastel-pink-colour) !important; ;
+    margin: 0% !important ;
+  } 
+
+  .subtitle-studentId {
+    font-size: 1.2rem;
+    color: var(--yellow-colour) !important;
+    margin-bottom: 1rem !important ;
+  }
+
+  .subtitle-page-title {
+    font-size: 1.2rem;
+    color: var(--white) !important;
+    margin-bottom: 0rem !important ;
   }
