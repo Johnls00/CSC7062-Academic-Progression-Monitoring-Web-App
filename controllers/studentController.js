@@ -4,14 +4,14 @@ const moduleModel = require("../models/moduleModel");
 
 exports.showDashboard = async (req, res) => {
   try {
-    console.log("Rendering student dashboard:", req.session.user);
+    // console.log("Rendering student dashboard:", req.session.user);
     const userId = req.session.user.user_id;
-    console.log("User ID:", userId); // Debugging line
+    // console.log("User ID:", userId); // Debugging line
     const studentData = await studentModel.getStudentData(userId);
 
-    console.log("Student data:", studentData); // Debugging line
+    // console.log("Student data:", studentData); // Debugging line
     const student_id = studentData[0].student_id; // Debugging line
-    console.log("Student ID:", student_id); // Debugging line
+    // console.log("Student ID:", student_id); // Debugging line
 
     res.render("student/student-dashboard", {
       title: "Student Dashboard",
