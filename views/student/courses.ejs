@@ -18,10 +18,8 @@
 
   <body class="container-main">
     <div class="container mTop">
-      <%- include('../partials/header.ejs') %>
-
-      <%- include('../partials/dashboard-pages-welcome.ejs') %> 
-
+      <%- include('../partials/header.ejs') %> <%-
+      include('../partials/dashboard-pages-welcome.ejs') %>
 
       <div class="has-background-white p-6 mtopclear mybk3 rounded-box">
         <h2 class="title">Courses</h2>
@@ -32,12 +30,12 @@
         <div class="column">
           <!-- Module table -->
           <!-- <div class="has-background-white p-6 mtopclear mybk3"> -->
-          <class ="content">
+          <div class="content">
             <table class="table is-fullwidth">
               <thead>
                 <tr>
                   <th>Module Code</th>
-                  <th>Module Name</th>
+                  <th style="width: 10rem;" >Module Name</th>
                   <th>Grade</th>
                   <th>Grade Result</th>
                   <th>Resit Grade</th>
@@ -48,20 +46,37 @@
               </thead>
               <tbody>
                 <% courses.forEach((course) => { %>
-                  <tr>
-                    <!-- <td><%= course.module_code %></td> -->
-                    <!-- <td><%= course.module_name %></td> -->
-                    <td><%= course.first_grade %></td>
-                    <td><%= course.grade_result %></td>
-                    <td><%= course.resit_grade %></td>
-                    <td><%= course.resit_result %></td>
-                    <td><%= course.academic_year %></td>
-                    <td><%= course.entry_level %></td>
-                  </tr>
+                <tr>
+                  <!-- <%= console.log("course", course) %> -->
+                  <td><%= course.subject_code %></td>
+                  <td><%= course.module_title %></td>
+                  <td>
+                    <% if (course.first_grade !== null && course.first_grade !==
+                    undefined) { %> <%= course.first_grade %> <% } else { %> N/A
+                    <% } %>
+                  </td>
+                  <td>
+                    <% if (course.grade_result !== null && course.grade_result
+                    !== undefined) { %> <%= course.grade_result %> <% } else {
+                    %> N/A <% } %>
+                  </td>
+                  <td>
+                    <% if (course.resit_grade !== null && course.resit_grade !==
+                    undefined) { %> <%= course.resit_grade %> <% } else { %> N/A
+                    <% } %>
+                  </td>
+                  <td>
+                    <% if (course.resit_result !== null && course.resit_result
+                    !== undefined) { %> <%= course.resit_result %> <% } else {
+                    %> N/A <% } %>
+                  </td>
+                  <td><%= course.academic_year %></td>
+                  <td><%= course.entry_level %></td>
+                </tr>
                 <% }) %>
               </tbody>
             </table>
-          </class>
+          </div>
           <!-- </div> -->
         </div>
       </div>

@@ -136,6 +136,7 @@ th {
 
 .rounded-box {
   border-radius: 15px;
+  /* margin-bottom: 5rem; */
 }
 
 .rounded-button {
