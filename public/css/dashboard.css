@@ -32,8 +32,7 @@ p {
   background-color: white;
 }
 
-th,
-td {
+th, td {
   text-align: left; /* Align the content to the left */
   padding: 8px; /* Add padding for better readability */
   color: black !important;
@@ -127,12 +126,21 @@ th {
   box-shadow: 0 4px 8px rgba(249, 201, 43, 0.4);
 }
 
-.rounded-box {
+.mybk3.rounded-box {
+  margin-bottom: 1rem;
   border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
 }
 
 .rounded-button {
-  border-radius: 50px;
+  border-radius: 50px; 
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  -ms-border-radius: 50px;
+  -o-border-radius: 50px;
 }
 
 /* .profile-information li{
