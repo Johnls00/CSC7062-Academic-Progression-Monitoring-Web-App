@@ -15,10 +15,10 @@ exports.showDashboard = async (req, res) => {
   
   };
   
-  // exports.listStudents = (req, res) => {
-  //   const students = []; // Replace with actual student data
-  //   res.render('admin/students', { title: 'Manage Students', user: req.user, students });
-  // };
+  exports.listStudents = (req, res) => {
+    const students = []; // Replace with actual student data
+    res.render('admin/students', { title: 'Manage Students', user: req.session.user, students });
+  };
   
   // exports.viewStudent = (req, res) => {
   //   const student = {}; // Replace with logic to fetch a student by ID
