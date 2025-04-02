@@ -21,7 +21,6 @@ const connection = require('../config/config');
   async function getCoursesByStudentId(studentId) {
     try {
       const [courses] = await connection.query("SELECT * FROM `student_module` WHERE `student_id` = ?", [studentId]);
-      // console.log("Courses data:", courses); // Debugging line
       return courses;
     } catch (err) {
       throw new Error("Failed to fetch courses data");

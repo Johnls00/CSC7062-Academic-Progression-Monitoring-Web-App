@@ -1,0 +1,44 @@
+@import url("variables.css");
+
+.sticky-header th td {
+  align-self: center;
+  margin : 1rem;
+}
+
+.scroll-table-container {
+  max-height: 55vh;
+  max-width: 100%;
+  overflow: auto;
+  border: 0px solid #ccc;
+  padding-right: 1rem;
+  box-sizing: border-box;
+}
+
+.sticky-header th {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+  text-align: left;
+  vertical-align: middle;
+  padding: 0.75rem;
+}
+
+.scroll-table-container tr {
+  border-bottom: 1px solid #ccc;
+}
+
+.sticky-header td {
+  text-align: left;
+  vertical-align: middle;
+  padding: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.sticky-header tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.sticky-header tbody tr:hover {
+  background-color: #f1f1f1;
+}

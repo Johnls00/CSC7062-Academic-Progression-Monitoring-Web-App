@@ -13,7 +13,7 @@
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
     />
     <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/dashboard.css" />
+    <link rel="stylesheet" href="/css/students.css" />
   </head>
 
   <body class="container-main">
@@ -21,45 +21,161 @@
       <%- include('../partials/header.ejs') %> <%-
       include('../partials/dashboard-pages-welcome.ejs') %>
 
-      <div class="has-background-white p-6 mtopclear mybk3 rounded-box">
+      <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
         <h2 class="title" style="padding-top: 1rem"><span></span>Students</h2>
 
+        <div class="field">
+          <label class="label">Search Students</label>
+          <div class="control">
+            <input
+              id="studentSearch"
+              class="input"
+              type="text"
+              placeholder="Search by ID, name, degree..."
+            />
+          </div>
+        </div>
+
         <div class="column">
-          <!-- Module table -->
-          <!-- <div class="has-background-white p-6 mtopclear mybk3"> -->
-          <div class="content">
-            <table class="table is-fullwidth">
+          <div class="scroll-table-container">
+            <table class="sticky-header">
               <thead>
                 <tr>
-                  <th style = "width: 12rem"> Student ID</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th style="width: 15rem">Degree Progamme</th>
-                  <th>Year of Study</th>
-                  <th>Study Status</th>
+                  <th
+                    style="
+                      width: 12rem;
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                    "
+                  >
+                    Student ID
+                  </th>
+                  <th
+                    style="
+                      width: 10rem;
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                    "
+                  >
+                    First Name
+                  </th>
+                  <th
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                    "
+                  >
+                    Last Name
+                  </th>
+                  <th
+                    style="
+                      width: 15rem;
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                    "
+                  >
+                    Degree Progamme
+                  </th>
+                  <th
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                    "
+                  >
+                    Year of Study
+                  </th>
+                  <th
+                    style="
+                      width: 5rem;
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                    "
+                  >
+                    Study Status
+                  </th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                
-                 <% students.forEach((student) => {
-                %>
+                <% students.forEach((student) => { %>
                 <tr>
-                  <td><%= student.sId %></td>
-                  <td><%= student.first_name %></td>
-                  <td><%= student.last_name %></td>
-                  <td><%= student.program_name %></td>
-                  <td>Not yet implimented</td>
-                  <td><%= student.status_study %></td>
-                  <td><button class="button is-primary">Edit details</button></td>
+                  <td
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                      font-size: 0.95rem;
+                    "
+                  >
+                    <%= student.sId %>
+                  </td>
+                  <td
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                      font-size: 0.95rem;
+                    "
+                  >
+                    <%= student.first_name %>
+                  </td>
+                  <td
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                      font-size: 0.95rem;
+                    "
+                  >
+                    <%= student.last_name %>
+                  </td>
+                  <td
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                      font-size: 0.95rem;
+                    "
+                  >
+                    <%= student.program_name %>
+                  </td>
+                  <td
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                      font-size: 0.95rem;
+                    "
+                  >
+                    Not yet implimented
+                  </td>
+                  <td
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                      font-size: 0.95rem;
+                    "
+                  >
+                    <%= student.status_study %>
+                  </td>
+                  <td>
+                    <button class="button is-primary edit">Edit details</button>
+                  </td>
                 </tr>
                 <% }) %>
               </tbody>
             </table>
           </div>
-          <!-- </div> -->
         </div>
       </div>
     </div>
+    <script src="/js/students-search.js"></script>
   </body>
 </html>

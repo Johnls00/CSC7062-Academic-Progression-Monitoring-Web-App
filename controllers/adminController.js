@@ -24,9 +24,6 @@ exports.showStudents = async (req, res) => {
 
     for (let i = 0; i < students.length; i++) {
         const program_code = students[i].sId.substring(3,7);
-        // console.log("Program code:", program_code); // Debugging line
-        // console.log("Proggram code length :", program_code.length); // Debugging line
-
         try {
           const program_details = await programModels.getProgramInfo(program_code);
           // console.log("Program details:", program_details); // Debugging line
