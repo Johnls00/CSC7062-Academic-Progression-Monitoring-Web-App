@@ -25,12 +25,13 @@
     <% } else if (user && user.role === 'admin') { %>
       <p class="title">Welcome, Admin</p>
 
-      <% if (title === 'Admin - Dashboard') { %>
-        <p class="subtitle-page-title">Academic Progress Monitoring System Dashboard</p>
+      <% if (title === 'Admin Dashboard') { %>
+        <p class="subtitle-page-title">This is the Academic Progress Monitoring Systems Dashboard</p>
+        <p class="subtitle-page-title">You can manage students and courses from here</p>
         
-      <% } else if (title === 'Student - Management') { %>
+      <% } else if (title === 'Student Management') { %>
         <p class="subtitle-page-title">Student Management</p>
-      <% } else if (title === 'Course - Management') { %>
+      <% } else if (title === 'Course Management') { %>
         <p class="subtitle-page-title">Course Management</p>
       <% } %>
 
