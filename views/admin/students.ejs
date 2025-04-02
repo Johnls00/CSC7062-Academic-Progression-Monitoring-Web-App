@@ -22,6 +22,58 @@
 
                         <h2 class="title " style="padding-top: 1rem;"> <span></span>Students</h2>
 
+                        <div class="column">
+                            <!-- Module table -->
+                            <!-- <div class="has-background-white p-6 mtopclear mybk3"> -->
+                            <div class="content">
+                              <table class="table is-fullwidth">
+                                <thead>
+                                  <tr>
+                                    <th>Student ID</th>
+                                    <th>First Name</th>
+                                    <th>Second Name</th>
+                                    <th style = "width: 15rem"> Degree Progamme</th>
+                                    <th>Year of Study</th>
+                                    <th>Study Status</th>
+                                    <th></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <% students.forEach((student) => { %>
+                                  <tr>
+                                    
+                                    <td><%= course.subject_code %></td>
+                                    <td><%= course.module_title %></td>
+                                    <td>
+                                      <% if (course.first_grade !== null && course.first_grade !==
+                                      undefined) { %> <%= course.first_grade %> <% } else { %> N/A
+                                      <% } %>
+                                    </td>
+                                    <td>
+                                      <% if (course.grade_result !== null && course.grade_result
+                                      !== undefined) { %> <%= course.grade_result %> <% } else {
+                                      %> N/A <% } %>
+                                    </td>
+                                    <td>
+                                      <% if (course.resit_grade !== null && course.resit_grade !==
+                                      undefined) { %> <%= course.resit_grade %> <% } else { %> N/A
+                                      <% } %>
+                                    </td>
+                                    <td>
+                                      <% if (course.resit_result !== null && course.resit_result
+                                      !== undefined) { %> <%= course.resit_result %> <% } else {
+                                      %> N/A <% } %>
+                                    </td>
+                                    
+                                    <button class="button is-primary">Edit details</button>
+                                  </tr>
+                                  <% }) %>
+                                </tbody>
+                              </table>
+                            </div>
+                            <!-- </div> -->
+                          </div>
+
 
                 </div>
     </div>
