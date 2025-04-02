@@ -10,7 +10,7 @@ exports.showDashboard = async (req, res) => {
     const studentData = await studentModel.getStudentData(userId);
 
     // console.log("Student data:", studentData); // Debugging line
-    const student_id = studentData[0].student_id; // Debugging line
+    // const student_id = studentData[0].student_id; // Debugging line
     // console.log("Student ID:", student_id); // Debugging line
 
     res.render("student/student-dashboard", {

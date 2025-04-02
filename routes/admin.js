@@ -8,7 +8,7 @@ const { ensureAuth, ensureAdmin } = require('../middleware/auth');
 router.get('/admin/admin-dashboard', ensureAuth, ensureAdmin, adminController.showDashboard);
 
 // Manage Students
-router.get('/admin/students', ensureAuth, ensureAdmin, adminController.listStudents);
+router.get('/admin/students', ensureAuth, ensureAdmin, adminController.showStudents);
 // router.get('/admin/student/:id', ensureAuth, ensureAdmin, adminController.viewStudent);
 // router.post('/admin/student/add', ensureAuth, ensureAdmin, adminController.addStudent);
 // router.post('/admin/student/update/:id', ensureAuth, ensureAdmin, adminController.updateStudent);

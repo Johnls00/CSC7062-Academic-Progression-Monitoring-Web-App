@@ -27,8 +27,20 @@ const connection = require('../config/config');
       throw new Error("Failed to fetch courses data");
     }
   }
+
+  // Get all students
+  async function getAllStudents() {
+      try {
+          const [students] = await connection.query("SELECT * FROM `student`");
+          return students;
+      }
+      catch (err) {
+          throw new Error("Failed to fetch students data");
+      }
+  }
   
   module.exports = {
     getStudentData,
-    getCoursesByStudentId
+    getCoursesByStudentId,
+    getAllStudents
   };
