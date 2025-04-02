@@ -1,5 +1,20 @@
 @import url("variables.css");
 
+
+.main {
+    margin-bottom : 2rem;
+}
+
+.field {
+    max-width: 100%;
+}
+
+.subtitle {
+    vertical-align: middle;
+    text-align: center;
+    font-size: 1.3rem;
+}
+
 .sticky-header th td {
   align-self: center;
   margin : 1rem;

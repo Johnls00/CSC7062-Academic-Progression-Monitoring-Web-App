@@ -51,10 +51,26 @@ exports.showStudents = async (req, res) => {
   }
 };
 
-// exports.viewStudent = (req, res) => {
-//   const student = {}; // Replace with logic to fetch a student by ID
-//   res.render('admin/student-details', { title: 'Student Details', user: req.user, student });
-// };
+exports.viewStudent = async (req, res) => {
+  try {
+    const studentId = req.params.id;
+    const student = await studentModel.getStudentBySId(studentId); // Adjust this to your actual function
+
+    if (!student) {
+      return res.status(404).send("Student not found");
+    }
+
+    res.render("admin/student-details", {
+      title: "Student Details",
+      user: req.session.user,
+      student
+    });
+
+  } catch (err) {
+    console.error("Error fetching student:", err);
+    res.status(500).send("Internal Server Error");
+  }
+};
 
 // exports.addStudent = (req, res) => {
 //   // Logic to add a new student

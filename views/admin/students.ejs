@@ -24,17 +24,17 @@
       <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
         <h2 class="title" style="padding-top: 1rem"><span></span>Students</h2>
 
-        <div class="field">
-          <label class="label">Search Students</label>
-          <div class="control">
-            <input
-              id="studentSearch"
-              class="input"
-              type="text"
-              placeholder="Search by ID, name, degree..."
-            />
+        <div class="columns" >
+            <div class="column"><label class="subtitle">Search Students</label></div>
+            <div class="column"><div class="control">
+                <input
+                  id="studentSearch"
+                  class="input"
+                  type="text"
+                  placeholder="Search by ID, name, degree..."
+                />
+              </div></div>
           </div>
-        </div>
 
         <div class="column">
           <div class="scroll-table-container">
@@ -166,7 +166,7 @@
                     <%= student.status_study %>
                   </td>
                   <td>
-                    <button class="button is-primary edit">Edit details</button>
+                    <a href="/admin/student/<%= student.sId %>" class="button is-primary">View details</a>
                   </td>
                 </tr>
                 <% }) %>
