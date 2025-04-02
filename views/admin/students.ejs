@@ -22,19 +22,30 @@
       include('../partials/dashboard-pages-welcome.ejs') %>
 
       <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
-        <h2 class="title" style="padding-top: 1rem"><span></span>Students</h2>
+        <!-- <h2 class="title" style="padding-bottom: 1rem"><span></span>Students</h2> -->
 
-        <div class="columns" >
-            <div class="column"><label class="subtitle">Search Students</label></div>
-            <div class="column"><div class="control">
-                <input
-                  id="studentSearch"
-                  class="input"
-                  type="text"
-                  placeholder="Search by ID, name, degree..."
-                />
-              </div></div>
+        <div class="columns">
+          <div class="column">
+            <div class="control">
+              <input
+                id="studentSearch"
+                style="vertical-align: middle"
+                class="input"
+                type="text"
+                placeholder="Search by ID, name, degree..."
+              />
+            </div>
           </div>
+          <div class="column">
+            <a
+              href="/admin/student/new"
+              style="vertical-align: middle"
+              class="button is-primary is-pulled-right"
+            >
+              Add New Student
+            </a>
+          </div>
+        </div>
 
         <div class="column">
           <div class="scroll-table-container">
@@ -166,7 +177,11 @@
                     <%= student.status_study %>
                   </td>
                   <td>
-                    <a href="/admin/student/<%= student.sId %>" class="button is-primary">View details</a>
+                    <a
+                      href="/admin/student/<%= student.sId %>"
+                      class="button is-primary"
+                      >View details</a
+                    >
                   </td>
                 </tr>
                 <% }) %>
