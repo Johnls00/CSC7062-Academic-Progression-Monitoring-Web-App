@@ -35,62 +35,152 @@
           </div>
         </div>
 
-        <hr>
+        <hr />
+
+        <h1 class="title">Student Details</h1>
 
         <div class="columns is-mobile">
-          <div class="column is-half is-flex is-justify-content-center is-align-items-center">
+          <div
+            class="column is-half is-flex is-justify-content-center is-align-items-center"
+          >
             <figure class="image">
-              <img class="is-rounded" style="width: 20rem; height: auto;"
-                src="https://thispersondoesnotexist.com/" 
+              <img
+                class="is-rounded"
+                style="width: 20rem; height: auto"
+                src="https://thispersondoesnotexist.com/"
                 alt="Placeholder image"
               />
             </figure>
           </div>
-
           <div class="column is-narrow">
-            <div style="border-left: 2px solid #ccc; height: 100%;"></div>
+            <div style="border-left: 2px solid #ccc; height: 100%"></div>
           </div>
 
           <!-- table with students details -->
-          <form id="student-details-form">
-            <div class="columns">
-              <div class="column is-half has-text-weight-bold">Student Name:</div>
-              <div class="column">
-                <input class="input" type="text" name="name" value="<%= student.first_name %> <%= student.last_name %>" disabled>
+          <div class="box">
+            <form id="student-details-form ">
+              <div class="columns">
+                <div
+                  class="column is-half has-text-weight-bold is-flex is-justify-content-center is-align-items-center"
+                  style="width: 15rem"
+                >
+                  Student Name:
+                </div>
+                <div class="column">
+                  <input
+                    class="input"
+                    type="text"
+                    name="name"
+                    value="<%= student.first_name %> <%= student.last_name %>"
+                    disabled
+                  />
+                </div>
               </div>
-            </div>
-          
-            <div class="columns">
-              <div class="column is-one-third has-text-weight-bold">Student Number:</div>
-              <div class="column">
-                <input class="input" type="text" name="student_number" value="<%= student.sId %>" disabled>
+
+              <div class="columns">
+                <div
+                  class="column is-one-third has-text-weight-bold"
+                  style="width: 15rem"
+                >
+                  Student Number:
+                </div>
+                <div class="column">
+                  <input
+                    class="input"
+                    type="text"
+                    name="student_number"
+                    value="<%= student.sId %>"
+                    disabled
+                  />
+                </div>
               </div>
-            </div>
-          
-            <div class="columns">
-              <div class="column is-one-third has-text-weight-bold">Email:</div>
-              <div class="column">
-                <input class="input" type="email" name="email" value="<%= user_data.email %>" disabled>
+
+              <div class="columns">
+                <div
+                  class="column is-one-third has-text-weight-bold"
+                  style="width: 15rem"
+                >
+                  Email:
+                </div>
+                <div class="column">
+                  <input
+                    class="input"
+                    type="email"
+                    name="email"
+                    value="<%= user_data.email %>"
+                    disabled
+                  />
+                </div>
               </div>
-            </div>
-          
-            <div class="columns">
-              <div class="column is-one-third has-text-weight-bold">Degree Programme:</div>
-              <div class="column">
-                <input class="input" type="text" name="degree" value="<%= student.program_name %>" disabled>
+
+              <div class="columns">
+                <div
+                  class="column is-one-third has-text-weight-bold"
+                  style="width: 15rem"
+                >
+                  Degree Programme:
+                </div>
+                <div class="column">
+                  <input
+                    class="input"
+                    type="text"
+                    name="degree"
+                    value="<%= student.program_name %>"
+                    disabled
+                  />
+                </div>
               </div>
-            </div>
-          
-            <div class="has-text-right mt-4">
-              <button type="button" id="edit-btn" class="button is-primary">Edit Details</button>
-              <button type="submit" id="save-btn" class="button is-success is-hidden">Save</button>
-            </div>
-            
-          </form>
-          
+
+              <div class="has-text-right mt-4">
+                <button type="button" id="edit-btn" class="button is-primary">
+                  Edit Details
+                </button>
+                <button
+                  type="submit"
+                  id="save-btn"
+                  class="button is-success is-hidden"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
 
-        <hr>
+        <hr />
+
+        <h1 class="title">Progression Summary</h1>
+
+        <div class="columns is-mobile">
+          <div class="column is-half has-text-weight-bold is-flex is-justify-content-center is-align-items-center">
+            <div class="box">
+              <table class="table is-striped is-fullwidth">
+                <tbody>
+                  <tr>
+                    <th>Total Credits:</th>
+                    <td><%= student.Total_credits_earned %></td>
+                  </tr>
+                  <tr>
+                    <th>Average grade:</th>
+                    <td><%= student.average_grade %></td>
+                  </tr>
+                  <tr>
+                    <th>Progression Status:</th>
+                    <td><%= student.progression_status %></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="column is-half has-text-weight-bold is-flex is-justify-content-center is-align-items-center">
+            <div class="box">Put a pie chart here</div>
+          </div>
+        </div>
+
+        <hr />
+
+        
       </div>
     </div>
     <script src="/js/edit-student-details.js"></script>
