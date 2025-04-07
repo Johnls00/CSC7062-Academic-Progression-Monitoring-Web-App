@@ -36,31 +36,63 @@
         </div>
 
         <hr>
-        <div class="columns is-mobile">
-          <div class="column"></div>
-          <div class="column"></div>
-          <div class="column has-text-right">
-            <button class="button is-primary">Edit Details</button>
-          </div>
-        </div>
 
         <div class="columns is-mobile">
-          <div class="column is-one-third">
-            <figure class="image is-3by4">
-              <img class="is-rounded"
+          <div class="column is-half is-flex is-justify-content-center is-align-items-center">
+            <figure class="image">
+              <img class="is-rounded" style="width: 20rem; height: auto;"
                 src="https://thispersondoesnotexist.com/" 
                 alt="Placeholder image"
               />
             </figure>
           </div>
-          <div class="column is-two-thirds">
-            <p>Name: <%= student.first_name %> <%= student.last_name %></p>
-            <p>Student Number: <%= student.sId %></p>
-            <p>Email: <%= user_data.email %></p>
-            <P>Degree Programme: </P>
+
+          <div class="column is-narrow">
+            <div style="border-left: 2px solid #ccc; height: 100%;"></div>
           </div>
+
+          <!-- table with students details -->
+          <form id="student-details-form">
+            <div class="columns">
+              <div class="column is-half has-text-weight-bold">Student Name:</div>
+              <div class="column">
+                <input class="input" type="text" name="name" value="<%= student.first_name %> <%= student.last_name %>" disabled>
+              </div>
+            </div>
+          
+            <div class="columns">
+              <div class="column is-one-third has-text-weight-bold">Student Number:</div>
+              <div class="column">
+                <input class="input" type="text" name="student_number" value="<%= student.sId %>" disabled>
+              </div>
+            </div>
+          
+            <div class="columns">
+              <div class="column is-one-third has-text-weight-bold">Email:</div>
+              <div class="column">
+                <input class="input" type="email" name="email" value="<%= user_data.email %>" disabled>
+              </div>
+            </div>
+          
+            <div class="columns">
+              <div class="column is-one-third has-text-weight-bold">Degree Programme:</div>
+              <div class="column">
+                <input class="input" type="text" name="degree" value="<%= student.program_name %>" disabled>
+              </div>
+            </div>
+          
+            <div class="has-text-right mt-4">
+              <button type="button" id="edit-btn" class="button is-primary">Edit Details</button>
+              <button type="submit" id="save-btn" class="button is-success is-hidden">Save</button>
+            </div>
+            
+          </form>
+          
         </div>
+
+        <hr>
       </div>
     </div>
+    <script src="/js/edit-student-details.js"></script>
   </body>
 </html>

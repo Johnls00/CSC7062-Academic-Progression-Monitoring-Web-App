@@ -3,6 +3,7 @@ const connection = require("../config/config");
 
 //Get student user data by user ID
 async function getStudentUserData(userId) {
+  console.log("searching for data with user id: ", userId);
   const [userData] = await connection.query(
     "SELECT * FROM `user` WHERE `user_id` = ?",
     [userId]
@@ -75,10 +76,34 @@ async function getAllStudents() {
   }
 }
 
+// get the students degree program info and attach it to the students details array 
+async function attachProgramDetails(student) {
+  const program_code = student[0].sId.substring(3, 7);
+
+  try {
+    const program_details = await programModels.getProgramInfo(program_code);
+
+    if (program_details && program_details.length > 0) {
+      student.program_code = program_details[0].program_code;
+      student.program_name = program_details[0].name;
+    } else {
+      student.program_code = "Unknown";
+      student.program_name = "Unknown";
+    }
+  } catch (err) {
+    console.warn("Failed to fetch program info for:", program_code, err.message);
+    student.program_code = "Unknown";
+    student.program_name = "Unknown";
+  }
+
+  return student;
+}
+
 module.exports = {
   getStudentUserData,
   getStudentData,
   getStudentBySId,
   getModulesByStudentId,
   getAllStudents,
+  attachProgramDetails,
 };

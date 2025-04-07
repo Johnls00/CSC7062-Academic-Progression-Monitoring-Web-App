@@ -23,23 +23,29 @@ exports.showStudents = async (req, res) => {
     const students = await studentModel.getAllStudents();
 
     for (let i = 0; i < students.length; i++) {
-        const program_code = students[i].sId.substring(3,7);
-        try {
-          const program_details = await programModels.getProgramInfo(program_code);
-          // console.log("Program details:", program_details); // Debugging line
-          if (program_details && program_details.length > 0) {
-            students[i].program_code = program_details[0].program_code;
-            students[i].program_name = program_details[0].name;
-          } else {
-            students[i].program_code = "Unknown";
-            students[i].program_name = "Unknown";
-          }
-        } catch (err) {
-          console.warn("Failed to fetch program info for:", program_code, err.message);
+      const program_code = students[i].sId.substring(3, 7);
+      try {
+        const program_details = await programModels.getProgramInfo(
+          program_code
+        );
+        // console.log("Program details:", program_details); // Debugging line
+        if (program_details && program_details.length > 0) {
+          students[i].program_code = program_details[0].program_code;
+          students[i].program_name = program_details[0].name;
+        } else {
           students[i].program_code = "Unknown";
           students[i].program_name = "Unknown";
         }
+      } catch (err) {
+        console.warn(
+          "Failed to fetch program info for:",
+          program_code,
+          err.message
+        );
+        students[i].program_code = "Unknown";
+        students[i].program_name = "Unknown";
       }
+    }
     res.render("admin/students", {
       title: "Manage Students",
       user: req.session.user,
@@ -54,8 +60,33 @@ exports.showStudents = async (req, res) => {
 exports.viewStudent = async (req, res) => {
   try {
     const studentId = req.params.id;
-    console.log("searching for - ", studentId);
     const student = await studentModel.getStudentBySId(studentId);
+    const user_data = await studentModel.getStudentUserData(student[0].user_id);
+    console.log("user data ", user_data);
+    const module_data = await studentModel.getModulesByStudentId(student.sId);
+
+    const program_code = student[0].sId.substring(3, 7);
+
+    try {
+      const program_details = await programModels.getProgramInfo(program_code);
+
+      if (program_details && program_details.length > 0) {
+        student[0].program_code = program_details[0].program_code;
+        student[0].program_name = program_details[0].name;
+      } else {
+        student[0].program_code = "Unknown";
+        student[0].program_name = "Unknown";
+      }
+    } catch (err) {
+      console.warn(
+        "Failed to fetch program info for:",
+        program_code,
+        err.message
+      );
+      student[0].program_code = "Unknown";
+      student[0].program_name = "Unknown";
+    }
+
     console.log(student);
 
     if (!student) {
@@ -66,8 +97,9 @@ exports.viewStudent = async (req, res) => {
       title: "Student Details",
       user: req.session.user,
       student: student[0],
+      user_data: user_data[0],
+      module_data,
     });
-
   } catch (err) {
     console.error("Error fetching student:", err);
     res.status(500).send("Internal Server Error");
