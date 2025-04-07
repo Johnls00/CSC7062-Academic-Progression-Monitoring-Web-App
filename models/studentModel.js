@@ -1,4 +1,5 @@
 const connection = require("../config/config");
+const moduleModel = require("../models/moduleModel");
 
 
 //Get student user data by user ID
@@ -55,11 +56,28 @@ async function getStudentBySId(sId) {
 
 // Get courses by student ID
 async function getModulesByStudentId(studentId) {
+  console.log ("student id searching", studentId);
   try {
     const [modules] = await connection.query(
       "SELECT * FROM `student_module` WHERE `student_id` = ?",
       [studentId]
     );
+    console.log(modules);
+
+     for (let i = 0; i < modules.length; i++) {
+        const moduleId = modules[i].module_id;
+        const module_Info = await moduleModel.getModuleInfo(moduleId);
+        // console.log(`Module Info for module_id ${moduleId}:`, module_Info);
+    
+        if (module_Info && module_Info.length > 0) {
+          modules[i].subject_code = module_Info[0].subject_code;
+          modules[i].module_title = module_Info[0].module_title;
+        } else {
+          modules[i].subject_code = "Unknown";
+          modules[i].module_title = "Unknown";
+        }
+      }
+
     return modules;
   } catch (err) {
     throw new Error("Failed to fetch courses data");

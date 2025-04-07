@@ -32,19 +32,19 @@ exports.showModules = async (req, res) => {
     studentData[0].student_id
   );
 
-  for (let i = 0; i < modules.length; i++) {
-    const moduleId = modules[i].module_id;
-    const module_Info = await moduleModel.getModuleInfo(moduleId);
-    // console.log(`Module Info for module_id ${moduleId}:`, module_Info);
+  // for (let i = 0; i < modules.length; i++) {
+  //   const moduleId = modules[i].module_id;
+  //   const module_Info = await moduleModel.getModuleInfo(moduleId);
+  //   // console.log(`Module Info for module_id ${moduleId}:`, module_Info);
 
-    if (module_Info && module_Info.length > 0) {
-      modules[i].subject_code = module_Info[0].subject_code;
-      modules[i].module_title = module_Info[0].module_title;
-    } else {
-      modules[i].subject_code = "Unknown";
-      modules[i].module_title = "Unknown";
-    }
-  }
+  //   if (module_Info && module_Info.length > 0) {
+  //     modules[i].subject_code = module_Info[0].subject_code;
+  //     modules[i].module_title = module_Info[0].module_title;
+  //   } else {
+  //     modules[i].subject_code = "Unknown";
+  //     modules[i].module_title = "Unknown";
+  //   }
+  // }
 
   // console.log("Courses data:", courses); // Debugging line
   res.render("student/modules", {
