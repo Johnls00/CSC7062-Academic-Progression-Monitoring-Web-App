@@ -61,9 +61,11 @@ exports.viewStudent = async (req, res) => {
   try {
     const studentId = req.params.id;
     const student = await studentModel.getStudentBySId(studentId);
+    console.log("student info " ,student);
     const user_data = await studentModel.getStudentUserData(student[0].user_id);
     console.log("user data ", user_data);
-    const module_data = await studentModel.getModulesByStudentId(student.sId);
+    const module_data = await studentModel.getModulesByStudentId(student[0].student_id);
+    console.log("module data", module_data)
 
     const program_code = student[0].sId.substring(3, 7);
 

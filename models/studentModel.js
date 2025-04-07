@@ -70,11 +70,17 @@ async function getModulesByStudentId(studentId) {
         // console.log(`Module Info for module_id ${moduleId}:`, module_Info);
     
         if (module_Info && module_Info.length > 0) {
+          modules[i].module_id = module_Info[0].moduleId;
           modules[i].subject_code = module_Info[0].subject_code;
+          modules[i].subject_catalog = module_Info[0].subject_catalog;
           modules[i].module_title = module_Info[0].module_title;
+          modules[i].credit_value = module_Info[0].credit_value;
         } else {
+          modules[i].module_id = "Unknown";
           modules[i].subject_code = "Unknown";
+          modules[i].subject_catalog = "Unknown";
           modules[i].module_title = "Unknown";
+          modules[i].credit_value = "Unknown";
         }
       }
 
