@@ -25,70 +25,33 @@ exports.showDashboard = async (req, res) => {
 };
 
 // Show courses page with data
-exports.showCourses = async (req, res) => {
+exports.showModules = async (req, res) => {
   const userId = req.session.user.user_id;
   const studentData = await studentModel.getStudentData(userId);
-  const courses = await studentModel.getCoursesByStudentId(
+  const modules = await studentModel.getModulesByStudentId(
     studentData[0].student_id
   );
 
-  for (let i = 0; i < courses.length; i++) {
-    const moduleId = courses[i].module_id;
+  for (let i = 0; i < modules.length; i++) {
+    const moduleId = modules[i].module_id;
     const module_Info = await moduleModel.getModuleInfo(moduleId);
     // console.log(`Module Info for module_id ${moduleId}:`, module_Info);
 
     if (module_Info && module_Info.length > 0) {
-      courses[i].subject_code = module_Info[0].subject_code;
-      courses[i].module_title = module_Info[0].module_title;
+      modules[i].subject_code = module_Info[0].subject_code;
+      modules[i].module_title = module_Info[0].module_title;
     } else {
-      courses[i].subject_code = "Unknown";
-      courses[i].module_title = "Unknown";
+      modules[i].subject_code = "Unknown";
+      modules[i].module_title = "Unknown";
     }
   }
 
-  // const moduleInfo = await moduleModel.getModuleInfo(courses[0].module_id);
-
-  // try {
-  //   console.log("Session data in showCourses:", req.session); // Debugging line
-  //   if (!req.session.user) {
-  //     return res.status(401).send("Unauthorized: Please log in.");
-  //   }
-
-  //   const userId = req.session.user.user_id;
-  //   if (!userId) {
-  //     return res.status(401).send("Unauthorized: User ID not found.");
-  //   }
-
-  //   // Fetch student data from the model
-  //   const studentData = await studentModel.getStudentData(userId);
-  //   if (!studentData) {
-  //     console.warn("No student found with user ID:", userId);
-  //     return res.status(404).send("Student not found");
-  //   }
-
-  //   const student_id = studentData.student_id;
-  //   console.log("Student ID:", student_id); // Debugging line
-
-  //   // Fetch courses data from the model
-  //   const courses = await studentModel.getCoursesByStudentId(student_id);
-  //   if (courses.length === 0) {
-  //     console.warn("No courses found for user:", student_id);
-  //   }
-
-  // Render the courses page with data
-  //res.render('student/courses', { title: 'My Courses', user: req.session.user, courses });
-
-  // } catch (err) {
-  //   console.error("Error in showCourses controller:", err);
-  //   return res.status(500).send("Internal Server Error");
-  // }
-
   // console.log("Courses data:", courses); // Debugging line
-  res.render("student/courses", {
-    title: "Courses",
+  res.render("student/modules", {
+    title: "Modules",
     user: req.session.user,
     studentData,
-    courses,
+    modules,
   });
 };
 

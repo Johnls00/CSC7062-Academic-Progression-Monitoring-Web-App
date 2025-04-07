@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Courses</title>
+    <title>Student Modules</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
@@ -13,7 +13,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
     <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/courses.css" />
+    <link rel="stylesheet" href="/css/modules.css" />
   </head>
 
   <body class="container-main">
@@ -22,9 +22,9 @@
       include('../partials/dashboard-pages-welcome.ejs') %>
 
       <div class="has-background-white p-6 mtopclear mybk3 rounded-box">
-        <h2 class="title">Courses</h2>
-        <p>Here you can view all the courses you are enrolled in.</p>
-        <p>Click on a course to view more details.</p>
+        <h2 class="title">Modules</h2>
+        <p>Here you can view all the modules you are enrolled in.</p>
+        <p>Click on a module to view more details.</p>
 
         <!-- create column for module table -->
         <div class="column">
@@ -45,33 +45,33 @@
                 </tr>
               </thead>
               <tbody>
-                <% courses.forEach((course) => { %>
+                <% modules.forEach((module) => { %>
                 <tr>
-                  <!-- <%= console.log("course", course) %> -->
-                  <td><%= course.subject_code %></td>
-                  <td><%= course.module_title %></td>
+                  
+                  <td><%= module.subject_code %></td>
+                  <td><%= module.module_title %></td>
                   <td>
-                    <% if (course.first_grade !== null && course.first_grade !==
-                    undefined) { %> <%= course.first_grade %> <% } else { %> N/A
+                    <% if (module.first_grade !== null && module.first_grade !==
+                    undefined) { %> <%= module.first_grade %> <% } else { %> N/A
                     <% } %>
                   </td>
                   <td>
-                    <% if (course.grade_result !== null && course.grade_result
-                    !== undefined) { %> <%= course.grade_result %> <% } else {
+                    <% if (module.grade_result !== null && module.grade_result
+                    !== undefined) { %> <%= module.grade_result %> <% } else {
                     %> N/A <% } %>
                   </td>
                   <td>
-                    <% if (course.resit_grade !== null && course.resit_grade !==
-                    undefined) { %> <%= course.resit_grade %> <% } else { %> N/A
+                    <% if (module.resit_grade !== null && module.resit_grade !==
+                    undefined) { %> <%= module.resit_grade %> <% } else { %> N/A
                     <% } %>
                   </td>
                   <td>
-                    <% if (course.resit_result !== null && course.resit_result
-                    !== undefined) { %> <%= course.resit_result %> <% } else {
+                    <% if (module.resit_result !== null && module.resit_result
+                    !== undefined) { %> <%= module.resit_result %> <% } else {
                     %> N/A <% } %>
                   </td>
-                  <td><%= course.academic_year %></td>
-                  <td><%= course.entry_level %></td>
+                  <td><%= module.academic_year %></td>
+                  <td><%= module.entry_level %></td>
                 </tr>
                 <% }) %>
               </tbody>

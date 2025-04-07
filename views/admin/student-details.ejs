@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Management</title>
+    <title>Student Details</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
@@ -17,16 +17,50 @@
   </head>
 
   <body class="container-main">
-    <div class="container mTop">
-      <%- include('../partials/header.ejs') %> <%-
-      include('../partials/dashboard-pages-welcome.ejs') %>
+    <div class="container mTop" style="width: 90%">
+      <%- include('../partials/header.ejs') %>
+      <!-- <%- include('../partials/dashboard-pages-welcome.ejs') %> -->
 
-      <div class="main has-background-white p-6 mtopclear mybk3 rounded-box"><% console.log("student passed through", student) %>
-        <p class="title" style="padding-bottom: 1rem">
-          <span></span>hello <%= student.sId %> <%= student.first_name %> <%= student.last_name %>
-          
+      <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
+        <div class="columns is-mobile">
+          <div class="column has-text-left">
+            <a href="" class="button is-light is-medium"
+              >Produce Student Summary Report</a
+            >
+          </div>
+          <div class="column"></div>
+
+          <div class="column has-text-right">
+            <a href="" class="button is-danger is-medium">Delete Student</a>
+          </div>
+        </div>
+
+        <hr>
+        <div class="columns is-mobile">
+          <div class="column"></div>
+          <div class="column"></div>
+          <div class="column has-text-right">
+            <button class="button is-primary">Edit Details</button>
+          </div>
+        </div>
+
+        <div class="columns is-mobile">
+          <div class="column is-one-third">
+            <figure class="image is-3by4">
+              <img class="is-rounded"
+                src="https://thispersondoesnotexist.com/" 
+                alt="Placeholder image"
+              />
+            </figure>
+          </div>
+          <div class="column is-two-thirds">
+            <p>Name: <%= student.first_name %> <%= student.last_name %></p>
+            <p>Student Number: <%= student.sId %></p>
+            <p>Email: <%= user_data.email %></p>
+            <P>Degree Programme: </P>
+          </div>
+        </div>
       </div>
     </div>
-    
   </body>
 </html>

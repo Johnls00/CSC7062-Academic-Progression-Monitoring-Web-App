@@ -1,5 +1,23 @@
 const connection = require("../config/config");
 
+
+//Get student user data by user ID
+async function getStudentUserData(userId) {
+  const [userData] = await connection.query(
+    "SELECT * FROM `user` WHERE `user_id` = ?",
+    [userId]
+  );
+  if (!userData) {
+    console.warn("No student found with user ID:", userId);
+    return res.status(404).send("Student not found");
+  }
+
+  if (userData.length === 0) {
+    return null; // No student found
+  }
+  return userData; // Return the first student found
+}
+
 //Get student data by user ID
 async function getStudentData(userId) {
   const [studentData] = await connection.query(
@@ -18,32 +36,30 @@ async function getStudentData(userId) {
 }
 
 //Get student data by `student_id`
-async function getStudentBySId(studentId) {
-  console.log ("searching in model for - ", studentId);
+async function getStudentBySId(sId) {
   const [studentData] = await connection.query(
     "SELECT * FROM `student` WHERE `sId` = ?",
-    [studentId]
+    [sId]
   );
   if (!studentData) {
-    console.warn("No student found with user ID:", studentId);
+    console.warn("No student found with user ID:", sId);
     return res.status(404).send("Student not found");
   }
 
   if (studentData.length === 0) {
     return null; // No student found
   }
-  console.log ("user for in search ", studentData); //debug line 
   return studentData; // Return the first student found
 }
 
 // Get courses by student ID
-async function getCoursesByStudentId(studentId) {
+async function getModulesByStudentId(studentId) {
   try {
-    const [courses] = await connection.query(
+    const [modules] = await connection.query(
       "SELECT * FROM `student_module` WHERE `student_id` = ?",
       [studentId]
     );
-    return courses;
+    return modules;
   } catch (err) {
     throw new Error("Failed to fetch courses data");
   }
@@ -60,8 +76,9 @@ async function getAllStudents() {
 }
 
 module.exports = {
+  getStudentUserData,
   getStudentData,
   getStudentBySId,
-  getCoursesByStudentId,
+  getModulesByStudentId,
   getAllStudents,
 };

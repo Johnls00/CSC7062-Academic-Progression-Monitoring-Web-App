@@ -70,13 +70,5 @@ app.use(function(err, req, res, next) {
   res.render('error/error', { title: 'Error' });
 });
 
-// app.get('/student-dashboard/courses', (req, res) => {
-//   const user = req.user;  // Assuming you have a middleware that sets req.user
-//   const courses = [
-//       { id: 1, name: 'Mathematics', description: 'Advanced Algebra' },
-//       { id: 2, name: 'Physics', description: 'Classical Mechanics' }
-//   ];
-//   res.render('student/courses', { user, courses });
-// });
 
 module.exports = app;
