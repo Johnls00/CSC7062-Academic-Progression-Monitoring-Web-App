@@ -27,58 +27,61 @@
         <p>Click on a module to view more details.</p>
 
         <!-- create column for module table -->
-        <div class="column">
+        <div class="column is-fullwidth is-flex is-justify-content-center is-align-items-center">
           <!-- Module table -->
           <!-- <div class="has-background-white p-6 mtopclear mybk3"> -->
-          <div class="content">
-            <table class="table is-fullwidth">
-              <thead>
-                <tr>
-                  <<th>Subject Code</th>
-                  <th>Subject Catalog</th>
-                  <th style="width: 10rem;" >Module Name</th>
-                  <th>Grade</th>
-                  <th>Grade Result</th>
-                  <th>Resit Grade</th>
-                  <th>Resit Result</th>
-                  <th>Year of study</th>
-                  <th>Entry Level</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% modules.forEach((module) => { %>
-                <tr>
-                  
-                  <td><%= module.subject_code %></td>
-                  <td><%= module.subject_catalog %></td>
-                  <td><%= module.module_title %></td>
-                  <td>
-                    <% if (module.first_grade !== null && module.first_grade !==
-                    undefined) { %> <%= module.first_grade %> <% } else { %> N/A
-                    <% } %>
-                  </td>
-                  <td>
-                    <% if (module.grade_result !== null && module.grade_result
-                    !== undefined) { %> <%= module.grade_result %> <% } else {
-                    %> N/A <% } %>
-                  </td>
-                  <td>
-                    <% if (module.resit_grade !== null && module.resit_grade !==
-                    undefined) { %> <%= module.resit_grade %> <% } else { %> N/A
-                    <% } %>
-                  </td>
-                  <td>
-                    <% if (module.resit_result !== null && module.resit_result
-                    !== undefined) { %> <%= module.resit_result %> <% } else {
-                    %> N/A <% } %>
-                  </td>
-                  <td><%= module.academic_year %></td>
-                  <td><%= module.entry_level %></td>
-                </tr>
-                <% }) %>
-              </tbody>
-            </table>
+          <div class="box is-fullwidth">
+            <div class="content">
+              <table class="table is-fullwidth">
+                <thead>
+                  <tr>
+                    <
+                    <th>Subject Code</th>
+                    <th>Subject Catalog</th>
+                    <th style="width: 10rem">Module Name</th>
+                    <th>Grade</th>
+                    <th>Grade Result</th>
+                    <th>Resit Grade</th>
+                    <th>Resit Result</th>
+                    <th>Year of study</th>
+                    <th>Entry Level</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% modules.forEach((module) => { %>
+                  <tr>
+                    <td><%= module.subject_code %></td>
+                    <td><%= module.subject_catalog %></td>
+                    <td><%= module.module_title %></td>
+                    <td>
+                      <% if (module.first_grade !== null && module.first_grade
+                      !== undefined) { %> <%= module.first_grade %> <% } else {
+                      %> N/A <% } %>
+                    </td>
+                    <td>
+                      <% if (module.grade_result !== null && module.grade_result
+                      !== undefined) { %> <%= module.grade_result %> <% } else {
+                      %> N/A <% } %>
+                    </td>
+                    <td>
+                      <% if (module.resit_grade !== null && module.resit_grade
+                      !== undefined) { %> <%= module.resit_grade %> <% } else {
+                      %> N/A <% } %>
+                    </td>
+                    <td>
+                      <% if (module.resit_result !== null && module.resit_result
+                      !== undefined) { %> <%= module.resit_result %> <% } else {
+                      %> N/A <% } %>
+                    </td>
+                    <td><%= module.academic_year %></td>
+                    <td><%= module.entry_level %></td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
           </div>
+
           <!-- </div> -->
         </div>
       </div>
