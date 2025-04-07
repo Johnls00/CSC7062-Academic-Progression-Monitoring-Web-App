@@ -19,8 +19,9 @@ async function getStudentData(userId) {
 
 //Get student data by `student_id`
 async function getStudentBySId(studentId) {
+  console.log ("searching in model for - ", studentId);
   const [studentData] = await connection.query(
-    "SELECT * FROM `student` WHERE `student_id` = ?",
+    "SELECT * FROM `student` WHERE `sId` = ?",
     [studentId]
   );
   if (!studentData) {
@@ -31,6 +32,7 @@ async function getStudentBySId(studentId) {
   if (studentData.length === 0) {
     return null; // No student found
   }
+  console.log ("user for in search ", studentData); //debug line 
   return studentData; // Return the first student found
 }
 

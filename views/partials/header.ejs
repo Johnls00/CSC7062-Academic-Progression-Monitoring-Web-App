@@ -24,17 +24,18 @@
                 <strong>Student Dashboard</strong>
               </a>
               <a class="button is-light" href="/student-dashboard/profile">Profile</a>
-              <a class="button is-light" href="/student-dashboard/courses">Courses</a>
-              <a class="button is-light" href="/student-dashboard/progress">Progress</a>
+              <a class="button is-light" href="/student-dashboard/courses">Modules</a>
+              <a class="button is-light" href="/student-dashboard/progress">Degree Progress</a>
               <a class="button is-light" href="/student-dashboard/notifications">Notifications</a>
             </a> 
             
             <% } else if (user && user.role === 'admin') { %>
-              <a class="button is-primary rounded-button" href="/admin">
+              <a class="button is-primary rounded-button" href="/admin/admin-dashboard">
                 <strong>Admin Dashboard</strong>
               </a>
               <a class="button is-light" href="/admin/students">Students</a>
-              <a class="button is-light" href="/admin/courses">Courses</a>
+              <a class="button is-light" href="/admin/programs">Degree Programs</a>
+              <a class="button is-light" href="/admin/courses">Modules</a>
             
             <% } else { %>
             <% } %>

@@ -21,8 +21,10 @@
       <%- include('../partials/header.ejs') %> <%-
       include('../partials/dashboard-pages-welcome.ejs') %>
 
-      <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
-        
+      <div class="main has-background-white p-6 mtopclear mybk3 rounded-box"><% console.log("student passed through", student) %>
+        <p class="title" style="padding-bottom: 1rem">
+          <span></span>hello <%= student.sId %> <%= student.first_name %> <%= student.last_name %>
+          
       </div>
     </div>
     

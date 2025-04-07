@@ -54,7 +54,9 @@ exports.showStudents = async (req, res) => {
 exports.viewStudent = async (req, res) => {
   try {
     const studentId = req.params.id;
-    const student = await studentModel.getStudentBySId(studentId); // Adjust this to your actual function
+    console.log("searching for - ", studentId);
+    const student = await studentModel.getStudentBySId(studentId);
+    console.log(student);
 
     if (!student) {
       return res.status(404).send("Student not found");
@@ -63,7 +65,7 @@ exports.viewStudent = async (req, res) => {
     res.render("admin/student-details", {
       title: "Student Details",
       user: req.session.user,
-      student
+      student: student[0],
     });
 
   } catch (err) {
