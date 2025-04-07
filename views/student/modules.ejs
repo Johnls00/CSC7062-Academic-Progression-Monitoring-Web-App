@@ -34,7 +34,8 @@
             <table class="table is-fullwidth">
               <thead>
                 <tr>
-                  <th>Module Code</th>
+                  <<th>Subject Code</th>
+                  <th>Subject Catalog</th>
                   <th style="width: 10rem;" >Module Name</th>
                   <th>Grade</th>
                   <th>Grade Result</th>
@@ -49,6 +50,7 @@
                 <tr>
                   
                   <td><%= module.subject_code %></td>
+                  <td><%= module.subject_catalog %></td>
                   <td><%= module.module_title %></td>
                   <td>
                     <% if (module.first_grade !== null && module.first_grade !==
