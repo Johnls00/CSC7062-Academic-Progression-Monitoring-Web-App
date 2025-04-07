@@ -21,10 +21,10 @@ router.get('/admin/student/:id', ensureAuth, ensureAdmin, adminController.viewSt
 // router.post('/admin/course/delete/:id', ensureAuth, ensureAdmin, adminController.deleteCourse);
 
 // Reports
-// router.get('/admin/reports', ensureAuth, ensureAdmin, adminController.generateReports);
+router.get('/admin/reports', ensureAuth, ensureAdmin, adminController.generateReports);
 
 // Notification Management
-// router.get('/admin/notifications', ensureAuth, ensureAdmin, adminController.showNotifications);
+router.get('/admin/notifications', ensureAuth, ensureAdmin, adminController.showNotifications);
 // router.post('/admin/notifications/send', ensureAuth, ensureAdmin, adminController.sendNotification);
 
 module.exports = router;

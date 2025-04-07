@@ -143,13 +143,13 @@ exports.viewStudent = async (req, res) => {
 //   res.redirect('/admin/courses');
 // };
 
-// exports.generateReports = (req, res) => {
-//   res.render('admin/reports', { title: 'Reports', user: req.user });
-// };
+exports.generateReports = (req, res) => {
+  res.render('admin/reports', { title: 'Reports', user: req.user });
+};
 
-// exports.showNotifications = (req, res) => {
-//   res.render('admin/notifications', { title: 'Manage Notifications', user: req.user });
-// };
+exports.showNotifications = (req, res) => {
+  res.render('admin/notifications', { title: 'Manage Notifications', user: req.user });
+};
 
 // exports.sendNotification = (req, res) => {
 //   // Logic to send notifications
