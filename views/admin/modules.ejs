@@ -18,162 +18,103 @@
 
   <body class="container-main">
     <div class="container mTop">
-      <%- include('../partials/header.ejs') %> <%-
-      include('../partials/dashboard-pages-welcome.ejs') %>
-
-      <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
-        <div class="columns">
-          <div class="column">
-            <div class="control">
+        <%- include('../partials/header.ejs') %> 
+        <%- include('../partials/dashboard-pages-welcome.ejs') %>
+      
+        <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
+          <div class="columns is-multiline">
+            
+            <!-- Search Input -->
+            <div class="column is-half">
               <input
                 id="ModuleSearch"
-                style="vertical-align: middle"
                 class="input"
                 type="text"
-                placeholder="Search by Progamme code or name"
+                placeholder="Search by Programme code or name"
               />
             </div>
-          </div>
-          <div class="column">
-            <a
-              href="/admin/module/new"
-              style="vertical-align: middle"
-              class="button is-primary is-pulled-right"
-            >
-              Add New Module
-            </a>
-          </div>
-        </div>
-
-        <div
-          class="column is-full is-flex is-justify-content-center is-align-items-center"
-        >
-          <div class="scroll-table-container">
-            <table class="sticky-header">
-              <thead>
-                <tr>
-                  <th
-                    style="
-                      width: 5rem;
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                    "
-                  ></th>
-                  <th
-                    style="
-                      width: 15rem;
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                    "
-                  >
-                    subject Code
-                  </th>
-                  <th
-                    style="
-                      width: 15rem;
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                    "
-                  >
-                    subject catalog
-                  </th>
-                  <th
-                    style="
-                      width: 15rem;
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                    "
-                  >
-                    Module title
-                  </th>
-                  <th
-                    style="
-                      width: 15rem;
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                    "
-                  >
-                    Credit Value
-                  </th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <% let count = 0; %> <% modules.forEach((module) => { %>
-
-                <tr>
-                  <% count++; %>
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  >
-                    <%= count %>
-                  </td>
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  >
-                    <%= module.subject_code %>
-                  </td>
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  >
-                    <%= module.subject_catalog %>
-                  </td>
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  >
-                    <%= module.module_title %>
-                  </td>
-                  <td
-                  style="
-                    text-align: left;
-                    vertical-align: middle;
-                    padding: 0.75rem;
-                    font-size: 0.95rem;
-                  "
-                >
-                  <%= module.credit_value %>
-                </td>
-                <td>
-                    <a
-                      href=""
-                      class="button is-primary"
-                      >Delete Module</a
-                    >
-                  </td>
-                </tr>
-
-                <% }) %>
-              </tbody>
-            </table>
+      
+            <!-- Add Module Button -->
+            <div class="column is-half">
+              <a
+                href="#"
+                onclick="showNewModuleForm(event)"
+                class="button is-primary is-pulled-right"
+              >
+                Add New Module
+              </a>
+            </div>
+      
+            <!-- Hidden New Module Form -->
+            <div class="column is-full is-flex is-justify-content-center">
+              <div id="newModuleForm" class="box " style="display: none; margin-top: 1rem;">
+                <form action="/admin/module/new" method="POST">
+                  <table class="table is-fullwidth">
+                    <thead>
+                      <tr>
+                        <th>Subject Code</th>
+                        <th>Subject Catalog</th>
+                        <th>Module Title</th>
+                        <th>Credits</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><input class="input" type="text" name="subjectCode" required></td>
+                        <td><input class="input" type="text" name="subjectCatalog" required></td>
+                        <td><input class="input" type="text" name="moduleTitle" required></td>
+                        <td><input class="input" type="number" name="credits" required></td>
+                        <td><button type="submit" class="button is-success">Create</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </form>
+              </div>
+            </div>
+            
+            <!-- Modules Table -->
+            <div class="column is-full">
+              <div class="scroll-table-container">
+                <table class="table is-fullwidth is-hoverable sticky-header">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Subject Code</th>
+                      <th>Subject Catalog</th>
+                      <th>Module Title</th>
+                      <th>Credit Value</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% let count = 0; %>
+                    <% modules.forEach((module) => { count++; %>
+                      <tr>
+                        <td><%= count %></td>
+                        <td><%= module.subject_code %></td>
+                        <td><%= module.subject_catalog %></td>
+                        <td><%= module.module_title %></td>
+                        <td><%= module.credit_value %></td>
+                        <td><a href="#" class="button is-danger">Delete</a></td>
+                      </tr>
+                    <% }); %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+      
           </div>
         </div>
       </div>
-    </div>
+
     <script src="/js/module-search.js"></script>
+    <script>
+        function showNewModuleForm(event) {
+          event.preventDefault();
+          const form = document.getElementById("newModuleForm");
+          form.style.display = form.style.display === "none" ? "block" : "none";
+        }
+      </script>
   </body>
 </html>
