@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Modules</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/degrees.css" />
+  </head>
+
+  <body class="container-main">
+    <div class="container mTop">
+      <%- include('../partials/header.ejs') %> <%-
+      include('../partials/dashboard-pages-welcome.ejs') %>
+
+      <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
+        <div class="columns">
+          <div class="column">
+            <div class="control">
+              <input
+                id="ModuleSearch"
+                style="vertical-align: middle"
+                class="input"
+                type="text"
+                placeholder="Search by Progamme code or name"
+              />
+            </div>
+          </div>
+          <div class="column">
+            <a
+              href="/admin/module/new"
+              style="vertical-align: middle"
+              class="button is-primary is-pulled-right"
+            >
+              Add New Module
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="column is-full is-flex is-justify-content-center is-align-items-center"
+        >
+          <div class="scroll-table-container">
+            <table class="sticky-header">
+              <thead>
+                <tr>
+                  <th
+                    style="
+                      width: 5rem;
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                    "
+                  ></th>
+                  <th
+                    style="
+                      width: 15rem;
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                    "
+                  >
+                    subject Code
+                  </th>
+                  <th
+                    style="
+                      width: 15rem;
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                    "
+                  >
+                    subject catalog
+                  </th>
+                  <th
+                    style="
+                      width: 15rem;
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                    "
+                  >
+                    Module title
+                  </th>
+                  <th
+                    style="
+                      width: 15rem;
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                    "
+                  >
+                    Credit Value
+                  </th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% let count = 0; %> <% modules.forEach((module) => { %>
+
+                <tr>
+                  <% count++; %>
+                  <td
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                      font-size: 0.95rem;
+                    "
+                  >
+                    <%= count %>
+                  </td>
+                  <td
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                      font-size: 0.95rem;
+                    "
+                  >
+                    <%= module.subject_code %>
+                  </td>
+                  <td
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                      font-size: 0.95rem;
+                    "
+                  >
+                    <%= module.subject_catalog %>
+                  </td>
+                  <td
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                      font-size: 0.95rem;
+                    "
+                  >
+                    <%= module.module_title %>
+                  </td>
+                  <td
+                  style="
+                    text-align: left;
+                    vertical-align: middle;
+                    padding: 0.75rem;
+                    font-size: 0.95rem;
+                  "
+                >
+                  <%= module.credit_value %>
+                </td>
+                <td>
+                    <a
+                      href=""
+                      class="button is-primary"
+                      >Delete Module</a
+                    >
+                  </td>
+                </tr>
+
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/js/module-search.js"></script>
+  </body>
+</html>
