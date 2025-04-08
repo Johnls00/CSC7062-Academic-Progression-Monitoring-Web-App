@@ -10,6 +10,16 @@ async function getProgramInfo(programCode) {
   }
 }
 
+async function getAllPrograms() {
+  try {
+    const [results] = await connection.query("SELECT * FROM `program`");
+    return results;
+  } catch (err) {
+    throw new Error("Failed to fetch program data");
+  }
+}
+
 module.exports = {
   getProgramInfo,
+  getAllPrograms
 };

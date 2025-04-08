@@ -18,7 +18,7 @@
         <div class="navbar-start">
           <div class="navbar-item is-flex">
             
-            <a class="buttons">
+            <a class="buttons is-flex">
               <% if (user && user.role === 'student') { %>
               <a class="button is-primary rounded-button" href="/student-dashboard">
                 <strong>Student Dashboard</strong>
@@ -46,8 +46,8 @@
         </div>
         
         <div class="navbar-end">
-          <div class="navbar-item is-flex">
-            <div class="buttons">
+          <div class="navbar-item">
+            <div class="buttons is-flex">
               <% if (user && user.role === 'student') { %>
                 
                

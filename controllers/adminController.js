@@ -110,11 +110,12 @@ exports.viewStudent = async (req, res) => {
 exports.showDegreePrograms = async (req, res) => {
   try {
 
+    const degrees = await programModels.getAllPrograms();
 
     res.render("admin/degree-programs", {
       title: "Degree Programs",
       user: req.session.user,
-
+      degrees: degrees,
     })
   } catch (err) {
     console.error("Error fetching student:", err);

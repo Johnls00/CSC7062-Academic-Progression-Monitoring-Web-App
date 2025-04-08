@@ -26,15 +26,17 @@
     'Admin Dashboard') { %>
     <p class="title">Welcome, Admin</p>
     <p class="subtitle-page-title">
-      This is the Academic Progress Monitoring Systems Dashboard
+      Welcome to the Academic Progress Monitoring Systems Dashboard
     </p>
     <p class="subtitle-page-title">
       You can manage students and courses from here
     </p>
     <% } else if (title === 'Student Management') { %>
-    <p class="subtitle-page-title">Student Management</p>
+    <p class="title">Student Management</p>
     <% } else if (title === 'Student Details') { %>
     <p class="title">Student Details:</p>
+    <% } else if (title === 'Degree Programs') { %>
+      <p class="title">Manage Degree Programs</p>
 
     <% } else if (title === 'Course Management') { %>
     <p class="subtitle-page-title">Course Management</p>

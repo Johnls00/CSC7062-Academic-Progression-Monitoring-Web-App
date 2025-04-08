@@ -13,7 +13,7 @@
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
     />
     <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/.css" />
+    <link rel="stylesheet" href="/css/degrees.css" />
   </head>
 
   <body class="container-main">
@@ -22,7 +22,127 @@
       include('../partials/dashboard-pages-welcome.ejs') %>
 
       <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
+        <div class="columns">
+            <div class="column">
+              <div class="control">
+                <input
+                  id="DegreeSearch"
+                  style="vertical-align: middle"
+                  class="input"
+                  type="text"
+                  placeholder="Search by Progamme code or name"
+                />
+              </div>
+            </div>
+            <div class="column">
+              <a
+                href="/admin/degree/new"
+                style="vertical-align: middle"
+                class="button is-primary is-pulled-right"
+              >
+                Add New Degree Program
+              </a>
+            </div>
+          </div>
+  
+          <div class="column is-full is-flex is-justify-content-center is-align-items-center">
+            <div class="scroll-table-container">
+              <table class="sticky-header">
+                <thead>
+                  <tr>
+                    <th
+                      style="
+                        width: 5rem;
+                        text-align: left;
+                        vertical-align: middle;
+                        padding: 0.75rem;
+                      "
+                    >
+  
+                    </th>
+                    <th
+                      style="
+                        width: 15rem;
+                        text-align: left;
+                        vertical-align: middle;
+                        padding: 0.75rem;
+                      "
+                    >
+                      Program Code
+                    </th>
+                    <th
+                      style="
+                        width: 15rem;
+                        text-align: left;
+                        vertical-align: middle;
+                        padding: 0.75rem;
+                      "
+                    >
+                      Program Name
+                    </th>
+                    <th></th>
+                  </tr> 
+                </thead>
+                <tbody>
+                  <% let count = 0; %>
+                  <% degrees.forEach((degree) => { %>
+                    
+                  <tr>
+                    <% count++; %>
+                    <td
+                      style="
+                        text-align: left;
+                        vertical-align: middle;
+                        padding: 0.75rem;
+                        font-size: 0.95rem;
+                      "
+                    >
+                      <%= count %>
+                    </td>
+                    <td
+                      style="
+                        text-align: left;
+                        vertical-align: middle;
+                        padding: 0.75rem;
+                        font-size: 0.95rem;
+                      "
+                    >
+                      <%= degree.program_code %>
+                    </td>
+                    <td
+                      style="
+                        text-align: left;
+                        vertical-align: middle;
+                        padding: 0.75rem;
+                        font-size: 0.95rem;
+                      "
+                    >
+                      <%= degree.name %>
+                    </td>
+                    <td
+                      style="
+                        text-align: left;
+                        vertical-align: middle;
+                        padding: 0.75rem;
+                        font-size: 0.95rem;
+                      "
+                    >
+                    <td>
+                      <a
+                        href="/admin/degree/<%= degree.program_id %>"
+                        class="button is-primary"
+                        >View details</a
+                      >
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
       </div>
     </div>
+    <script src="/js/degree-search.js"></script>
   </body>
 </html>
