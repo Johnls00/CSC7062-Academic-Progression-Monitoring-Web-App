@@ -61,11 +61,10 @@ exports.viewStudent = async (req, res) => {
   try {
     const studentId = req.params.id;
     const student = await studentModel.getStudentBySId(studentId);
-    console.log("student info " ,student);
     const user_data = await studentModel.getStudentUserData(student[0].user_id);
-    console.log("user data ", user_data);
-    const module_data = await studentModel.getModulesByStudentId(student[0].student_id);
-    console.log("module data", module_data)
+    const module_data = await studentModel.getModulesByStudentId(
+      student[0].student_id
+    );
 
     const program_code = student[0].sId.substring(3, 7);
 
@@ -108,6 +107,21 @@ exports.viewStudent = async (req, res) => {
   }
 };
 
+exports.showDegreePrograms = async (req, res) => {
+  try {
+
+
+    res.render("admin/degree-programs", {
+      title: "Degree Programs",
+      user: req.session.user,
+
+    })
+  } catch (err) {
+    console.error("Error fetching student:", err);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
 // exports.addStudent = (req, res) => {
 //   // Logic to add a new student
 //   res.redirect('/admin/students');
@@ -144,11 +158,14 @@ exports.viewStudent = async (req, res) => {
 // };
 
 exports.generateReports = (req, res) => {
-  res.render('admin/reports', { title: 'Reports', user: req.user });
+  res.render("admin/reports", { title: "Reports", user: req.user });
 };
 
 exports.showNotifications = (req, res) => {
-  res.render('admin/notifications', { title: 'Manage Notifications', user: req.user });
+  res.render("admin/notifications", {
+    title: "Manage Notifications",
+    user: req.user,
+  });
 };
 
 // exports.sendNotification = (req, res) => {
