@@ -6,62 +6,65 @@
   <!-- Navigation Header -->
   <header class="mTop rounded-box">
     <nav class="has-background-white navbar rounded-box" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasic">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
+
+      <div class="navbar-burger js-burger" data-target="navbarExampleTransparentExample">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-  
-      <div id="navbarBasic" class="navbar-menu">
-        <div class="navbar-start">
-          <div class="navbar-item is-flex">
-            
-            <a class="buttons is-flex">
-              <% if (user && user.role === 'student') { %>
-              <a class="button is-primary rounded-button" href="/student-dashboard">
-                <strong>Student Dashboard</strong>
-              </a>
-              <a class="button is-light" href="/student-dashboard/profile">Profile</a>
-              <a class="button is-light" href="/student-dashboard/modules">Modules</a>
-              <a class="button is-light" href="/student-dashboard/progress">Degree Progress</a>
-              <a class="button is-light" href="/student-dashboard/notifications">Notifications</a>
-            </a> 
-            
-            <% } else if (user && user.role === 'admin') { %>
-              <a class="button is-primary rounded-button" href="/admin/admin-dashboard">
-                <strong>Admin Dashboard</strong>
-              </a>
-              <a class="button is-light" href="/admin/students">Students</a>
-              <a class="button is-light" href="/admin/degree-programs">Degree Programs</a>
-              <a class="button is-light" href="/admin/courses">Modules</a>
-              <a class="button is-light" href="/admin/reports">Reports</a>
-              <a class="button is-light" href="/admin/notifications">Notifications</a>
-            
-            <% } else { %>
-            <% } %>
-            </a>
-          </div>
-        </div>
-        
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons is-flex">
-              <% if (user && user.role === 'student') { %>
-                
-               
-                <a class="button is-danger" href="/logout">Log Out</a>
+    
+
+      <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <div class="navbar-item is-flex">
+              
+              <a class="buttons is-flex">
+                <% if (user && user.role === 'student') { %>
+                <a class="button is-primary rounded-button" href="/student-dashboard">
+                  <strong>Student Dashboard</strong>
+                </a>
+                <a class="button is-light" href="/student-dashboard/profile">Profile</a>
+                <a class="button is-light" href="/student-dashboard/modules">Modules</a>
+                <a class="button is-light" href="/student-dashboard/progress">Degree Progress</a>
+                <a class="button is-light" href="/student-dashboard/notifications">Notifications</a>
+              </a> 
+              
               <% } else if (user && user.role === 'admin') { %>
-                
-                <a class="button is-danger" href="/logout">Logout</a>
+                <a class="button is-primary rounded-button" href="/admin/admin-dashboard">
+                  <strong>Admin Dashboard</strong>
+                </a>
+                <a class="button is-light" href="/admin/students">Students</a>
+                <a class="button is-light" href="/admin/degree-programs">Degree Programs</a>
+                <a class="button is-light" href="/admin/modules">Modules</a>
+                <a class="button is-light" href="/admin/reports">Reports</a>
+                <a class="button is-light" href="/admin/notifications">Notifications</a>
+              
               <% } else { %>
-                <a class="button is-primary rounded-button" href="/login">Login</a>
-                <a class="button is-light" href="/register">Register</a>
               <% } %>
+              </a>
             </div>
           </div>
-        </div>
+          
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons is-flex">
+                <% if (user && user.role === 'student') { %>
+                  
+                 
+                  <a class="button is-danger" href="/logout">Log Out</a>
+                <% } else if (user && user.role === 'admin') { %>
+                  
+                  <a class="button is-danger" href="/logout">Logout</a>
+                <% } else { %>
+                  <a class="button is-primary rounded-button" href="/login">Login</a>
+                  <a class="button is-light" href="/register">Register</a>
+                <% } %>
+              </div>
+            </div>
+          </div>
+          
+          
       </div>
     </nav>
   </header>

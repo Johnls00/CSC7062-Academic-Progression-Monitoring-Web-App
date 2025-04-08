@@ -1,5 +1,18 @@
 const connection = require('../config/config');
 
+async function getAllModules() {
+  try {
+    const [modules] = await connection.query("SELECT * FROM `module`");
+
+    return modules;
+
+  }catch (err) {
+    throw new Error("Failed to fetch modules");
+  }
+}
+
+
+
 async function getModuleInfo(moduleId) {
     try {
       const [moduleInfo] = await connection.query(
@@ -13,5 +26,6 @@ async function getModuleInfo(moduleId) {
   }
 
   module.exports = {
+    getAllModules,
     getModuleInfo
   };

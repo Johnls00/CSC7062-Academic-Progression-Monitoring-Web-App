@@ -16,9 +16,9 @@ router.get('/admin/student/:id', ensureAuth, ensureAdmin, adminController.viewSt
 
 // Manage degrees 
 router.get('/admin/degree-programs', ensureAuth, ensureAdmin, adminController.showDegreePrograms);
-
-// Manage Courses
-// router.get('/admin/courses', ensureAuth, ensureAdmin, adminController.listCourses);
+router.get('/admin/degree-details/:id', ensureAuth, ensureAdmin, adminController.showDegreeDetails);
+// Manage Modules
+router.get('/admin/modules', ensureAuth, ensureAdmin, adminController.showModules);
 // router.post('/admin/course/add', ensureAuth, ensureAdmin, adminController.addCourse);
 // router.post('/admin/course/update/:id', ensureAuth, ensureAdmin, adminController.updateCourse);
 // router.post('/admin/course/delete/:id', ensureAuth, ensureAdmin, adminController.deleteCourse);

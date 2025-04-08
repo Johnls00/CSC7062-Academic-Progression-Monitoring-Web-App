@@ -68,7 +68,7 @@
                       padding: 0.75rem;
                     "
                   >
-                    Program Code
+                    subject Code
                   </th>
                   <th
                     style="
@@ -78,13 +78,63 @@
                       padding: 0.75rem;
                     "
                   >
-                    Program Name
+                    subject catalog
                   </th>
-                  <th></th>
+                  <th
+                    style="
+                      width: 15rem;
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                    "
+                  >
+                    Module title
+                  </th>
+                  <th
+                    style="
+                      width: 15rem;
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                    "
+                  >
+                    Semester
+                  </th>
+                  <th
+                    style="
+                      width: 15rem;
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                    "
+                  >
+                    Level
+                  </th>
+                  <th
+                    style="
+                      width: 15rem;
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                    "
+                  >
+                    Core module
+                  </th>
+
+                  <th
+                    style="
+                      width: 15rem;
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                    "
+                  >
+                    credit value
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                <% let count = 0; %> <% degrees.forEach((degree) => { %>
+                <% let count = 0; %> <% program_modules.forEach((module) => { %>
 
                 <tr>
                   <% count++; %>
@@ -106,7 +156,7 @@
                       font-size: 0.95rem;
                     "
                   >
-                    <%= degree.program_code %>
+                    <%= module.subject_code %>
                   </td>
                   <td
                     style="
@@ -116,7 +166,7 @@
                       font-size: 0.95rem;
                     "
                   >
-                    <%= degree.name %>
+                    <%= module.subject_catalog %>
                   </td>
                   <td
                     style="
@@ -125,15 +175,64 @@
                       padding: 0.75rem;
                       font-size: 0.95rem;
                     "
-                  ></td>
-                  <td>
-                    <a
-                      href="/admin/degree-details/<%= degree.program_id %>"
-                      class="button is-primary"
-                      >View details</a
-                    >
+                  >
+                    <%= module.module_title %>
                   </td>
+
+                  <td
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                      font-size: 0.95rem;
+                    "
+                  >
+                    <%= module.semester %>
+                  </td>
+
+                  <td
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                      font-size: 0.95rem;
+                    "
+                  >
+                    <%= String(module.subject_catalog).substring(0,1) %>
+                  </td>
+                  <td
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                      font-size: 0.95rem;
+                    "
+                  >
+                    <% if (module.is_core === 1) { %> Yes <% } else if
+                    (module.is_core === 0) { %> No <% } %>
+                  </td>
+
+                  <td
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                      font-size: 0.95rem;
+                    "
+                  >
+                    <%= module.credit_value %>
+                  </td>
+
+                  <td
+                    style="
+                      text-align: left;
+                      vertical-align: middle;
+                      padding: 0.75rem;
+                      font-size: 0.95rem;
+                    "
+                  ></td>
                 </tr>
+
                 <% }) %>
               </tbody>
             </table>

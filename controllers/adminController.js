@@ -1,6 +1,7 @@
 // controllers/adminController.js
 const studentModel = require("../models/studentModel");
 const programModels = require("../models/programModels");
+const moduleModel = require("../models/moduleModel");
 
 exports.showDashboard = async (req, res) => {
   try {
@@ -115,7 +116,40 @@ exports.showDegreePrograms = async (req, res) => {
     res.render("admin/degree-programs", {
       title: "Degree Programs",
       user: req.session.user,
-      degrees: degrees,
+      degrees,
+    })
+  } catch (err) {
+    console.error("Error fetching student:", err);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+exports.showDegreeDetails = async (req, res) => {
+  try {
+    const program_id = req.params.id;
+    const program_details = await programModels.getProgramInfoWithProgramId(program_id);
+    const program_modules = await programModels.getProgramModulesDetails(program_id);
+
+    res.render("admin/degree-details", {
+      title: "Degree Details",
+      user: req.session.user,
+      program_details: program_details[0],
+      program_modules: program_modules,
+    })
+  } catch (err) {
+    console.error("Error fetching student:", err);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+exports.showModules = async (req, res) => {
+  try {
+    const modules = await moduleModel.getAllModules();
+
+    res.render("admin/modules", {
+      title: "Manage Modules",
+      user: req.session.user,
+      modules: modules,
     })
   } catch (err) {
     console.error("Error fetching student:", err);

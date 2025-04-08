@@ -4,6 +4,7 @@
 
 <section class="hero is-info mb-5 rounded-box">
   <div class="hero-body">
+    <!-- Student side -->
     <% if (user && user.role === 'student') { %>
     <p class="title">
       Welcome, <%= studentData[0].first_name %> <%= studentData[0].last_name %>
@@ -22,6 +23,8 @@
     <p class="subtitle-page-title">Student Courses Overview</p>
     <% } else if (title === 'Notifications') { %>
     <p class="subtitle-page-title">Student Notifications Overview</p>
+
+    <!-- admin side -->
     <% } %> <% } else if (user && user.role === 'admin') { %> <% if (title ===
     'Admin Dashboard') { %>
     <p class="title">Welcome, Admin</p>
@@ -36,7 +39,10 @@
     <% } else if (title === 'Student Details') { %>
     <p class="title">Student Details:</p>
     <% } else if (title === 'Degree Programs') { %>
-      <p class="title">Manage Degree Programs</p>
+    <p class="title">Manage Degree Programs</p>
+    <% } else if (title === 'Degree Details') { %>
+    <p class="title">Manage Modules For:</p>
+    <p class="sub-title"><%= program_details.name %></p>
 
     <% } else if (title === 'Course Management') { %>
     <p class="subtitle-page-title">Course Management</p>
