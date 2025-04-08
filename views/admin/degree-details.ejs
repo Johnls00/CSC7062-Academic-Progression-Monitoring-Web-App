@@ -45,194 +45,33 @@
           </div>
         </div>
 
-        <div
-          class="column is-full is-flex is-justify-content-center is-align-items-center"
-        >
+        <div class="column is-full is-flex is-justify-content-center is-align-items-center">
           <div class="scroll-table-container">
             <table class="sticky-header">
               <thead>
                 <tr>
-                  <th
-                    style="
-                      width: 5rem;
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                    "
-                  ></th>
-                  <th
-                    style="
-                      width: 15rem;
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                    "
-                  >
-                    subject Code
-                  </th>
-                  <th
-                    style="
-                      width: 15rem;
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                    "
-                  >
-                    subject catalog
-                  </th>
-                  <th
-                    style="
-                      width: 15rem;
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                    "
-                  >
-                    Module title
-                  </th>
-                  <th
-                    style="
-                      width: 15rem;
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                    "
-                  >
-                    Semester
-                  </th>
-                  <th
-                    style="
-                      width: 15rem;
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                    "
-                  >
-                    Level
-                  </th>
-                  <th
-                    style="
-                      width: 15rem;
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                    "
-                  >
-                    Core module
-                  </th>
-
-                  <th
-                    style="
-                      width: 15rem;
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                    "
-                  >
-                    credit value
-                  </th>
+                  <th>#</th>
+                  <th>subject Code</th>
+                  <th>subject catalog</th>
+                  <th>Module title</th>
+                  <th>Semester</th>
+                  <th>Level</th>
+                  <th>Core module</th>
+                  <th>credit value</th>
                 </tr>
               </thead>
               <tbody>
-                <% let count = 0; %> <% program_modules.forEach((module) => { %>
-
-                <tr>
-                  <% count++; %>
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  >
-                    <%= count %>
-                  </td>
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  >
-                    <%= module.subject_code %>
-                  </td>
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  >
-                    <%= module.subject_catalog %>
-                  </td>
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  >
-                    <%= module.module_title %>
-                  </td>
-
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  >
-                    <%= module.semester %>
-                  </td>
-
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  >
-                    <%= String(module.subject_catalog).substring(0,1) %>
-                  </td>
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  >
-                    <% if (module.is_core === 1) { %> Yes <% } else if
-                    (module.is_core === 0) { %> No <% } %>
-                  </td>
-
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  >
-                    <%= module.credit_value %>
-                  </td>
-
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  ></td>
+                <% let count = 0; %> <% program_modules.forEach((module) => { count++; %>
+                  <tr>
+                  <td><%= count %></td>
+                  <td><%= module.subject_code %></td>
+                  <td><%= module.subject_catalog %></td>
+                  <td><%= module.module_title %></td>
+                  <td><%= module.semester %></td>
+                  <td><%= String(module.subject_catalog).substring(0,1) %></td>
+                  <td><% if (module.is_core === 1) { %> Yes <% } else if (module.is_core === 0) { %> No <% } %></td>
+                  <td><%= module.credit_value %></td>
                 </tr>
-
                 <% }) %>
               </tbody>
             </table>
