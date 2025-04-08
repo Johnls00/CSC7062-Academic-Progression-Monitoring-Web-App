@@ -22,8 +22,8 @@
       include('../partials/dashboard-pages-welcome.ejs') %>
 
       <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
-        <div class="columns">
-          <div class="column">
+        <div class="columns is-multiline">
+          <div class="column is-half">
             <div class="control">
               <input
                 id="DegreeSearch"
@@ -34,7 +34,7 @@
               />
             </div>
           </div>
-          <div class="column">
+          <div class="column is-half">
             <a
               href="/admin/degree/new"
               style="vertical-align: middle"
@@ -45,87 +45,23 @@
           </div>
         </div>
 
-        <div
-          class="column is-full is-flex is-justify-content-center is-align-items-center"
-        >
-          <div class="scroll-table-container">
-            <table class="sticky-header">
+        <div class="column is-full is-flex is-justify-content-center is-align-items-center">
+          <div class="scroll-table-container ">
+            <table class="table is-fullwidth is-hoverable sticky-header">
               <thead>
                 <tr>
-                  <th
-                    style="
-                      width: 5rem;
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                    "
-                  ></th>
-                  <th
-                    style="
-                      width: 15rem;
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                    "
-                  >
-                    Program Code
-                  </th>
-                  <th
-                    style="
-                      width: 15rem;
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                    "
-                  >
-                    Program Name
-                  </th>
+                  <th>#</th>
+                  <th>Program Code</th>
+                  <th>Program Name</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                <% let count = 0; %> <% degrees.forEach((degree) => { %>
-
+                <% let count = 0; %> <% degrees.forEach((degree) => { count++;%>
                 <tr>
-                  <% count++; %>
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  >
-                    <%= count %>
-                  </td>
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  >
-                    <%= degree.program_code %>
-                  </td>
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  >
-                    <%= degree.name %>
-                  </td>
-                  <td
-                    style="
-                      text-align: left;
-                      vertical-align: middle;
-                      padding: 0.75rem;
-                      font-size: 0.95rem;
-                    "
-                  ></td>
+                  <td><%= count %></td>
+                  <td><%= degree.program_code %></td>
+                  <td><%= degree.name %></td>
                   <td>
                     <a
                       href="/admin/degree-details/<%= degree.program_id %>"
