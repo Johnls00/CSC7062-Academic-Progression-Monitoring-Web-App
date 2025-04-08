@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Details</title>
+    <title>title</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
@@ -19,7 +19,7 @@
   <body class="container-main">
     <div class="container mTop" style="width: 90%">
       <%- include('../partials/header.ejs') %>
-      <!-- <%- include('../partials/dashboard-pages-welcome.ejs') %> -->
+      <%- include('../partials/dashboard-pages-welcome.ejs') %>
 
       <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
         <div class="columns is-mobile">
@@ -36,9 +36,6 @@
         </div>
 
         <hr />
-
-        <h1 class="title">Student Details</h1>
-
         <div class="columns is-mobile">
           <div
             class="column is-half is-flex is-justify-content-center is-align-items-center"
@@ -65,14 +62,32 @@
                   class="column is-half has-text-weight-bold is-flex is-justify-content-center is-align-items-center"
                   style="width: 15rem"
                 >
-                  Student Name:
+                  Student First Name:
                 </div>
                 <div class="column">
                   <input
                     class="input"
                     type="text"
                     name="name"
-                    value="<%= student.first_name %> <%= student.last_name %>"
+                    value="<%= student.first_name %>"
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <div class="columns">
+                <div
+                  class="column is-half has-text-weight-bold is-flex is-justify-content-center is-align-items-center"
+                  style="width: 15rem"
+                >
+                  Student Last Name:
+                </div>
+                <div class="column">
+                  <input
+                    class="input"
+                    type="text"
+                    name="name"
+                    value="<%= student.last_name %>"
                     disabled
                   />
                 </div>
