@@ -14,16 +14,6 @@
   margin-top: 1rem;
 }
 
-/* .main-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 0rem;
-    width: 100%;  Make the main content stretch full width
-    height: 90%;  Adjust this as needed
-} */
-
 h1.title {
   text-align: center;
   font-size: 1.4rem;
@@ -82,13 +72,6 @@ th {
   margin-top: 1rem;
 }
 
-/* .container-users {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: 100vh; Ensure the container takes full screen height
-} */
-
 .box {
   width: 100%;
   padding: 30px;
@@ -142,29 +125,3 @@ th {
 .rounded-button {
   border-radius: 50px;
 }
-
-/* .profile-information li{
-    border-left: solid 2px #eee;
-    padding: 0 0 23px 20px;
-}
-.profile-information li p{
-    font-size: 13.5px;
-    color: #7F7F7F;
-}
-.profile-information li span{
-    color: #000;
-}
-ul.profile-information li:before{
-    content: "";
-    border: solid 2px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50px;
-    font-size: 8px;
-    margin-left: -25px;
-    margin-top: 2px;
-    font-weight: 400;
-    background: #fff;
-    display: block;
-    position: absolute;
-} */

@@ -2,6 +2,8 @@
 const studentModel = require("../models/studentModel");
 const programModels = require("../models/programModels");
 const moduleModel = require("../models/moduleModel");
+const messageModel = require("../models/messageModel");
+const notificationModel = require("..//models/notificationModel");
 
 exports.showDashboard = async (req, res) => {
   try {
@@ -110,14 +112,13 @@ exports.viewStudent = async (req, res) => {
 
 exports.showDegreePrograms = async (req, res) => {
   try {
-
     const degrees = await programModels.getAllPrograms();
 
     res.render("admin/degree-programs", {
       title: "Degree Programs",
       user: req.session.user,
       degrees,
-    })
+    });
   } catch (err) {
     console.error("Error fetching student:", err);
     res.status(500).send("Internal Server Error");
@@ -127,15 +128,19 @@ exports.showDegreePrograms = async (req, res) => {
 exports.showDegreeDetails = async (req, res) => {
   try {
     const program_id = req.params.id;
-    const program_details = await programModels.getProgramInfoWithProgramId(program_id);
-    const program_modules = await programModels.getProgramModulesDetails(program_id);
+    const program_details = await programModels.getProgramInfoWithProgramId(
+      program_id
+    );
+    const program_modules = await programModels.getProgramModulesDetails(
+      program_id
+    );
 
     res.render("admin/degree-details", {
       title: "Degree Details",
       user: req.session.user,
       program_details: program_details[0],
       program_modules: program_modules,
-    })
+    });
   } catch (err) {
     console.error("Error fetching student:", err);
     res.status(500).send("Internal Server Error");
@@ -150,7 +155,7 @@ exports.showModules = async (req, res) => {
       title: "Manage Modules",
       user: req.session.user,
       modules: modules,
-    })
+    });
   } catch (err) {
     console.error("Error fetching student:", err);
     res.status(500).send("Internal Server Error");
@@ -196,11 +201,22 @@ exports.generateReports = (req, res) => {
   res.render("admin/reports", { title: "Reports", user: req.user });
 };
 
-exports.showMessagingHub = (req, res) => {
-  res.render("admin/messaging", {
-    title: "Messaging Hub",
-    user: req.session.user,
-  });
+exports.showMessagingHub = async (req, res) => {
+  try {
+
+    const allMessagesForAdmin = await messageModel.getAllStudentMessagesForAdmin();
+    const allNotifications = await notificationModel.getAllNotificationsForAdmin();
+
+    res.render("admin/messaging", {
+      title: "Messaging Hub",
+      user: req.session.user,
+      allMessagesForAdmin: allMessagesForAdmin,
+      allNotifications: allNotifications,
+    });
+  } catch (err) {
+    console.error("Error fetching Messages or notifications for admin:", err);
+    res.status(500).send("Internal Server Error");
+  }
 };
 
 // exports.sendNotification = (req, res) => {

@@ -11,8 +11,6 @@ async function getAllModules() {
   }
 }
 
-
-
 async function getModuleInfo(moduleId) {
     try {
       const [moduleInfo] = await connection.query(

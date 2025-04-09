@@ -27,7 +27,7 @@ router.get('/admin/modules', ensureAuth, ensureAdmin, adminController.showModule
 router.get('/admin/reports', ensureAuth, ensureAdmin, adminController.generateReports);
 
 // Notification Management
-router.get('/admin/notifications', ensureAuth, ensureAdmin, adminController.showNotifications);
+router.get('/admin/messaging', ensureAuth, ensureAdmin, adminController.showMessagingHub);
 // router.post('/admin/notifications/send', ensureAuth, ensureAdmin, adminController.sendNotification);
 
 module.exports = router;
