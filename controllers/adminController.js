@@ -3,7 +3,8 @@ const studentModel = require("../models/studentModel");
 const programModels = require("../models/programModels");
 const moduleModel = require("../models/moduleModel");
 const messageModel = require("../models/messageModel");
-const notificationModel = require("..//models/notificationModel");
+const notificationModel = require("../models/notificationModel");
+
 
 exports.showDashboard = async (req, res) => {
   try {
@@ -205,13 +206,18 @@ exports.showMessagingHub = async (req, res) => {
   try {
 
     const allMessagesForAdmin = await messageModel.getAllStudentMessagesForAdmin();
-    const allNotifications = await notificationModel.getAllNotificationsForAdmin();
+    const allNotifications = await notificationModel.getAllNotifications();
+
+    const messagesAndNotifications = allMessagesForAdmin.concat(allNotifications);
+    messagesAndNotifications.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
 
     res.render("admin/messaging", {
       title: "Messaging Hub",
       user: req.session.user,
       allMessagesForAdmin: allMessagesForAdmin,
       allNotifications: allNotifications,
+      messagesAndNotifications: messagesAndNotifications,
     });
   } catch (err) {
     console.error("Error fetching Messages or notifications for admin:", err);

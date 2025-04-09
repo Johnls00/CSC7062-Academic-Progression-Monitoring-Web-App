@@ -11,15 +11,24 @@ async function getAllStudentMessagesForAdmin() {
       "SELECT * FROM `message` WHERE `recipient_user_id` = ?",
       [admin_id]
     );
+
     allMessages = allMessages.concat(messages);
   }
+  for (const message of allMessages) {
+    const messageSubject = await connection.query(
+      "SELECT `subject` FROM `conversation` WHERE `conversation_id` = ?",
+      message.conversation_id
+    );
+    console.log(messageSubject);
+    message.subject = messageSubject[0][0]?.subject || "No subject";
+  }
 
-  // Order by date_sent (or whatever your date column is)
+  // Order by timestamp
   allMessages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
   return allMessages;
 }
 
 module.exports = {
-    getAllStudentMessagesForAdmin,
+  getAllStudentMessagesForAdmin,
 };
