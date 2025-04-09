@@ -196,10 +196,10 @@ exports.generateReports = (req, res) => {
   res.render("admin/reports", { title: "Reports", user: req.user });
 };
 
-exports.showNotifications = (req, res) => {
-  res.render("admin/notifications", {
-    title: "Manage Notifications",
-    user: req.user,
+exports.showMessagingHub = (req, res) => {
+  res.render("admin/messaging", {
+    title: "Messaging Hub",
+    user: req.session.user,
   });
 };
 

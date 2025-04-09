@@ -25,29 +25,21 @@ header .navbar {
   -o-border-radius: 10rem;
   overflow: hidden;
 }
-/* 
-header .navbar-item-logo {
-  background-color: #91a0a5;
-  border-radius: 1rem;
-  -webkit-border-radius: 1rem;
-  -moz-border-radius: 1rem;
-  -ms-border-radius: 1rem;
-  -o-border-radius: 1rem;
-}
 
-header .navbar-brand {
+header .has-background-white {
+  flex: 1;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-} */
-
+  flex-direction: column;
+  width: 100% !important;
+  margin-bottom: 2 rem !important;
+}
 
 header .navbar-end {
   display: flex;
   justify-content: flex-end;
 }
 
-.box {
+header .box {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -58,38 +50,8 @@ header .navbar-end {
   box-sizing: border-box; /* Ensures padding doesn't affect the width */
 }
 
-.button {
+header .button {
     /* padding: 1rem; */
     margin-left: 0.5rem;
 }
 
-.button.is-primary {
-  width: 100%;
-  padding: 12px;
-  background: var(--blue-colour);
-  color: var(--white);
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-}
-
-.button.is-primary:hover {
-  background: var(--yellow-colour);
-  color: var(--blue-colour);
-  box-shadow: 0 4px 8px rgba(249, 201, 43, 0.4);
-}
-
-.mTop {
-  padding-top: 1rem;
-}
-
-.rounded-box {
-  border-radius: 15px;
-}
-
-.rounded-button {
-  border-radius: 50px;
-}
