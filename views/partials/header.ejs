@@ -38,7 +38,7 @@
                 <a class="button is-light" href="/admin/degree-programs">Degree Programs</a>
                 <a class="button is-light" href="/admin/modules">Modules</a>
                 <a class="button is-light" href="/admin/reports">Reports</a>
-                <a class="button is-light" href="/admin/notifications">Notifications</a>
+                <a class="button is-light" href="/admin/messaging">Messaging Hub</a>
               
               <% } else { %>
               <% } %>
@@ -50,15 +50,9 @@
             <div class="navbar-item">
               <div class="buttons is-flex">
                 <% if (user && user.role === 'student') { %>
-                  
-                 
                   <a class="button is-danger" href="/logout">Log Out</a>
                 <% } else if (user && user.role === 'admin') { %>
-                  
                   <a class="button is-danger" href="/logout">Logout</a>
-                <% } else { %>
-                  <a class="button is-primary rounded-button" href="/login">Login</a>
-                  <a class="button is-light" href="/register">Register</a>
                 <% } %>
               </div>
             </div>
