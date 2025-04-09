@@ -48,7 +48,7 @@ exports.showStudents = async (req, res) => {
       }
     }
     res.render("admin/students", {
-      title: "Manage Students",
+      title: "Student Management",
       user: req.session.user,
       students,
     });
