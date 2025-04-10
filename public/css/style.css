@@ -76,6 +76,25 @@ body {
     color: var(--blue-colour);
     box-shadow: 0 4px 8px rgba(249, 201, 43, 0.4);
   }
+
+  .button.is-info {
+    /* width: 100%;
+    padding: 12px; */
+    /* background: var(--blue-colour); */
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .button.is-info:hover {
+    background: var(--pastel-pink-colour);
+    color: var(--blue-colour);
+    box-shadow: var(--pastel-pink-colour);
+  }
   
   .mTop {
     padding-top: 1rem;

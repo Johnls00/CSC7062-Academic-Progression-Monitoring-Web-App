@@ -30,4 +30,7 @@ router.get('/admin/reports', ensureAuth, ensureAdmin, adminController.generateRe
 router.get('/admin/messaging', ensureAuth, ensureAdmin, adminController.showMessagingHub);
 // router.post('/admin/notifications/send', ensureAuth, ensureAdmin, adminController.sendNotification);
 
+// Mass uploading records 
+router.get('/admin/mass-upload', ensureAuth, ensureAdmin, adminController.showMassUpload);
+
 module.exports = router;

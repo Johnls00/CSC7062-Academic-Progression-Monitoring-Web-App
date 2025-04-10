@@ -52,6 +52,7 @@
                 <% if (user && user.role === 'student') { %>
                   <a class="button is-danger" href="/logout">Log Out</a>
                 <% } else if (user && user.role === 'admin') { %>
+                  <a class="button is-info" href="/mass-upload">Mass Records Upload</a>
                   <a class="button is-danger" href="/logout">Logout</a>
                 <% } %>
               </div>

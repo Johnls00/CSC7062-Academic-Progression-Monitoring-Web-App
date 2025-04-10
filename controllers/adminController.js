@@ -199,7 +199,7 @@ exports.showModules = async (req, res) => {
 // };
 
 exports.generateReports = (req, res) => {
-  res.render("admin/reports", { title: "Reports", user: req.user });
+  res.render("admin/reports", { title: "Reports", user: req.session.user, });
 };
 
 exports.showMessagingHub = async (req, res) => {
@@ -223,6 +223,13 @@ exports.showMessagingHub = async (req, res) => {
     console.error("Error fetching Messages or notifications for admin:", err);
     res.status(500).send("Internal Server Error");
   }
+};
+
+exports.showMassUpload = (req, res) => {
+  res.render("admin/mass-upload", { 
+    title: "Mass record management",
+     user: req.session.user, 
+    });
 };
 
 // exports.sendNotification = (req, res) => {
