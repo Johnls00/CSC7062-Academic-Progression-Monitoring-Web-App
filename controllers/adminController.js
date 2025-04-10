@@ -205,19 +205,18 @@ exports.generateReports = (req, res) => {
 exports.showMessagingHub = async (req, res) => {
   try {
 
-    const allMessagesForAdmin = await messageModel.getAllStudentMessagesForAdmin();
-    const allNotifications = await notificationModel.getAllNotifications();
+    const allConversationsForAdmin = await messageModel.getAllStudentConversationsForAdmin();
+    const allNotificationsForAdmin = await notificationModel.getAllNotifications();
 
-    const messagesAndNotifications = allMessagesForAdmin.concat(allNotifications);
-    messagesAndNotifications.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-
+    // const conversationsAndNotifications = allNotificationsForAdmin.concat(allConversationsForAdmin);
+    // conversationsAndNotifications.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
     res.render("admin/messaging", {
       title: "Messaging Hub",
       user: req.session.user,
-      allMessagesForAdmin: allMessagesForAdmin,
-      allNotifications: allNotifications,
-      messagesAndNotifications: messagesAndNotifications,
+      allConversations: allConversationsForAdmin,
+      allNotifications: allNotificationsForAdmin,
+      // conversationsAndNotifications: conversationsAndNotifications,
     });
   } catch (err) {
     console.error("Error fetching Messages or notifications for admin:", err);
