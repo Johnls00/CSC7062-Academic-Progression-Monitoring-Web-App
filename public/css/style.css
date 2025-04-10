@@ -82,8 +82,8 @@ body {
     padding: 12px; */
     /* background: var(--blue-colour); */
     color: var(--white);
-    border: none;
-    border-radius: 8px;
+    /* border: none;
+    border-radius: 8px; */
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;

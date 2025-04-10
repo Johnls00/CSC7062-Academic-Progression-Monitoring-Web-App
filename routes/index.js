@@ -2,9 +2,10 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.render('public/index', { title: 'Home' });
-});
+// router.get('/', (req, res) => {
+//   res.render('public/index', { title: 'Home' });
+// });
+
 
 // Import all route files
 const authRoutes = require('./auth');
@@ -15,6 +16,7 @@ const adminRoutes = require('./admin');
 router.use('/', authRoutes);
 router.use('/', studentRoutes);
 router.use('/', adminRoutes);
+
 
 // 404 Error Handler (any unmatched routes)
 router.use((req, res) => {
