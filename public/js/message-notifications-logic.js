@@ -37,10 +37,21 @@ document
       // Add a header to the top of the box
       const header = document.createElement("div");
       header.innerHTML = `
-        <box class="title is-full rounded-box hero" style="background-color: var(--blue-colour); padding: 1rem; margin-bottom: 1rem !important;" >
-                  <p class="title">Conversation Thread</p>
-                  <small class="sub-title" style="color: white;" id="conversation-subject">Subject: </small>
-        </box>
+      <div class="columns">
+        <div class="column is-full">
+          <div class="box title is-full rounded-box hero" style="background-color: var(--blue-colour); padding: 1rem; margin-bottom: 1rem !important;">
+            <div class="columns">
+              <div class="column is-half">
+                <p class="title">Conversation Thread</p>
+                <small class="sub-title" style="color: white;" id="conversation-subject">Subject: </small> 
+              </div>
+              <div class="column is-half has-text-right">
+                <a href="#" class="button is-light is-" id="send-reply">Send reply</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       `;
       threadContainer.appendChild(header);
 
@@ -195,12 +206,19 @@ document
                 <button class="button is-primary is-fullwidth">Submit</button>
     `;
     threadContainer.appendChild(newMessage);
+
+    document
+      .querySelector("#send-new-message .button")
+      .addEventListener("click", async () => {
+        // Add logic for sending a new message here
+      });
   });
 
-  //new notification logic 
-  document
+document
   .querySelector("#send-new-notification")
   .addEventListener("click", function (e) {
+    e.preventDefault();
+
     const contentBox = document.querySelector(".newNotificationToggle");
     if (contentBox) {
       contentBox.style.display = "block";
@@ -211,33 +229,78 @@ document
     clearAllArticles("new-message-thread");
     clearAllArticles("new-notification-thread");
 
-    e.preventDefault();
-
-    const threadContainer = document.getElementById("new-notification-thread");
-
-    const newNotification = document.createElement("div");
-    newNotification.innerHTML = `
-      <box class="title is-full rounded-box hero" style="background-color: var(--blue-colour); padding: 1rem; margin-bottom: 1rem !important;" >
-        <p class="title">New Notification</p>
-      </box>
-       <div class="field">
-         <label class="label">Subject:</label>
-         <div class="control">
-           <input class="input" type="text" placeholder="e.g. Exam Reminder" />
-         </div>
-       </div>
-
-       <div class="field">
-         <label class="label">Message:</label>
-         <div class="control">
-           <textarea class="textarea" placeholder="Write your notification..." rows="6"></textarea>
-         </div>
-       </div>
-
-       <button class="button is-primary is-fullwidth">Submit</button>
-    `;
-    threadContainer.appendChild(newNotification);
+    renderNewNotificationForm();
   });
+
+//new notification logic
+function renderNewNotificationForm() {
+  const threadContainer = document.getElementById("new-notification-thread");
+  threadContainer.innerHTML = ""; // Clear previous form if any
+
+  const newNotification = document.createElement("div");
+  newNotification.innerHTML = `
+    <div class="box title is-full rounded-box hero" style="background-color: var(--blue-colour); padding: 1rem; margin-bottom: 1rem !important;" >
+      <p class="title">New Notification</p>
+    </div>
+    <div class="field">
+      <label class="label">Degree Cohort Code:</label>
+      <div class="control">
+        <input class="input" id="notification-cohort" type="text" placeholder="e.g. ifsy" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Subject:</label>
+      <div class="control">
+        <input class="input" id="notification-subject" type="text" placeholder="e.g. Exam Reminder" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Message:</label>
+      <div class="control">
+        <textarea class="textarea" id="notification-message" placeholder="Write your notification..." rows="6"></textarea>
+      </div>
+    </div>
+    <button class="button is-primary is-fullwidth" id="submit-notification">Send Notification</button>
+  `;
+
+  threadContainer.appendChild(newNotification);
+
+  const submitBtn = document.getElementById("submit-notification");
+  if (submitBtn) {
+    submitBtn.addEventListener("click", async () => {
+      const cohort = document.getElementById("notification-cohort").value;
+      const subject = document.getElementById("notification-subject").value;
+      const message = document.getElementById("notification-message").value;
+
+      if (!cohort || !subject || !message) {
+        alert("Please fill out all fields.");
+        return;
+      }
+
+      try {
+        const res = await fetch("/notifications/send", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ cohort, subject, message }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          alert(data.message || "Notification sent!");
+          clearAllArticles("new-notification-thread");
+          const contentBox = document.querySelector(".newNotificationToggle");
+          if (contentBox) contentBox.style.display = "none";
+        } else {
+          alert(data.message || "Failed to send notification.");
+        }
+      } catch (err) {
+        console.error("Error sending notification:", err);
+        alert("Something went wrong. Please try again.");
+      }
+    });
+  }
+}
 
 // function to help clear the previous messages or notification
 function clearAllArticles(containerId) {

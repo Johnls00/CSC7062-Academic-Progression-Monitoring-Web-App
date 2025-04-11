@@ -33,7 +33,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 // Serve static files (CSS, images, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -41,17 +40,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
 // Import routers
+
 const authRoutes = require('./routes/auth'); // Authentication routes
 const studentRoutes = require('./routes/student'); // Student-specific routes
 const adminRoutes = require('./routes/admin'); // Admin-specific routes
 const indexRoutes = require('./routes/index'); // Base route
+const notificationRoutes = require('./routes/notifications'); // notification routes
+
 
 // Use routers
-app.use('/', indexRoutes);       // Base route
+   // Base route
 app.use('/auth', authRoutes);    // Authentication routes
 app.use('/student', studentRoutes);  // Student-specific routes
 app.use('/admin', adminRoutes);  // Admin-specific routes
+app.use('/notifications', notificationRoutes); // notification routes
+
+app.use('/', indexRoutes);    
 
 
 // catch 404 and forward to error handler
