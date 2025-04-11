@@ -31,7 +31,7 @@
             <a href="#" class="button is-primary is-medium" id="send-new-message">Send New Message</a>
           </div>
           <div class="column is-half">
-            <a href="#" class="button is-primary is-medium"
+            <a href="#" class="button is-primary is-medium" id="send-new-notification"
               >Create New Notification</a
             >
           </div>
@@ -124,6 +124,10 @@
               <div class="newMessageToggle" style="display: none">
                 <div id="new-message-thread"></div>
               </div>
+
+              <div class="newNotificationToggle" style="display: none">
+                <div id="new-notification-thread"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -133,6 +137,6 @@
       window.allConversations = <%- JSON.stringify(allConversations) %>;
       window.allNotifications = <%- JSON.stringify(allNotifications) %>;
     </script>
-    <script src="/js/show-message-notifications.js"></script>
+    <script src="/js/message-notifications-logic.js"></script>
   </body>
 </html>
