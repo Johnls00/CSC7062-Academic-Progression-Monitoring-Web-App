@@ -284,8 +284,6 @@ async function sendReply() {
   const conversationId = window.activeConversationId;
   const recipientUserId = window.activeRecipientUserId;
 
-  console.log("reply contents:", replyMessage, conversationId, recipientUserId);
-
   if (!replyMessage) {
     alert("Please fill out all fields.");
     return;
