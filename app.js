@@ -48,6 +48,7 @@ const studentRoutes = require('./routes/student'); // Student-specific routes
 const adminRoutes = require('./routes/admin'); // Admin-specific routes
 const indexRoutes = require('./routes/index'); // Base route
 const notificationRoutes = require('./routes/notifications'); // notification routes
+const messagesRoutes = require('./routes/messages'); // notification routes
 
 
 // Use routers
@@ -55,9 +56,11 @@ const notificationRoutes = require('./routes/notifications'); // notification ro
 app.use('/auth', authRoutes);    // Authentication routes
 app.use('/student', studentRoutes);  // Student-specific routes
 app.use('/admin', adminRoutes);  // Admin-specific routes
-app.use('/notifications', notificationRoutes); // notification routes
+app.use('/messages', messagesRoutes); // notification routes
+app.use("/notifications", notificationRoutes);
 
-app.use('/', indexRoutes);    
+
+app.use('/', indexRoutes);    // Keep this at the bottom of routes or it will break again 
 
 
 // catch 404 and forward to error handler

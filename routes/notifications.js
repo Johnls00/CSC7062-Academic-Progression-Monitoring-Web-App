@@ -3,7 +3,7 @@ const router = express.Router();
 
 const connection = require("../config/config");
 
-router.post("/send", async (req, res) => {
+router.post("/send-notification", async (req, res) => {
   const { cohort, subject, message } = req.body;
 
   if (!cohort || !subject || !message) {

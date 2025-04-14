@@ -136,7 +136,10 @@
     <script>
       window.allConversations = <%- JSON.stringify(allConversations) %>;
       window.allNotifications = <%- JSON.stringify(allNotifications) %>;
+
+        document.querySelector("#submit-new-message").addEventListener("click", submitNewMessage);
+      
     </script>
-    <script src="/js/message-notifications-logic.js"></script>
+    <script src="/js/message-notifications-logic.js" ></script>
   </body>
 </html>
