@@ -76,7 +76,7 @@ document
               dateStyle: "short",
               timeStyle: "short",
             })}</span>
-            <span>sender: ${message.sender}</span>
+            <span>Sender: ${message.sender_email}</span>
           </div>
           <div class="message-body">${message.content}</div>
         `;
@@ -140,8 +140,6 @@ document
       const notification = window.allNotifications.find(
         (n) => n.notification_id == notificationId
       );
-      // debug line
-      console.log("messages in notifications = ", notification);
 
       // Get the elements to update on the right side
       const threadContainer = document.getElementById("notification-thread");
@@ -220,7 +218,7 @@ function showNewMessageForm() {
         <textarea class="textarea" id="message-content" placeholder="Describe your issue here..." rows="6"></textarea>
       </div>
     </div>
-    <button class="button is-primary is-fullwidth" id="submit-new-message">Submit</button>
+    <button class="button is-primary is-fullwidth" id="submit-new-message">Send New Message</button>
   `;
   threadContainer.appendChild(newMessage);
 
@@ -258,7 +256,6 @@ async function submitNewMessage() {
       alert(data.message || "Failed to send Message.");
     }
   } catch (err) {
-    console.error("Error sending message:", err);
     alert("Something went wrong. Please try again.");
   }
 }

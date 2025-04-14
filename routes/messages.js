@@ -6,6 +6,7 @@ const userModel = require("../models/userModel");
 const connection = require("../config/config");
 const session = require("express-session");
 
+// sending a new message logic 
 router.post("/send-new-message", async (req, res) => {
   //  contents of the new message
   const { email, subject, message } = req.body;
@@ -47,17 +48,17 @@ router.post("/send-new-message", async (req, res) => {
     res.status(500).json({ message: "Failed to send message." });
   }
 });
-
+// sending replys in a converstion logic
 router.post("/send-reply", async (req, res) => {
-  console.log("in the reply router ");
-
+    //  contents of the new message
   const { replyMessage, conversationId, recipientUserId} =
     req.body;
-
+    // check the message has a content
   if (!replyMessage) {
     return res.status(400).json({ message: "A message is required." });
   }
 
+  // inserting the message to the db 
   try {
     const senderUserId = req.session.user.user_id;
     console.log("sender id ", senderUserId);

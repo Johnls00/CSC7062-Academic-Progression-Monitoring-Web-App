@@ -25,7 +25,17 @@ async function getUserIdWithEmail(email) {
     }
 }
 
+async function getUserWithUserId(userId) {
+    try {
+        const [user] = await connection.query("SELECT * FROM `user` WHERE `user_id` = ?", userId);
+        return user;
+    } catch {
+        throw new Error("Failed to fetch user");
+    }
+}
+
 module.exports = {
     getAllAdminUserIds,
     getUserIdWithEmail,
+    getUserWithUserId
 }

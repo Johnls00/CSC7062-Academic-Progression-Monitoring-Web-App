@@ -4,7 +4,7 @@ const userModel = require("../models/userModel");
 async function getAllStudentConversationsForAdmin() {
   const admin_user_ids = await userModel.getAllAdminUserIds();
 
-  // select all messages for the admin accounts and save to array 
+  // select all messages for the admin accounts and save to array
   let allMessages = [];
 
   for (const admin_id of admin_user_ids) {
@@ -14,6 +14,11 @@ async function getAllStudentConversationsForAdmin() {
     );
 
     allMessages = allMessages.concat(messages);
+  }
+
+  for (const message of allMessages) {
+    const messageSender = await userModel.getUserWithUserId(message.sender_user_id);
+    message.sender_email = messageSender[0].email || "No sender email";
   }
 
   //get the conversation id for each message and link it to the message
@@ -26,29 +31,38 @@ async function getAllStudentConversationsForAdmin() {
   }
 
   // Order by timestamp
-  
-  console.log("all messages: ", allMessages);
-  //sort all messages in conversations
-  const conversations = {};
 
-  allMessages.forEach(message => {
+  //sort all messages in to conversations
+  let conversations = {};
+
+  allMessages.forEach((message) => {
     const conversation_id = message.conversation_id;
     if (!conversations[conversation_id]) {
       conversations[conversation_id] = [];
     }
     conversations[conversation_id].push(message);
   });
+  // sort the message in each conversation
+  for (const id in conversations) {
+    conversations[id].sort(
+      (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+    );
+  }
 
-  // conversations.sort((a, b) => new Date(b[0].timestamp) - new Date(a[0].timestamp));
-  
-  console.log("all converstion: ", conversations);
+  // Convert to array and sort conversations by most recent message
+  const sortedConversationsArray = Object.entries(conversations).sort(
+    (a, b) => {
+      const latestA = new Date(a[1][0].timestamp);
+      const latestB = new Date(b[1][0].timestamp);
+      return latestB - latestA;
+    }
+  );
+
+  conversations = Object.fromEntries(sortedConversationsArray);
   return conversations;
 }
 
-async function getSenderName(message_id) {
-  
-  
-}
+async function getSenderName(message_id) {}
 
 module.exports = {
   getAllStudentConversationsForAdmin,
