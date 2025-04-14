@@ -26,7 +26,7 @@ async function getAllStudentConversationsForAdmin() {
   }
 
   // Order by timestamp
-  allMessages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+  
   console.log("all messages: ", allMessages);
   //sort all messages in conversations
   const conversations = {};
@@ -38,6 +38,8 @@ async function getAllStudentConversationsForAdmin() {
     }
     conversations[conversation_id].push(message);
   });
+
+  // conversations.sort((a, b) => new Date(b[0].timestamp) - new Date(a[0].timestamp));
   
   console.log("all converstion: ", conversations);
   return conversations;

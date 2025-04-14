@@ -14,6 +14,7 @@ document
       clearAllArticles("notification-thread");
       clearAllArticles("new-message-thread");
       clearAllArticles("new-notification-thread");
+
       e.preventDefault();
 
       // Clear all highlights
@@ -27,9 +28,12 @@ document
       // Get the clicked conversation's ID and messages
       const conversationId = this.dataset.conversationId;
       const messages = window.allConversations[conversationId];
+      window.activeConversationId = conversationId; // stored globally to be used elsewhere eg. replying
+      window.activeRecipientUserId = messages[0].sender_user_id; // stored globally to be used elsewhere eg. replying
 
       //   debug lime
       console.log("messages in conversations = ", messages);
+      console.log("recipient id", activeRecipientUserId);
 
       // Get the elements to update on the right side box
       const threadContainer = document.getElementById("message-thread");
@@ -46,7 +50,7 @@ document
                 <small class="sub-title" style="color: white;" id="conversation-subject">Subject: </small> 
               </div>
               <div class="column is-half has-text-right">
-                <a href="#" class="button is-light is-" id="send-reply">Send reply</a>
+                <a href="#" class="button is-light" id="send-reply">Send reply</a>
               </div>
             </div>
           </div>
@@ -77,6 +81,30 @@ document
           <div class="message-body">${message.content}</div>
         `;
         threadContainer.appendChild(article);
+      });
+
+      document.addEventListener("click", (event) => {
+        if (event.target && event.target.id === "send-reply") {
+          const replyForm = document.createElement("div");
+          replyForm.id = "reply-form";
+          const previousReplyForm = document.getElementById("reply-form");
+          if (previousReplyForm) previousReplyForm.remove();
+          replyForm.innerHTML = `
+            <div class="field">
+              <label class="label">Reply Message:</label>
+              <div class="control">
+                <textarea class="textarea" id="reply-message-content" placeholder="Describe your issue here..." rows="6"></textarea>
+              </div>
+            </div>
+            <button class="button is-primary is-fullwidth" style="padding: 1rem; margin-bottom: 1rem !important;" id="submit-reply">Submit</button>
+          `;
+          const threadContainer = document.getElementById("message-thread");
+          threadContainer.insertBefore(replyForm, threadContainer.children[1]);
+
+          document
+            .querySelector("#submit-reply")
+            .addEventListener("click", sendReply);
+        }
       });
     });
   });
@@ -146,73 +174,94 @@ document
     });
   });
 
-//new message logic
+// Show New Message Form
 document
   .querySelector("#send-new-message")
   .addEventListener("click", function (e) {
-    const contentBox = document.querySelector(".newMessageToggle");
-    if (contentBox) {
-      contentBox.style.display = "block";
-    }
-
-    clearAllArticles("message-thread");
-    clearAllArticles("notification-thread");
-    clearAllArticles("new-message-thread");
-    clearAllArticles("new-notification-thread");
-
     e.preventDefault();
-
-    const threadContainer = document.getElementById("new-message-thread");
-
-    const newMessage = document.createElement("div");
-    newMessage.innerHTML = `
-      <box class="title is-full rounded-box hero" style="background-color: var(--blue-colour); padding: 1rem; margin-bottom: 1rem !important;" >
-        <p class="title">New Message</p>
-      </box>
-       <div class="field">
-                <div class="field">
-                  <label class="label">Email:</label>
-                  <div class="control">
-                    <input
-                      class="input"
-                      type="email"
-                      placeholder="e.g. alex@example.com"
-                    />
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label class="label">Subject:</label>
-                  <div class="control">
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="e.g. Subject of issue"
-                    />
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label class="label">Message:</label>
-                  <div class="control">
-                    <textarea
-                      class="textarea"
-                      placeholder="Describe your issue here..."
-                      rows="6"
-                    ></textarea>
-                  </div>
-                </div>
-
-                <button class="button is-primary is-fullwidth">Submit</button>
-    `;
-    threadContainer.appendChild(newMessage);
-
-    document
-      .querySelector("#send-new-message .button")
-      .addEventListener("click", async () => {
-        // Add logic for sending a new message here
-      });
+    showNewMessageForm();
   });
+
+// Render and attach new message form
+function showNewMessageForm() {
+  const contentBox = document.querySelector(".newMessageToggle");
+  if (contentBox) {
+    contentBox.style.display = "block";
+  }
+
+  clearAllArticles("message-thread");
+  clearAllArticles("notification-thread");
+  clearAllArticles("new-message-thread");
+  clearAllArticles("new-notification-thread");
+
+  const threadContainer = document.getElementById("new-message-thread");
+  threadContainer.innerHTML = ""; // clear previous content
+
+  const newMessage = document.createElement("div");
+  newMessage.innerHTML = `
+    <div class="box title is-full rounded-box hero" style="background-color: var(--blue-colour); padding: 1rem; margin-bottom: 1rem !important;" >
+      <p class="title">New Message</p>
+    </div>
+    <div class="field">
+      <label class="label">Email:</label>
+      <div class="control">
+        <input class="input" id="message-email" type="email" placeholder="e.g. alex@example.com" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Subject:</label>
+      <div class="control">
+        <input class="input" id="message-subject" type="text" placeholder="e.g. Subject of issue" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Message:</label>
+      <div class="control">
+        <textarea class="textarea" id="message-content" placeholder="Describe your issue here..." rows="6"></textarea>
+      </div>
+    </div>
+    <button class="button is-primary is-fullwidth" id="submit-new-message">Submit</button>
+  `;
+  threadContainer.appendChild(newMessage);
+
+  document
+    .querySelector("#submit-new-message")
+    .addEventListener("click", submitNewMessage);
+}
+
+// Handle message submission
+async function submitNewMessage() {
+  const email = document.getElementById("message-email").value;
+  const subject = document.getElementById("message-subject").value;
+  const message = document.getElementById("message-content").value;
+
+  if (!email || !subject || !message) {
+    alert("Please fill out all fields.");
+    return;
+  }
+
+  try {
+    const res = await fetch("/messages/send-new-message", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, subject, message }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert(data.message || "New message sent!");
+      clearAllArticles("new-message-thread");
+      const contentBox = document.querySelector(".newMessageToggle");
+      if (contentBox) contentBox.style.display = "none";
+    } else {
+      alert(data.message || "Failed to send Message.");
+    }
+  } catch (err) {
+    console.error("Error sending message:", err);
+    alert("Something went wrong. Please try again.");
+  }
+}
 
 document
   .querySelector("#send-new-notification")
@@ -231,6 +280,42 @@ document
 
     renderNewNotificationForm();
   });
+
+// Handle reply message
+async function sendReply() {
+  const replyMessage = document.getElementById("reply-message-content").value;
+  const conversationId = window.activeConversationId;
+  const recipientUserId = window.activeRecipientUserId;
+
+  console.log("reply contents:", replyMessage, conversationId, recipientUserId);
+
+  if (!replyMessage) {
+    alert("Please fill out all fields.");
+    return;
+  }
+
+  try {
+    const res = await fetch("/messages/send-reply", {
+      method: "POST",
+      headers: { "content-Type": "application/json" },
+      body: JSON.stringify({ replyMessage, conversationId, recipientUserId }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert(data.message || "Reply message sent!");
+      clearAllArticles("message-thread");
+      const contentBox = document.querySelector(".conversationToggle");
+      if (!contentBox) contentBox.style.display = "none";
+    } else {
+      alert(data.message || "Failed to send reply.");
+    }
+  } catch (err) {
+    console.error("Error sending message:", err);
+    alert("Something went wrong. Please try again.");
+  }
+}
 
 //new notification logic
 function renderNewNotificationForm() {
@@ -278,7 +363,7 @@ function renderNewNotificationForm() {
       }
 
       try {
-        const res = await fetch("/notifications/send", {
+        const res = await fetch("/notifications/send-notification", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ cohort, subject, message }),
