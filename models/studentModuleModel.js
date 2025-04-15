@@ -43,7 +43,6 @@ async function createRecord({
 }
 //update existing record with record details 
 async function updateRecord({
-
   firstGrade,
   gradeResult,
   resitGrade,

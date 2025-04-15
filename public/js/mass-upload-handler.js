@@ -21,7 +21,10 @@ document
         body: uploadData,
       });
 
+      alert("successfully updated records.", response.status);
+
     } catch (err) {
+      alert("failed to process the file", err);
       console.error("Fetch failed:", err);
     }
   });
