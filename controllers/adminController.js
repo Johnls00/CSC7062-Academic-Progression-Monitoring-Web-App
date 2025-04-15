@@ -5,12 +5,9 @@ const moduleModel = require("../models/moduleModel");
 const messageModel = require("../models/messageModel");
 const notificationModel = require("../models/notificationModel");
 
-
 exports.showDashboard = async (req, res) => {
   try {
-    // console.log("Rendering admin dashboard:", req.session.user);
     const userId = req.session.user.user_id;
-    // console.log("User ID:", userId); // Debugging line
 
     res.render("admin/admin-dashboard", {
       title: "Admin Dashboard",
@@ -199,24 +196,22 @@ exports.showModules = async (req, res) => {
 // };
 
 exports.generateReports = (req, res) => {
-  res.render("admin/reports", { title: "Reports", user: req.session.user, });
+  res.render("admin/reports", { title: "Reports", user: req.session.user });
 };
 
 exports.showMessagingHub = async (req, res) => {
   try {
+    const allConversationsForAdmin =
+      await messageModel.getAllStudentConversationsForAdmin();
+    const allNotificationsForAdmin =
+      await notificationModel.getAllNotifications();
 
-    const allConversationsForAdmin = await messageModel.getAllStudentConversationsForAdmin();
-    const allNotificationsForAdmin = await notificationModel.getAllNotifications();
-
-    // const conversationsAndNotifications = allNotificationsForAdmin.concat(allConversationsForAdmin);
-    // conversationsAndNotifications.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
     res.render("admin/messaging", {
       title: "Messaging Hub",
       user: req.session.user,
       allConversations: allConversationsForAdmin,
       allNotifications: allNotificationsForAdmin,
-      // conversationsAndNotifications: conversationsAndNotifications,
     });
   } catch (err) {
     console.error("Error fetching Messages or notifications for admin:", err);
@@ -225,13 +220,15 @@ exports.showMessagingHub = async (req, res) => {
 };
 
 exports.showMassUpload = (req, res) => {
-  res.render("admin/mass-upload", { 
-    title: "Mass record management",
-     user: req.session.user, 
+  try {
+    res.render("admin/mass-upload", {
+      title: "Mass record management",
+      user: req.session.user,
     });
+  } catch (err) {
+    console.error("Error fetching mass upload page for admin", err);
+    res.status(500).send("Internal Server Error");
+  }
 };
 
-// exports.sendNotification = (req, res) => {
-//   // Logic to send notifications
-//   res.redirect('/admin/notifications');
-// };
+
