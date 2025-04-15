@@ -4,7 +4,7 @@ const connection = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: 'root',       // '' XAMPP or 'root' MAMP
-    database: 'APMS',       // B name
+    database: 'APMS_TEST',       // B name
     port: '8889', 
     connectionLimit: 10,          // XAMPP 3306 or 8889 MAMP
 });

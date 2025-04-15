@@ -49,6 +49,7 @@ const adminRoutes = require('./routes/admin'); // Admin-specific routes
 const indexRoutes = require('./routes/index'); // Base route
 const notificationRoutes = require('./routes/notifications'); // notification routes
 const messagesRoutes = require('./routes/messages'); // notification routes
+const uploadRoutes = require('./routes/uploadHandler'); // file upload routes
 
 
 // Use routers
@@ -58,6 +59,7 @@ app.use('/student', studentRoutes);  // Student-specific routes
 app.use('/admin', adminRoutes);  // Admin-specific routes
 app.use('/messages', messagesRoutes); // notification routes
 app.use("/notifications", notificationRoutes);
+app.use('/uploadHandler', uploadRoutes); // handle file uploads
 
 
 app.use('/', indexRoutes);    // Keep this at the bottom of routes or it will break again 

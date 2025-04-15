@@ -123,6 +123,18 @@ async function attachProgramDetails(student) {
   return student;
 }
 
+// create new student 
+async function createStudent({ userId, sId, firstName, lastName, statusStudy }) {
+  try {
+    const [newStudent] = await connection.query(
+      "INSERT INTO `student`(`user_id`, `sId`, `first_name`, `last_name`, `status_study`) VALUES (?,?,?,?,?)",
+      [userId, sId, firstName, lastName, statusStudy]);
+      return { student_id: newStudent.insertId };
+  } catch (err) {
+    throw new Error("Failed to create student: " + err.message);
+  }
+}
+
 module.exports = {
   getStudentUserData,
   getStudentData,
@@ -130,4 +142,5 @@ module.exports = {
   getModulesByStudentId,
   getAllStudents,
   attachProgramDetails,
+  createStudent,
 };
