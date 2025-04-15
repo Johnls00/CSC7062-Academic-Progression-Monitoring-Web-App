@@ -57,7 +57,8 @@ async function updateStudentModule({ studentId, moduleId, record }) {
 
   const [existingRecord] = await studentModuleModel.findRecord(
     studentId,
-    moduleId
+    moduleId, 
+    acad_Yr,
   );
   if (!existingRecord) {
     await studentModuleModel.createRecord({
@@ -70,9 +71,8 @@ async function updateStudentModule({ studentId, moduleId, record }) {
       acad_Yr,
     });
   } else {
+    console.log("existing module id = ", existingRecord.user_module_id)
     await studentModuleModel.updateRecord({
-      studentId,
-      moduleId,
       firstGrade,
       gradeResult,
       resitGrade,

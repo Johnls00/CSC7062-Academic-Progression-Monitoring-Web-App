@@ -1,11 +1,11 @@
 const connection = require("../config/config");
 
 // fetch record with student id and module id
-async function findRecord(studentId, moduleId) {
+async function findRecord(studentId, moduleId, acad_Yr) {
   try {
     const [studentModuleRecord] = await connection.query(
-      "SELECT * FROM `student_module` WHERE (`student_id`, `module_id`) = (?, ?)",
-      [studentId, moduleId]
+      "SELECT * FROM `student_module` WHERE (`student_id`, `module_id`, `academic_year`) = (?, ?, ?)",
+      [studentId, moduleId, acad_Yr]
     );
     return studentModuleRecord;
   } catch (err) {
@@ -43,8 +43,7 @@ async function createRecord({
 }
 //update existing record with record details 
 async function updateRecord({
-  studentId,
-  moduleId,
+
   firstGrade,
   gradeResult,
   resitGrade,
@@ -54,10 +53,8 @@ async function updateRecord({
 }) {
   try {
     await connection.query(
-      "UPDATE `student_module` SET `student_id`= ? ,`module_id`= ?,`first_grade`= ?,`grade_result`= ?,`resit_grade`= ?,`resit_result`= ?,`academic_year`= ? WHERE `user_module_id` = ?",
+      "UPDATE `student_module` SET `first_grade`= ?,`grade_result`= ?,`resit_grade`= ?,`resit_result`= ?,`academic_year`= ? WHERE `user_module_id` = ?",
       [
-        studentId,
-        moduleId,
         firstGrade === '' ? null : firstGrade,
         gradeResult === '' ? null : gradeResult,
         resitGrade === '' ? null : resitGrade,
