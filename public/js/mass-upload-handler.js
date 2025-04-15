@@ -21,17 +21,6 @@ document
         body: uploadData,
       });
 
-    //   const result = await response.json();
-    //   const data = result.data;
-
-    //   try {
-    //     console.log(data);
-    //     data.forEach(record => {
-    //       handleStudent(record);
-    //     });
-    //   } catch (jsonErr) {
-    //     console.error("Response not valid JSON:", data);
-    //   }
     } catch (err) {
       console.error("Fetch failed:", err);
     }

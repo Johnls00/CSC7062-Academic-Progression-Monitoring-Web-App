@@ -38,6 +38,7 @@ router.post("/", upload.single("studentData"), (req, res) => {
       
           for (const record of results) {
             const { studentId, userId } = await massUploadHandlerModel.updateStudentFromRecord(record);
+            const moduleId = await massUploadHandlerModel.updateModuleFromRecord(record);
             
             processed.push({ studentId, userId});
           }

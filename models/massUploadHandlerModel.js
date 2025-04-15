@@ -30,8 +30,28 @@ async function updateStudentFromRecord(record) {
   return { studentId: newStudent.student_id, userId: newUser.user_id };
 }
 
+async function updateModuleFromRecord(record) {
+  const { subjCode, subjCatalog, moduleTitle , creditCount} = record;
+
+  let module = await moduleModel.getModuleWithModuleTitle(moduleTitle);
+  if (module.length > 0) {
+    return { module_id: module[0].module_id };
+  }
+
+  newModule = await moduleModel.createModule({
+    subjCode,
+    subjCatalog,
+    moduleTitle,
+    creditCount
+  });
+
+  console.log("module", newModule.module_id);
+  return { module_id: newModule.module_id };
+}
+
 
 
 module.exports = {
   updateStudentFromRecord,
+  updateModuleFromRecord,
 };
