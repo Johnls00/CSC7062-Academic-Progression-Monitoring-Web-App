@@ -40,7 +40,7 @@ async function createModule({subjCode, subjCatalog, moduleTitle, creditCount}) {
     const [newModule] = await connection.query(
       "INSERT INTO `module`(`subject_code`, `subject_catalog`, `module_title`, `credit_value`) VALUES (?,?,?,?)",
       [subjCode, subjCatalog, moduleTitle, creditCount]);
-    return { module_id: newModule.insertId };
+    return newModule.module_id;
   } catch (err) {
     throw new Error("Failed to create module " + err.message);
   }

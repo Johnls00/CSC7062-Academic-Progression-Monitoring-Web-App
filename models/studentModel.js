@@ -124,12 +124,12 @@ async function attachProgramDetails(student) {
 }
 
 // create new student 
-async function createStudent({ userId, sId, firstName, lastName, statusStudy }) {
+async function createStudent({ userId, sId, firstName, lastName, statusStudy, entryLevel}) {
   try {
     const [newStudent] = await connection.query(
-      "INSERT INTO `student`(`user_id`, `sId`, `first_name`, `last_name`, `status_study`) VALUES (?,?,?,?,?)",
-      [userId, sId, firstName, lastName, statusStudy]);
-      return { student_id: newStudent.insertId };
+      "INSERT INTO `student`(`user_id`, `sId`, `first_name`, `last_name`, `status_study`, `entry_level`) VALUES (?,?,?,?,?,?)",
+      [userId, sId, firstName, lastName, statusStudy, entryLevel]);
+      return newStudent.insertId;
   } catch (err) {
     throw new Error("Failed to create student: " + err.message);
   }

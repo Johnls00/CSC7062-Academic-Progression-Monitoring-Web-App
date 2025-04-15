@@ -4,7 +4,6 @@ const path = require("path");
 const fs = require("fs");
 const csv = require("csv-parser");
 const { Readable } = require("stream");
-// const stripBomBuf = require("strip-bom-buf");
 
 // required models
 const massUploadHandlerModel = require("../models/massUploadHandlerModel");
@@ -27,20 +26,18 @@ router.post("/", upload.single("studentData"), (req, res) => {
     const stream = Readable.from([cleanedCSV]);
 
     stream
-      // .pipe(stripBomStream())
       .pipe(csv())
       .on("data", (row) => results.push(row))
       .on("end", async () => {
         res.setHeader("Content-Type", "application/json"); // optional but safe
-        // res.json({ data: results });
         try {
           const processed = [];
       
           for (const record of results) {
             const { studentId, userId } = await massUploadHandlerModel.updateStudentFromRecord(record);
             const moduleId = await massUploadHandlerModel.updateModuleFromRecord(record);
-            
-            processed.push({ studentId, userId});
+            await massUploadHandlerModel.updateStudentModule({ studentId, moduleId, record })
+            processed.push({ studentId, userId, moduleId});
           }
           console.log(processed);
           res.json({ processed });
