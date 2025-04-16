@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("student-details-form");
   const inputs = form.querySelectorAll("input");
   const cancelBtn = document.getElementById("cancel-btn");
+  const deleteStudentBtn = document.getElementById("delete-student-btn");
 
   
 
@@ -51,5 +52,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
   saveModulesBtn.addEventListener("click", () => {
     document.getElementById("module-form").submit();
+  });
+
+
+// delete student button 
+  deleteStudentBtn.addEventListener("click", async () => {
+    if (confirm("Are you sure you want to delete this student and all their records?")) {
+      const sId = document.getElementById("student-sId").value;
+
+      fetch(`/admin/student/delete/${sId}`, {
+        method: "DELETE"
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Deletion failed");
+          }
+        })
+        .then((data) => {
+          alert(data.message); // "Student deleted"
+          window.location.href = "/admin/students";
+        })
+        .catch((error) => {
+          console.error("Error deleting student:", error);
+          alert("Failed to delete student.");
+        });
+    }
   });
 });

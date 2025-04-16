@@ -13,7 +13,7 @@ router.get('/admin/students', ensureAuth, ensureAdmin, adminController.showStude
 router.get('/admin/student/:id', ensureAuth, ensureAdmin, adminController.viewStudent);
 router.post('/admin/student/add', ensureAuth, ensureAdmin, adminController.addStudent);
 router.post('/admin/update-student/:id', ensureAuth, ensureAdmin, adminController.addStudent);
-// router.post('/admin/student/delete/:id', ensureAuth, ensureAdmin, adminController.deleteStudent);
+router.delete('/admin/student/delete/:id', ensureAuth, ensureAdmin, adminController.deleteStudent);
 router.post('/admin/student/update-student-modules/:id', ensureAuth, ensureAdmin, adminController.updateStudentModules);
 // Manage degrees 
 router.get('/admin/degree-programs', ensureAuth, ensureAdmin, adminController.showDegreePrograms);
