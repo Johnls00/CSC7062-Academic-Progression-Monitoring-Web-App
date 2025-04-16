@@ -129,7 +129,7 @@ async function createStudent({ userId, sId, firstName, lastName, statusStudy, en
     const [newStudent] = await connection.query(
       "INSERT INTO `student`(`user_id`, `sId`, `first_name`, `last_name`, `status_study`, `entry_level`) VALUES (?,?,?,?,?,?)",
       [userId, sId, firstName, lastName, statusStudy, entryLevel]);
-      return newStudent.insertId;
+      return { student_id: newStudent.insertId };
   } catch (err) {
     throw new Error("Failed to create student: " + err.message);
   }

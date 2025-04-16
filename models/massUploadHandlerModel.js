@@ -7,7 +7,7 @@ async function updateStudentFromRecord(record) {
   const { sId, firstName, lastName, statusStudy, entryLevel } = record;
 
   const student = await studentModel.getStudentBySId(sId);
-  if (student.length > 0) {
+  if (student && student.length > 0) {
     return { studentId: student[0].student_id, userId: student[0].user_id };
   } else {
     const baseEmail = `${firstName
@@ -19,8 +19,13 @@ async function updateStudentFromRecord(record) {
       password,
       role: "student",
     });
-
-    const newStudent = await studentModel.createStudent({
+    console.log(newUser.user_id,
+      sId,
+      firstName,
+      lastName,
+      statusStudy,
+      entryLevel,)
+    const newStudentId = await studentModel.createStudent({
       userId: newUser.user_id,
       sId,
       firstName,
@@ -29,7 +34,7 @@ async function updateStudentFromRecord(record) {
       entryLevel,
     });
 
-    return { studentId: newStudent.student_id, userId: newUser.user_id };
+    return { studentId: newStudentId.student_id, userId: newUser.user_id };
   }
 }
 

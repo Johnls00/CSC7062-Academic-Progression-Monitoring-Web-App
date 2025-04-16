@@ -48,7 +48,7 @@ async function createUser({baseEmail, password, role}) {
             "INSERT INTO `user`(`email`, `password`, `salt`, `role`) VALUES (?, ?, ?, ?)",
             [email, hashedPassword, salt, role]
         );
-        return newUser.insertId;
+        return {user_id: newUser.insertId};
     } catch (err) {
         throw new Error("Failed to create user: " + err.message);
     }

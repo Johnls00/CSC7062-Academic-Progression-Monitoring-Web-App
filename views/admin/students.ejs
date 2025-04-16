@@ -37,14 +37,77 @@
             </div>
           </div>
           <div class="column">
-            <a
-              href="/admin/student/new"
-              style="vertical-align: middle"
+            <button
+              onclick="toggleNewStudentForm()"
+              id="toggleNewStudentFormBtn"
               class="button is-primary is-pulled-right"
             >
               Add New Student
-            </a>
+            </button>
           </div>
+        </div>
+        <div id="addNewStudentForm" style="display: none" class="box mt-4">
+          <form method="POST" action="/admin/student/add">
+            <div class="field">
+              <label class="label">Student ID</label>
+              <div class="control">
+                <input class="input" type="text" name="sId" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">First Name</label>
+              <div class="control">
+                <input class="input" type="text" name="firstName" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Last Name</label>
+              <div class="control">
+                <input class="input" type="text" name="lastName" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Entry Level</label>
+              <div class="control">
+                <div class="select">
+                  <select name="entryLevel" required>
+                    <option value="L1">Level 1</option>
+                    <option value="L2">Level 2</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Study Status</label>
+              <div class="control">
+                <div class="select">
+                  <select name="statusStudy" required>
+                    <option value="F">Full Time</option>
+                    <option value="P">Part Time</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="field is-grouped">
+              <div class="control">
+                <button class="button is-primary" type="submit">Submit</button>
+              </div>
+              <div class="control">
+                <button
+                  type="button"
+                  class="button is-light"
+                  onclick="toggleNewStudentForm()"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
 
         <div class="column">
@@ -59,9 +122,7 @@
                       vertical-align: middle;
                       padding: 0.75rem;
                     "
-                  >
-
-                  </th>
+                  ></th>
                   <th
                     style="
                       width: 12rem;
@@ -121,12 +182,11 @@
                     Study Status
                   </th>
                   <th></th>
-                </tr> 
+                </tr>
               </thead>
               <tbody>
-                <% let count = 0; %>
-                <% students.forEach((student) => { %>
-                  
+                <% let count = 0; %> <% students.forEach((student) => { %>
+
                 <tr>
                   <% count++; %>
                   <td
@@ -215,5 +275,19 @@
       </div>
     </div>
     <script src="/js/students-search.js"></script>
+    <script>
+      function toggleNewStudentForm() {
+        const form = document.getElementById("addNewStudentForm");
+        const btn = document.getElementById("toggleFormBtn");
+
+        if (form.style.display === "none") {
+          form.style.display = "block";
+          btn.textContent = "Hide Form";
+        } else {
+          form.style.display = "none";
+          btn.textContent = "Add New Student";
+        }
+      }
+    </script>
   </body>
 </html>

@@ -1,9 +1,11 @@
 // controllers/adminController.js
+// required models
 const studentModel = require("../models/studentModel");
 const programModels = require("../models/programModels");
 const moduleModel = require("../models/moduleModel");
 const messageModel = require("../models/messageModel");
 const notificationModel = require("../models/notificationModel");
+const massUploadHandlerModel = require("../models/massUploadHandlerModel");
 
 exports.showDashboard = async (req, res) => {
   try {
@@ -160,10 +162,20 @@ exports.showModules = async (req, res) => {
   }
 };
 
-// exports.addStudent = (req, res) => {
-//   // Logic to add a new student
-//   res.redirect('/admin/students');
-// };
+exports.addStudent = async (req, res) => {
+  // Logic to add a new student
+  try {
+    const { sId, firstName, lastName, statusStudy, entryLevel } = req.body;
+    const record = {sId, firstName, lastName, statusStudy, entryLevel}
+    await massUploadHandlerModel.updateStudentFromRecord(record);
+
+    res.redirect('/admin/students');
+  } catch (err) {
+    console.error('Error inserting student:', err);
+    return res.status(500).send('Error adding student');
+  }
+  
+};
 
 // exports.updateStudent = (req, res) => {
 //   // Logic to update a student
