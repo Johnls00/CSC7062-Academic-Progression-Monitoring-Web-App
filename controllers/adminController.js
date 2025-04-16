@@ -6,6 +6,7 @@ const moduleModel = require("../models/moduleModel");
 const messageModel = require("../models/messageModel");
 const notificationModel = require("../models/notificationModel");
 const massUploadHandlerModel = require("../models/massUploadHandlerModel");
+const connection = require("../config/config");
 
 exports.showDashboard = async (req, res) => {
   try {
@@ -31,7 +32,7 @@ exports.showStudents = async (req, res) => {
         const program_details = await programModels.getProgramInfo(
           program_code
         );
-        // console.log("Program details:", program_details); // Debugging line
+
         if (program_details && program_details.length > 0) {
           students[i].program_code = program_details[0].program_code;
           students[i].program_name = program_details[0].name;
@@ -90,8 +91,6 @@ exports.viewStudent = async (req, res) => {
       student[0].program_code = "Unknown";
       student[0].program_name = "Unknown";
     }
-
-    console.log(student);
 
     if (!student) {
       return res.status(404).send("Student not found");
@@ -166,21 +165,59 @@ exports.addStudent = async (req, res) => {
   // Logic to add a new student
   try {
     const { sId, firstName, lastName, statusStudy, entryLevel } = req.body;
-    const record = {sId, firstName, lastName, statusStudy, entryLevel}
+    const record = { sId, firstName, lastName, statusStudy, entryLevel };
     await massUploadHandlerModel.updateStudentFromRecord(record);
 
-    res.redirect('/admin/students');
+    res.redirect("/admin/students");
   } catch (err) {
-    console.error('Error inserting student:', err);
-    return res.status(500).send('Error adding student');
+    console.error("Error inserting student:", err);
+    return res.status(500).send("Error adding student");
   }
-  
 };
 
-// exports.updateStudent = (req, res) => {
-//   // Logic to update a student
-//   res.redirect('/admin/students');
-// };
+exports.updateStudent = async (req, res) => {
+  const studentId = req.params.id;
+  const [userResult] = await connection.query(
+    "SELECT user_id FROM student WHERE sId = ?",
+    [studentId]
+  );
+  if (!userResult || userResult.length === 0) {
+    return res.status(404).send("Student not found");
+  }
+  const userId = userResult[0].user_id;
+  const {
+    first_name,
+    last_name,
+    sId,
+    email,
+    secondary_email,
+    status_study,
+    entry_level,
+  } = req.body;
+
+  try {
+    await connection.query(
+      `
+        UPDATE student 
+        SET first_name = ?, last_name = ?, sId = ?, status_study = ?, entry_level = ? 
+        WHERE sId = ?`,
+      [first_name, last_name, sId, status_study, entry_level, studentId]
+    );
+
+    await connection.query(
+      `
+        UPDATE user 
+        SET email = ?, secondary_email = ? 
+        WHERE user_id = ?`,
+      [email, secondary_email, userId]
+    );
+
+    res.redirect(`/admin/student/${sId}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to update student.");
+  }
+};
 
 // exports.deleteStudent = (req, res) => {
 //   // Logic to delete a student
@@ -197,10 +234,47 @@ exports.addStudent = async (req, res) => {
 //   res.redirect('/admin/courses');
 // };
 
-// exports.updateCourse = (req, res) => {
-//   // Logic to update a course
-//   res.redirect('/admin/courses');
-// };
+exports.updateStudentModules = async (req, res) => {
+  const sId = req.params.id;
+
+  try {
+    const {
+      user_module_ids,
+      first_grades,
+      grade_results,
+      resit_grades,
+      resit_results,
+    } = req.body;
+
+    console.log(
+      user_module_ids,
+      first_grades,
+      grade_results,
+      resit_grades,
+      resit_results
+    );
+
+    for (let i = 0; i < user_module_ids.length; i++) {
+      await connection.query(
+        `UPDATE student_module 
+     SET first_grade = ?, grade_result = ?, resit_grade = ?, resit_result = ? 
+     WHERE user_module_id = ? `,
+        [
+          first_grades[i] || null,
+          grade_results[i] || null,
+          resit_grades[i] || null,
+          resit_results[i] || null,
+          user_module_ids[i],
+        ]
+      );
+    }
+
+    res.redirect(`/admin/student/${sId}`);
+  } catch (error) {
+    console.error("Error updating modules:", error);
+    res.status(500).send("Error updating module results.");
+  }
+};
 
 // exports.deleteCourse = (req, res) => {
 //   // Logic to delete a course
@@ -217,7 +291,6 @@ exports.showMessagingHub = async (req, res) => {
       await messageModel.getAllStudentConversationsForAdmin();
     const allNotificationsForAdmin =
       await notificationModel.getAllNotifications();
-
 
     res.render("admin/messaging", {
       title: "Messaging Hub",
@@ -242,5 +315,3 @@ exports.showMassUpload = (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
-
-

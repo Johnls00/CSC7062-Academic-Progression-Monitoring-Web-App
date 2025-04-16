@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const inputs = form.querySelectorAll("input");
   const cancelBtn = document.getElementById("cancel-btn");
 
+  
+
   editBtn.addEventListener("click", () => {
     inputs.forEach((input) => {
       if (!input.hasAttribute("readonly")) {
@@ -21,5 +23,33 @@ document.addEventListener("DOMContentLoaded", () => {
     saveBtn.classList.add("is-hidden"); // Hide Save button
     cancelBtn.classList.add("is-hidden"); // Hide cancel button
     editBtn.classList.remove("is-hidden"); // Show Edit button
+  });
+
+  // constants for module buttons
+  const saveModulesBtn = document.getElementById("save-modules-btn");
+  const cancelModulesBtn = document.getElementById("cancel-modules-btn");
+  const editModulesBtn = document.getElementById("edit-modules-btn");
+  const moduleInputs = document.querySelectorAll("#module-form input");
+
+  editModulesBtn.addEventListener("click", () => {
+    document.querySelectorAll('#module-form input').forEach((input) => {
+      if (!input.hasAttribute("readonly")) {
+        input.removeAttribute("disabled");
+      }
+    });
+    editModulesBtn.classList.add("is-hidden");
+    saveModulesBtn.classList.remove("is-hidden");
+    cancelModulesBtn.classList.remove("is-hidden");
+  });
+
+  cancelModulesBtn.addEventListener("click", () => {
+    moduleInputs.forEach((input) => input.setAttribute("disabled", true));
+    cancelModulesBtn.classList.add("is-hidden");
+    saveModulesBtn.classList.add("is-hidden");
+    editModulesBtn.classList.remove("is-hidden");
+  });
+
+  saveModulesBtn.addEventListener("click", () => {
+    document.getElementById("module-form").submit();
   });
 });
