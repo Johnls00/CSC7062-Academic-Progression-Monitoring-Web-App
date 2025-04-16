@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   
 
+  
+
   editBtn.addEventListener("click", () => {
     inputs.forEach((input) => {
       if (!input.hasAttribute("readonly")) {
@@ -31,6 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const cancelModulesBtn = document.getElementById("cancel-modules-btn");
   const editModulesBtn = document.getElementById("edit-modules-btn");
   const moduleInputs = document.querySelectorAll("#module-form input");
+  const addModuleBtn = document.getElementById("add-module-btn");
+  const addModuleForm = document.getElementById("add-module-form");
 
   editModulesBtn.addEventListener("click", () => {
     document.querySelectorAll('#module-form input').forEach((input) => {
@@ -41,6 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
     editModulesBtn.classList.add("is-hidden");
     saveModulesBtn.classList.remove("is-hidden");
     cancelModulesBtn.classList.remove("is-hidden");
+    addModuleBtn.classList.remove("is-hidden");
+    addModuleForm.classList.remove("is-hidden");
   });
 
   cancelModulesBtn.addEventListener("click", () => {
@@ -54,6 +60,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("module-form").submit();
   });
 
+  addModuleBtn.addEventListener("click", () => {
+    document.getElementById("add-module-form").submit();
+  });
 
 // delete student button 
   deleteStudentBtn.addEventListener("click", async () => {

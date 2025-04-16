@@ -31,8 +31,14 @@
           <div class="column"></div>
 
           <div class="column has-text-right">
-            <input type="hidden" id="student-sId" value="<%= student.sId %>">
-            <button type="button" id="delete-student-btn" class="button is-danger is-medium">Delete Student</button>
+            <input type="hidden" id="student-sId" value="<%= student.sId %>" />
+            <button
+              type="button"
+              id="delete-student-btn"
+              class="button is-danger is-medium"
+            >
+              Delete Student
+            </button>
           </div>
         </div>
 
@@ -268,18 +274,53 @@
 
         <hr />
 
-        <div class="column is-mobile ">
+        <div class="columns is-mobile">
           <div class="column has-text-right is-full">
             <button id="edit-modules-btn" class="button is-medium is-primary">
               Edit Modules
             </button>
-
-            <button id="save-modules-btn" class="button is-success is-medium is-hidden">
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column is-one-quarter">
+            <button
+              id="save-modules-btn"
+              class="button is-success is-medium is-hidden is-fullwidth"
+            >
               Save Module Results
             </button>
-            <button id="cancel-modules-btn" class="button is-light is-medium is-hidden">
+          </div>
+          <div class="column is-one-quarter">
+            <button
+              id="cancel-modules-btn"
+              class="button is-light is-medium is-hidden is-fullwidth"
+            >
               Cancel Module Edit
             </button>
+          </div>
+
+          <div class="column is-one-quarter">
+            <button
+              id="add-module-btn"
+              class="button is-success is-medium is-hidden is-fullwidth"
+            >
+              add Module Results
+            </button>
+          </div>
+          <div class="column is-one-quarter">
+            <form
+              id="add-module-form"
+              method="POST"
+              action="/admin/student/add-student-module/<%= student.sId %>"
+              class="is-hidden is-fullwidth"
+            >
+              <input
+                class="input is-medium"
+                type="text"
+                name="new_module_name"
+                placeholder="Enter module name"
+              />
+            </form>
           </div>
         </div>
 
@@ -306,7 +347,11 @@
                 <tbody>
                   <% module_data.forEach((module) => { %>
                   <tr>
-                    <input type="hidden" name="user_module_ids[]" value="<%= module.user_module_id %>" />
+                    <input
+                      type="hidden"
+                      name="user_module_ids[]"
+                      value="<%= module.user_module_id %>"
+                    />
                     <td><%= module.subject_code %></td>
                     <td><%= module.subject_catalog %></td>
                     <td><%= module.module_title %></td>
@@ -346,10 +391,16 @@
                         disabled
                       />
                     </td>
-                    <td><%= module.academic_year %></td>
+                    <td><input
+                      class="input"
+                      type="text"
+                      name="academic_year[]"
+                      value="<%= module.academic_year || '' %>"
+                      disabled
+                    /></td>
                   </tr>
                   <% }) %>
-                </tbody>                
+                </tbody>
               </table>
             </form>
           </div>

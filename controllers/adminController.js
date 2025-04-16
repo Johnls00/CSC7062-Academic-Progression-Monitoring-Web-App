@@ -222,7 +222,7 @@ exports.updateStudent = async (req, res) => {
 exports.deleteStudent = async (req, res) => {
   const sId = req.params.id;
   console.log("sid", sId);
-  
+
   try {
     const [userResult] = await connection.query(
       "SELECT student_id, user_id FROM student WHERE sId = ?",
@@ -232,8 +232,8 @@ exports.deleteStudent = async (req, res) => {
       return res.status(404).send("Student not found");
     }
     const { student_id, user_id } = userResult[0];
-    console.log("studen id", student_id,)
-    console.log("user_id", user_id,)
+    console.log("studen id", student_id);
+    console.log("user_id", user_id);
 
     // new connection allows the delete operation to be a Transaction
     const deleteConnection = await connection.getConnection();
@@ -262,15 +262,35 @@ exports.deleteStudent = async (req, res) => {
   }
 };
 
-// exports.listCourses = (req, res) => {
-//   const courses = []; // Replace with actual courses data
-//   res.render('admin/courses', { title: 'Manage Courses', user: req.user, courses });
-// };
+exports.addStudentModule = async (req, res) => {
+  try {
+    const sId = req.params.id;
+    const { new_module_name } = req.body;
+    const moduleInfo = await moduleModel.getModuleWithModuleTitle(new_module_name);
 
-// exports.addCourse = (req, res) => {
-//   // Logic to add a new course
-//   res.redirect('/admin/courses');
-// };
+    if (!moduleInfo[0].module_id) {
+      return res.status(404).send("Module not found.");
+    }
+
+    const studentData = await studentModel.getStudentBySId(sId);
+    if (!studentData || studentData.length === 0) {
+      return res.status(404).send("Student not found");
+    }
+    
+    const studentId = studentData[0].student_id;
+    const moduleId = moduleInfo[0].module_id;
+
+    await connection.query(
+      "INSERT INTO `student_module` (`student_id`, `module_id`) VALUES (?, ?)",
+      [studentId, moduleId]
+    );
+
+    res.redirect(`/admin/student/${sId}`);
+  } catch (error) {
+    console.error("Error adding module", error);
+    res.status(500).send("Error adding module.");
+  }
+};
 //update student modules grades and results
 exports.updateStudentModules = async (req, res) => {
   const sId = req.params.id;
@@ -282,26 +302,20 @@ exports.updateStudentModules = async (req, res) => {
       grade_results,
       resit_grades,
       resit_results,
+      academic_year,
     } = req.body;
-
-    console.log(
-      user_module_ids,
-      first_grades,
-      grade_results,
-      resit_grades,
-      resit_results
-    );
 
     for (let i = 0; i < user_module_ids.length; i++) {
       await connection.query(
         `UPDATE student_module 
-     SET first_grade = ?, grade_result = ?, resit_grade = ?, resit_result = ? 
+     SET first_grade = ?, grade_result = ?, resit_grade = ?, resit_result = ?, academic_year = ?
      WHERE user_module_id = ? `,
         [
           first_grades[i] || null,
           grade_results[i] || null,
           resit_grades[i] || null,
           resit_results[i] || null,
+          academic_year[i] || null,
           user_module_ids[i],
         ]
       );
@@ -314,7 +328,7 @@ exports.updateStudentModules = async (req, res) => {
   }
 };
 
-// exports.deleteCourse = (req, res) => {
+// exports.deleteModule = (req, res) => {
 //   // Logic to delete a course
 //   res.redirect('/admin/courses');
 // };

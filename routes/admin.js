@@ -20,7 +20,7 @@ router.get('/admin/degree-programs', ensureAuth, ensureAdmin, adminController.sh
 router.get('/admin/degree-details/:id', ensureAuth, ensureAdmin, adminController.showDegreeDetails);
 // Manage Modules
 router.get('/admin/modules', ensureAuth, ensureAdmin, adminController.showModules);
-// router.post('/admin/course/add', ensureAuth, ensureAdmin, adminController.addCourse);
+router.post('/admin/student/add-student-module/:id', ensureAuth, ensureAdmin, adminController.addStudentModule);
 // router.post('/admin/modules/update/:id', ensureAuth, ensureAdmin, adminController.updateCourse);
 // router.post('/admin/course/delete/:id', ensureAuth, ensureAdmin, adminController.deleteCourse);
 
