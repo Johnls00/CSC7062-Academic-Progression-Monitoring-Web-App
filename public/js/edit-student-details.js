@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const editBtn = document.getElementById("edit-btn");
   const saveBtn = document.getElementById("save-btn");
-  const form = document.getElementById("student-details-form");
-  const inputs = form.querySelectorAll("input");
+  const studentDetailsForm = document.getElementById("student-details-form");
+  const inputs = studentDetailsForm.querySelectorAll("input");
   const cancelBtn = document.getElementById("cancel-btn");
   const deleteStudentBtn = document.getElementById("delete-student-btn");
 
@@ -23,6 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
     cancelBtn.classList.add("is-hidden"); // Hide cancel button
     editBtn.classList.remove("is-hidden"); // Show Edit button
   });
+
+  saveBtn.addEventListener("click", () => {
+    studentDetailsForm.submit();
+  })
 
   // constants for module buttons
   const saveModulesBtn = document.getElementById("save-modules-btn");

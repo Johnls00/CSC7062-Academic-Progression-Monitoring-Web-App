@@ -12,7 +12,7 @@ router.get('/admin/admin-dashboard', ensureAuth, ensureAdmin, adminController.sh
 router.get('/admin/students', ensureAuth, ensureAdmin, adminController.showStudents);
 router.get('/admin/student/:id', ensureAuth, ensureAdmin, adminController.viewStudent);
 router.post('/admin/student/add', ensureAuth, ensureAdmin, adminController.addStudent);
-router.post('/admin/update-student/:id', ensureAuth, ensureAdmin, adminController.addStudent);
+router.post('/admin/update-student/:id', ensureAuth, ensureAdmin, adminController.updateStudent);
 router.delete('/admin/student/delete/:id', ensureAuth, ensureAdmin, adminController.deleteStudent);
 router.post('/admin/student/add-student-module/:id', ensureAuth, ensureAdmin, adminController.addStudentModule);
 router.post('/admin/student/update-student-modules/:id', ensureAuth, ensureAdmin, adminController.updateStudentModules);

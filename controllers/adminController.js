@@ -268,6 +268,7 @@ exports.updateStudent = async (req, res) => {
       [first_name, last_name, sId, status_study, entry_level, studentId]
     );
 
+    
     await connection.query(
       `
         UPDATE user 
