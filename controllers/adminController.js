@@ -181,7 +181,7 @@ exports.addProgramModule = async (req, res) => {
     res.redirect(`/admin/degree-details/${program_id}`);
   } catch (error) {
     console.error("Error adding module", error);
-    res.redirect(`/admin/degree-details/${program_id}?error=addmodule`);
+    return res.status(500).send("Error adding program module");
   }
 };
 

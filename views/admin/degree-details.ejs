@@ -60,10 +60,10 @@
                   class="input is-medium"
                   type="text"
                   name="new_module_name"
-                  placeholder="Enter module name"
+                  placeholder="Enter module name" required
                 />
                 <div class="select is-medium is-fullwidth">
-                  <select name="new_module_level">
+                  <select name="new_module_level" required>
                     <option value="" disabled selected>
                       Select module level
                     </option>
@@ -82,7 +82,7 @@
               </div>
               <div class="column is-half">
                 <div class="select is-medium is-fullwidth">
-                  <select name="new_module_semester">
+                  <select name="new_module_semester" required>
                     <option value="" disabled selected>
                       Select module semester
                     </option>
@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="select is-medium is-fullwidth">
-                  <select name="new_module_core">
+                  <select name="new_module_core" required>
                     <option value="" disabled selected>Is core module?</option>
                     <option value="1">Yes (Core)</option>
                     <option value="0">No (Not core)</option>
