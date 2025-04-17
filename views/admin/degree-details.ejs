@@ -35,17 +35,86 @@
             </div>
           </div>
           <div class="column">
-            <a
-              href="/admin/degree/new"
-              style="vertical-align: middle"
+            <button
+              id="reveal-add-module-form-btn"
+              type="button"
               class="button is-primary is-pulled-right"
             >
-              Add New Degree Program
-            </a>
+              Add a module to the program
+            </button>
           </div>
         </div>
 
-        <div class="column is-full is-flex is-justify-content-center is-align-items-center">
+        <% console.log(program_id); %>
+
+        <div class="columns is-mobile is-multiline">
+          <form
+            id="add-module-form"
+            method="POST"
+            action="/admin/degree-details/add-degree-module/<%=program_id %>"
+            class="is-hidden is-fullwidth"
+          >
+            <div class="columns is-mobile is-multiline">
+              <div class="column is-half">
+                <input
+                  class="input is-medium"
+                  type="text"
+                  name="new_module_name"
+                  placeholder="Enter module name"
+                />
+                <div class="select is-medium is-fullwidth">
+                  <select name="new_module_level">
+                    <option value="" disabled selected>
+                      Select module level
+                    </option>
+                    <option value="L1">L1</option>
+                    <option value="L2">L2</option>
+                    <option value="L3">L3</option>
+                  </select>
+                </div>
+                <button
+                  id="add-module-btn"
+                  class="button is-success is-medium is-fullwidth"
+                  type="submit"
+                >
+                  Add Module
+                </button>
+              </div>
+              <div class="column is-half">
+                <div class="select is-medium is-fullwidth">
+                  <select name="new_module_semester">
+                    <option value="" disabled selected>
+                      Select module semester
+                    </option>
+                    <option value="AUT">Autumn (AUT)</option>
+                    <option value="SPR">Spring (SPR)</option>
+                    <option value="SUM">Summer (SUM)</option>
+                    <option value="FYR">Full Year (FYR)</option>
+                  </select>
+                </div>
+
+                <div class="select is-medium is-fullwidth">
+                  <select name="new_module_core">
+                    <option value="" disabled selected>Is core module?</option>
+                    <option value="1">Yes (Core)</option>
+                    <option value="0">No (Not core)</option>
+                  </select>
+                </div>
+                <button
+                  id="cancel-modules-btn"
+                  class="button is-light is-medium is-fullwidth"
+                  type="button"
+                >
+                  Cancel add module
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div
+          class="column is-full is-flex is-justify-content-center is-align-items-center"
+        >
           <div class="scroll-table-container">
             <table class="sticky-header">
               <thead>
@@ -58,19 +127,37 @@
                   <th>Level</th>
                   <th>Core module</th>
                   <th>credit value</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
-                <% let count = 0; %> <% program_modules.forEach((module) => { count++; %>
-                  <tr>
+                <% let count = 0; %> <% program_modules.forEach((module) => {
+                count++; %>
+                <tr>
+                  <input
+                    type="hidden"
+                    id="program_module_id"
+                    value="<%= module.program_module_id %>"
+                  />
                   <td><%= count %></td>
                   <td><%= module.subject_code %></td>
                   <td><%= module.subject_catalog %></td>
                   <td><%= module.module_title %></td>
                   <td><%= module.semester %></td>
                   <td><%= String(module.subject_catalog).substring(0,1) %></td>
-                  <td><% if (module.is_core === 1) { %> Yes <% } else if (module.is_core === 0) { %> No <% } %></td>
+                  <td>
+                    <% if (module.is_core === 1) { %> Yes <% } else if
+                    (module.is_core === 0) { %> No <% } %>
+                  </td>
                   <td><%= module.credit_value %></td>
+                  <td>
+                    <button
+                      type="button"
+                      class="delete-program-module-btn button is-danger"
+                    >
+                      Delete Module
+                    </button>
+                  </td>
                 </tr>
                 <% }) %>
               </tbody>
@@ -80,5 +167,6 @@
       </div>
     </div>
     <script src="/js/degree-search.js"></script>
+    <script src="/js/edit-degree-program-details.js"></script>
   </body>
 </html>

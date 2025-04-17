@@ -137,6 +137,7 @@ exports.showDegreeDetails = async (req, res) => {
     res.render("admin/degree-details", {
       title: "Degree Details",
       user: req.session.user,
+      program_id,
       program_details: program_details[0],
       program_modules: program_modules,
     });
@@ -145,6 +146,71 @@ exports.showDegreeDetails = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
+
+exports.addProgramModule = async (req, res) => {
+  try {
+    const program_id = req.params.id;
+    const {
+      new_module_name,
+      new_module_level,
+      new_module_semester,
+      new_module_core,
+    } = req.body;
+    console.log("body", req.body);
+    const moduleInfo = await moduleModel.getModuleWithModuleTitle(
+      new_module_name
+    );
+
+    if (!moduleInfo[0].module_id) {
+      return res.status(404).send("Module not found.");
+    }
+
+    const moduleId = moduleInfo[0].module_id;
+
+    await connection.query(
+      "INSERT INTO `program_module`(`program_id`, `module_id`, `level`, `semester`, `is_core`) VALUES (?,?,?,?,?)",
+      [
+        program_id,
+        moduleId,
+        new_module_level,
+        new_module_semester,
+        new_module_core,
+      ]
+    );
+
+    res.redirect(`/admin/degree-details/${program_id}`);
+  } catch (error) {
+    console.error("Error adding module", error);
+    res.redirect(`/admin/degree-details/${program_id}?error=addmodule`);
+  }
+};
+
+exports.deleteProgramModule = async (req, res) => {
+  try {
+    const program_module_id = req.params.id;
+
+    // new connection allows the delete operation to be a Transaction
+    const deleteConnection = await connection.getConnection();
+
+    await deleteConnection.beginTransaction();
+    await deleteConnection.query(
+      "DELETE FROM `program_module` WHERE `program_module_id` = ?",
+      [program_module_id]
+    );
+    
+    await deleteConnection.commit();
+    deleteConnection.release();
+
+    return res.status(200).json({ message: "program module deleted" });
+
+  } catch (err) {
+    await deleteConnection.rollback();
+    deleteConnection.release();
+    console.error("Transaction failed:", err);
+    res.status(500).send("Failed to delete student.");
+  }
+
+}
 
 exports.showModules = async (req, res) => {
   try {
@@ -221,7 +287,6 @@ exports.updateStudent = async (req, res) => {
 
 exports.deleteStudent = async (req, res) => {
   const sId = req.params.id;
-  console.log("sid", sId);
 
   try {
     const [userResult] = await connection.query(
@@ -232,8 +297,6 @@ exports.deleteStudent = async (req, res) => {
       return res.status(404).send("Student not found");
     }
     const { student_id, user_id } = userResult[0];
-    console.log("studen id", student_id);
-    console.log("user_id", user_id);
 
     // new connection allows the delete operation to be a Transaction
     const deleteConnection = await connection.getConnection();
@@ -266,7 +329,9 @@ exports.addStudentModule = async (req, res) => {
   try {
     const sId = req.params.id;
     const { new_module_name } = req.body;
-    const moduleInfo = await moduleModel.getModuleWithModuleTitle(new_module_name);
+    const moduleInfo = await moduleModel.getModuleWithModuleTitle(
+      new_module_name
+    );
 
     if (!moduleInfo[0].module_id) {
       return res.status(404).send("Module not found.");
@@ -276,7 +341,7 @@ exports.addStudentModule = async (req, res) => {
     if (!studentData || studentData.length === 0) {
       return res.status(404).send("Student not found");
     }
-    
+
     const studentId = studentData[0].student_id;
     const moduleId = moduleInfo[0].module_id;
 
@@ -291,6 +356,7 @@ exports.addStudentModule = async (req, res) => {
     res.status(500).send("Error adding module.");
   }
 };
+
 //update student modules grades and results
 exports.updateStudentModules = async (req, res) => {
   const sId = req.params.id;
@@ -328,10 +394,38 @@ exports.updateStudentModules = async (req, res) => {
   }
 };
 
-// exports.deleteModule = (req, res) => {
-//   // Logic to delete a course
-//   res.redirect('/admin/courses');
-// };
+exports.deleteStudentModule = async (req, res) => {
+  const { sId, moduleId } = req.params;
+
+  try {
+    const [userResult] = await connection.query(
+      "SELECT student_id, user_id FROM student WHERE sId = ?",
+      [sId]
+    );
+    if (!userResult || userResult.length === 0) {
+      return res.status(404).send("Student not found");
+    }
+    const studentId = userResult[0].student_id;
+
+    // new connection allows the delete operation to be a Transaction
+    const deleteConnection = await connection.getConnection();
+
+    await deleteConnection.beginTransaction();
+    await deleteConnection.query(
+      "DELETE FROM `student_module` WHERE `student_id` = ? AND `module_id` = ?",
+      [studentId, moduleId]
+    );
+    await deleteConnection.commit();
+    deleteConnection.release();
+
+    return res.status(200).json({ message: "Student module record deleted" });
+  } catch (err) {
+    await deleteConnection.rollback();
+    deleteConnection.release();
+    console.error("Transaction failed:", err);
+    res.status(500).send("Failed to delete student module record.");
+  }
+};
 
 exports.generateReports = (req, res) => {
   res.render("admin/reports", { title: "Reports", user: req.session.user });

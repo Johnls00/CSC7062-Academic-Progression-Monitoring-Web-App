@@ -14,15 +14,21 @@ router.get('/admin/student/:id', ensureAuth, ensureAdmin, adminController.viewSt
 router.post('/admin/student/add', ensureAuth, ensureAdmin, adminController.addStudent);
 router.post('/admin/update-student/:id', ensureAuth, ensureAdmin, adminController.addStudent);
 router.delete('/admin/student/delete/:id', ensureAuth, ensureAdmin, adminController.deleteStudent);
+router.post('/admin/student/add-student-module/:id', ensureAuth, ensureAdmin, adminController.addStudentModule);
 router.post('/admin/student/update-student-modules/:id', ensureAuth, ensureAdmin, adminController.updateStudentModules);
+router.delete('/admin/student/delete-student-module/:id/:moduleId', ensureAuth, ensureAdmin, adminController.deleteStudentModule);
+
 // Manage degrees 
 router.get('/admin/degree-programs', ensureAuth, ensureAdmin, adminController.showDegreePrograms);
 router.get('/admin/degree-details/:id', ensureAuth, ensureAdmin, adminController.showDegreeDetails);
+router.post('/admin/degree-details/add-degree-module/:id', ensureAuth, ensureAdmin, adminController.addProgramModule);
+router.delete('/admin/degree-details/delete-degree-module/:id', ensureAuth, ensureAdmin, adminController.deleteProgramModule);
 // Manage Modules
 router.get('/admin/modules', ensureAuth, ensureAdmin, adminController.showModules);
-router.post('/admin/student/add-student-module/:id', ensureAuth, ensureAdmin, adminController.addStudentModule);
-// router.post('/admin/modules/update/:id', ensureAuth, ensureAdmin, adminController.updateCourse);
-// router.post('/admin/course/delete/:id', ensureAuth, ensureAdmin, adminController.deleteCourse);
+
+
+
+
 
 // Reports
 router.get('/admin/reports', ensureAuth, ensureAdmin, adminController.generateReports);
