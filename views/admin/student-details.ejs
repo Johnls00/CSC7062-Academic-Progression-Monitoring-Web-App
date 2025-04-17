@@ -342,10 +342,16 @@
                     <th>Resit Grade</th>
                     <th>Resit Result</th>
                     <th>Year of study</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   <% module_data.forEach((module) => { %>
+                  <input
+                    type="hidden"
+                    id="module-id"
+                    value="<%= module.student_id %>"
+                  />
                   <tr>
                     <input
                       type="hidden"
@@ -360,7 +366,7 @@
                         class="input"
                         type="text"
                         name="first_grades[]"
-                        value="<%= module.first_grade || '' %>"
+                        value="<%= module.first_grade === 0 ? 0 : (module.first_grade || 'N/A' ) %>"
                         disabled
                       />
                     </td>
@@ -369,7 +375,7 @@
                         class="input"
                         type="text"
                         name="grade_results[]"
-                        value="<%= module.grade_result || '' %>"
+                        value="<%= module.grade_result || 'N/A' %>"
                         disabled
                       />
                     </td>
@@ -378,7 +384,7 @@
                         class="input"
                         type="text"
                         name="resit_grades[]"
-                        value="<%= module.resit_grade || '' %>"
+                        value="<%= module.resit_grade === 0 ? 0 : (module.resit_grade || 'N/A' ) %>"
                         disabled
                       />
                     </td>
@@ -387,17 +393,27 @@
                         class="input"
                         type="text"
                         name="resit_results[]"
-                        value="<%= module.resit_result || '' %>"
+                        value="<%= module.resit_result || 'N/A' %>"
                         disabled
                       />
                     </td>
-                    <td><input
-                      class="input"
-                      type="text"
-                      name="academic_year[]"
-                      value="<%= module.academic_year || '' %>"
-                      disabled
-                    /></td>
+                    <td>
+                      <input
+                        class="input"
+                        type="text"
+                        name="academic_year[]"
+                        value="<%= module.academic_year || 'N/A' %>"
+                        disabled
+                      />
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        class="delete-student-module-btn button is-danger"
+                      >
+                        Delete Module
+                      </button>
+                    </td>
                   </tr>
                   <% }) %>
                 </tbody>
