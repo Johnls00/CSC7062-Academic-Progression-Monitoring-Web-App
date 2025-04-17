@@ -197,20 +197,18 @@ exports.deleteProgramModule = async (req, res) => {
       "DELETE FROM `program_module` WHERE `program_module_id` = ?",
       [program_module_id]
     );
-    
+
     await deleteConnection.commit();
     deleteConnection.release();
 
     return res.status(200).json({ message: "program module deleted" });
-
   } catch (err) {
     await deleteConnection.rollback();
     deleteConnection.release();
     console.error("Transaction failed:", err);
     res.status(500).send("Failed to delete student.");
   }
-
-}
+};
 
 exports.showModules = async (req, res) => {
   try {
@@ -377,11 +375,11 @@ exports.updateStudentModules = async (req, res) => {
      SET first_grade = ?, grade_result = ?, resit_grade = ?, resit_result = ?, academic_year = ?
      WHERE user_module_id = ? `,
         [
-          first_grades[i] || null,
-          grade_results[i] || null,
-          resit_grades[i] || null,
-          resit_results[i] || null,
-          academic_year[i] || null,
+          first_grades[i] === "N/A" ? null : first_grades[i],
+          grade_results[i] === "N/A" ? null : grade_results[i],
+          resit_grades[i] === "N/A" ? null : resit_grades[i],
+          resit_results[i] === "N/A" ? null : resit_results[i],
+          academic_year[i] === "N/A" ? null : academic_year[i],
           user_module_ids[i],
         ]
       );

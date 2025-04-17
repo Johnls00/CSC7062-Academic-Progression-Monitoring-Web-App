@@ -6,10 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const cancelBtn = document.getElementById("cancel-btn");
   const deleteStudentBtn = document.getElementById("delete-student-btn");
 
-  
-
-  
-
   editBtn.addEventListener("click", () => {
     inputs.forEach((input) => {
       if (!input.hasAttribute("readonly")) {
@@ -35,9 +31,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const moduleInputs = document.querySelectorAll("#module-form input");
   const addModuleBtn = document.getElementById("add-module-btn");
   const addModuleForm = document.getElementById("add-module-form");
+  const deleteStudentModuleBtn = document.getElementById(
+    "delete-student-module-btn"
+  );
 
   editModulesBtn.addEventListener("click", () => {
-    document.querySelectorAll('#module-form input').forEach((input) => {
+    document.querySelectorAll("#module-form input").forEach((input) => {
       if (!input.hasAttribute("readonly")) {
         input.removeAttribute("disabled");
       }
@@ -64,29 +63,66 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("add-module-form").submit();
   });
 
-// delete student button 
-  deleteStudentBtn.addEventListener("click", async () => {
-    if (confirm("Are you sure you want to delete this student and all their records?")) {
-      const sId = document.getElementById("student-sId").value;
+  // delete student module
+  document.querySelectorAll(".delete-student-module-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      console.log("Delete button clicked");
 
-      fetch(`/admin/student/delete/${sId}`, {
-        method: "DELETE"
-      })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error("Deletion failed");
-          }
+      if (
+        confirm("Are you sure you want to delete this student module record?")
+      ) {
+        const sId = document.getElementById("student-sId").value;
+        const moduleId = document.getElementById("module-id").value;
+
+        fetch(`/admin/student/delete-student-module/${sId}/${moduleId}`, {
+          method: "DELETE",
         })
-        .then((data) => {
-          alert(data.message); // "Student deleted"
-          window.location.href = "/admin/students";
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error("Module Deletion failed");
+            }
+          })
+          .then((data) => {
+            alert(data.message); 
+            window.location.href = `/admin/student/${sId}`;
+          })
+          .catch((error) => {
+            console.error("Error deleting module:", error);
+            alert("Failed to delete student module.");
+          });
+      }
+    });
+
+    // delete student button
+    deleteStudentBtn.addEventListener("click", async () => {
+      if (
+        confirm(
+          "Are you sure you want to delete this student and all their records?"
+        )
+      ) {
+        const sId = document.getElementById("student-sId").value;
+
+        fetch(`/admin/student/delete/${sId}`, {
+          method: "DELETE",
         })
-        .catch((error) => {
-          console.error("Error deleting student:", error);
-          alert("Failed to delete student.");
-        });
-    }
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error("Deletion failed");
+            }
+          })
+          .then((data) => {
+            alert(data.message); // "Student deleted"
+            window.location.href = "/admin/students";
+          })
+          .catch((error) => {
+            console.error("Error deleting student:", error);
+            alert("Failed to delete student.");
+          });
+      }
+    });
   });
 });
