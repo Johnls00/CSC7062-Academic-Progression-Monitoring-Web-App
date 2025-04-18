@@ -6,6 +6,7 @@ const moduleModel = require("../models/moduleModel");
 const messageModel = require("../models/messageModel");
 const notificationModel = require("../models/notificationModel");
 const massUploadHandlerModel = require("../models/massUploadHandlerModel");
+const studentRecordModel = require("../models/studentRecordModel");
 const connection = require("../config/config");
 
 exports.showDashboard = async (req, res) => {
@@ -71,30 +72,15 @@ exports.viewStudent = async (req, res) => {
     );
 
     const program_code = student[0].sId.substring(3, 7);
-
-    try {
-      const program_details = await programModels.getProgramInfo(program_code);
-
-      if (program_details && program_details.length > 0) {
-        student[0].program_code = program_details[0].program_code;
-        student[0].program_name = program_details[0].name;
-      } else {
-        student[0].program_code = "Unknown";
-        student[0].program_name = "Unknown";
-      }
-    } catch (err) {
-      console.warn(
-        "Failed to fetch program info for:",
-        program_code,
-        err.message
-      );
-      student[0].program_code = "Unknown";
-      student[0].program_name = "Unknown";
-    }
-
-    if (!student) {
+    // attach the student program details 
+    const studentWithProgramDetails = await studentModel.attachProgramDetails(student);
+    
+  
+    if (!studentWithProgramDetails) {
       return res.status(404).send("Student not found");
     }
+
+    console.log("student with details", studentWithProgramDetails);
 
     res.render("admin/student-details", {
       title: "Student Details",
