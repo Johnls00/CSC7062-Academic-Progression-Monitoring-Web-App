@@ -141,7 +141,11 @@ async function getStudentRecord(student) {
     `
     SELECT
         m.module_id AS module_id,
-        COALESCE(sm.resit_result, sm.grade_result) AS result
+        COALESCE(sm.resit_result, sm.grade_result) AS result,
+        CASE
+            WHEN sm.resit_result = 'pass capped' THEN 40
+            ELSE COALESCE(sm.first_grade, sm.resit_grade)
+        END AS grade
         FROM student_module sm
         JOIN (
             SELECT module_id, MAX(RIGHT(academic_year, 2)) AS latest_year
@@ -159,6 +163,7 @@ async function getStudentRecord(student) {
   studentRecord.modules = moduleGradesAndResults.map((module) => ({
     module_id: module.module_id,
     result: module.result,
+    grade: module.grade,
   }));
 
   // calculate credits passed using already fetched module results
