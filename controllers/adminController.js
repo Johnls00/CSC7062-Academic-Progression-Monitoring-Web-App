@@ -71,21 +71,24 @@ exports.viewStudent = async (req, res) => {
       student[0].student_id
     );
 
-    const program_code = student[0].sId.substring(3, 7);
-    // attach the student program details 
+    // attach the student program details
     const studentWithProgramDetails = await studentModel.attachProgramDetails(student);
-    
-  
+
     if (!studentWithProgramDetails) {
       return res.status(404).send("Student not found");
     }
 
     console.log("student with details", studentWithProgramDetails);
 
+    const studentRecord = await studentRecordModel.getStudentRecord(studentWithProgramDetails);
+
+    console.log("student record", studentRecord);
+ 
+
     res.render("admin/student-details", {
       title: "Student Details",
       user: req.session.user,
-      student: student[0],
+      student: studentWithProgramDetails[0],
       user_data: user_data[0],
       module_data,
     });
