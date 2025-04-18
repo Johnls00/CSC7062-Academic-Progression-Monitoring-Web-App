@@ -37,7 +37,40 @@ async function getStudentRecord(student) {
     AND ( sm.resit_grade IS NOT NULL OR sm.first_grade IS NOT NULL );`,
     [studentId, programId, studentId]
   );
-  studentRecord.averageMark = averageMark.length > 0 ? averageMark[0].avg_mark : null;
+  studentRecord.averageMark =
+    averageMark.length > 0 ? averageMark[0].avg_mark : null;
+
+  // calculate average grade per year
+  const [averageMarkPerYear] = await connection.query(
+    `
+    SELECT 
+        pm.level AS level,
+        AVG(
+            CASE
+            WHEN COALESCE(sm.resit_result, sm.grade_result) = 'pass capped' THEN 40
+            WHEN sm.resit_grade IS NOT NULL THEN sm.resit_grade
+            ELSE sm.first_grade
+            END
+        ) AS avg_mark
+        FROM student_module sm
+        JOIN (
+        SELECT MAX(user_module_id) AS latest_id
+        FROM student_module
+        WHERE student_id = ?
+        GROUP BY module_id
+        ) latest_attempts ON sm.user_module_id = latest_attempts.latest_id
+        JOIN program_module pm ON sm.module_id = pm.module_id
+        WHERE pm.program_id = ?
+        AND sm.student_id = ?
+        AND (sm.resit_grade IS NOT NULL OR sm.first_grade IS NOT NULL)
+        GROUP BY pm.level;`,
+    [studentId, programId, studentId]
+  );
+  studentRecord.averageMarkPerYear = averageMarkPerYear.map((year) => ({
+    level: year.level,
+    avg_mark: year.avg_mark,
+  }));
+
   // check if the core modules have been passed
   const [coreModulesPassed] = await connection.query(
     `
@@ -56,8 +89,8 @@ async function getStudentRecord(student) {
     AND pm.is_core = 1;`,
     [studentId]
   );
-//   if the user has complete any core modules it will check if they passed those modules 
-//  if they havent completed any core modules it will return N/A
+  //   if the user has complete any core modules it will check if they passed those modules
+  //  if they havent completed any core modules it will return N/A
   studentRecord.coreModulesPassed = coreModulesPassed[0].core_modules_passed;
 
   // work out the students level
@@ -71,7 +104,7 @@ async function getStudentRecord(student) {
         `,
     [studentId, programId]
   );
-  //   mapping results to student record 
+  //   mapping results to student record
   studentRecord.studentLevel = studentLevel[0].highest_level;
 
   // work out attempts per module
@@ -97,13 +130,13 @@ async function getStudentRecord(student) {
         `,
     [studentId]
   );
-//   mapping results to student record 
+  //   mapping results to student record
   studentRecord.moduleAttempts = moduleAttempts.map((module) => ({
     module_id: module.module_id,
     attempt_count: module.attempt_count,
   }));
 
-  // get the final grade and result achieved per module for the most recent year 
+  // get the final grade and result achieved per module for the most recent year
   const [moduleGradesAndResults] = await connection.query(
     `
     SELECT
@@ -122,16 +155,16 @@ async function getStudentRecord(student) {
         WHERE sm.student_id = ?;`,
     [studentId, studentId]
   );
-  //   mapping results to student record 
+  //   mapping results to student record
   studentRecord.modules = moduleGradesAndResults.map((module) => ({
     module_id: module.module_id,
     result: module.result,
   }));
-  
+
   // calculate credits passed using already fetched module results
   const creditMap = {};
   for (const module of moduleGradesAndResults) {
-    if (['pass', 'pass capped'].includes(module.result)) {
+    if (["pass", "pass capped"].includes(module.result)) {
       const [moduleInfo] = await connection.query(
         `SELECT m.credit_value, pm.level
          FROM module m
@@ -146,12 +179,14 @@ async function getStudentRecord(student) {
       }
     }
   }
-  studentRecord.creditsPassed = Object.entries(creditMap).map(([level, credits]) => ({
-    module_level: level,
-    credits_passed: credits,
-  }));
+  studentRecord.creditsPassed = Object.entries(creditMap).map(
+    ([level, credits]) => ({
+      module_level: level,
+      credits_passed: credits,
+    })
+  );
 
-//  return the student record 
+  //  return the student record
   return studentRecord;
 }
 
