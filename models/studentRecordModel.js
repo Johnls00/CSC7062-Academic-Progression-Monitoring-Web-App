@@ -144,7 +144,7 @@ async function getStudentRecord(student) {
         COALESCE(sm.resit_result, sm.grade_result) AS result,
         CASE
             WHEN sm.resit_result = 'pass capped' THEN 40
-            ELSE COALESCE(sm.first_grade, sm.resit_grade)
+            ELSE COALESCE(sm.resit_grade, sm.first_grade)
         END AS grade
         FROM student_module sm
         JOIN (
