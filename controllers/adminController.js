@@ -8,6 +8,8 @@ const notificationModel = require("../models/notificationModel");
 const massUploadHandlerModel = require("../models/massUploadHandlerModel");
 const studentRecordModel = require("../models/studentRecordModel");
 const connection = require("../config/config");
+// scripts 
+const { determineProgression } = require("../utils/progression-logic");
 
 exports.showDashboard = async (req, res) => {
   try {
@@ -78,12 +80,9 @@ exports.viewStudent = async (req, res) => {
       return res.status(404).send("Student not found");
     }
 
-    console.log("student with details", studentWithProgramDetails);
-
     const studentRecord = await studentRecordModel.getStudentRecord(studentWithProgramDetails);
-
     console.log("student record", studentRecord);
- 
+    const studentProgression = determineProgression(studentRecord);
 
     res.render("admin/student-details", {
       title: "Student Details",

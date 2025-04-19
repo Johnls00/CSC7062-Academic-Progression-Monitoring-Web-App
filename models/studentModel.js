@@ -5,7 +5,6 @@ const programModel = require("../models/programModels");
 
 //Get student user data by user ID
 async function getStudentUserData(userId) {
-  console.log("searching for data with user id: ", userId);
   const [userData] = await connection.query(
     "SELECT * FROM `user` WHERE `user_id` = ?",
     [userId]
@@ -57,13 +56,11 @@ async function getStudentBySId(sId) {
 
 // Get courses by student ID
 async function getModulesByStudentId(studentId) {
-  console.log ("student id searching", studentId);
   try {
     const [modules] = await connection.query(
       "SELECT * FROM `student_module` WHERE `student_id` = ?",
       [studentId]
     );
-    console.log(modules);
 
      for (let i = 0; i < modules.length; i++) {
         const moduleId = modules[i].module_id;
