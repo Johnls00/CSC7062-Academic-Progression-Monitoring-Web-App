@@ -43,7 +43,7 @@ async function getStudentRecord(student) {
   // calculate average grade per year
   const [averageMarkPerYear] = await connection.query(
     `
-    SELECT 
+    SELECT
         pm.level AS level,
         AVG(
             CASE
@@ -89,7 +89,7 @@ async function getStudentRecord(student) {
     AND pm.is_core = 1;`,
     [studentId]
   );
-  //   if the user has complete any core modules it will check if they passed those modules
+  //  if the user has complete any core modules it will check if they passed those modules
   //  if they havent completed any core modules it will return N/A
   studentRecord.coreModulesPassed = coreModulesPassed[0].core_modules_passed;
 
@@ -167,7 +167,10 @@ async function getStudentRecord(student) {
   }));
 
   // calculate credits passed using already fetched module results
-  const creditMap = {};
+  const creditMap = {
+    'L1': 0,
+    'L2': 0,
+  };
   for (const module of moduleGradesAndResults) {
     if (["pass", "pass capped"].includes(module.result)) {
       const [moduleInfo] = await connection.query(
