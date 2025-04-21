@@ -32,61 +32,64 @@
 
             <!-- Right Column: Contact Form -->
             <div class="column is-half">
-              <form>
+              <form onsubmit="return sendEmail(event)">
                 <div class="field">
                   <label class="label">Name:</label>
                   <div class="control">
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="e.g. Alex Smith"
-                    />
+                    <input class="input" type="text" id="name" placeholder="e.g. Alex Smith" />
                   </div>
                 </div>
-
+              
                 <div class="field">
                   <label class="label">Email:</label>
                   <div class="control">
-                    <input
-                      class="input"
-                      type="email"
-                      placeholder="e.g. alex@example.com"
-                    />
+                    <input class="input" type="email" id="email" placeholder="e.g. alex@example.com" />
                   </div>
                 </div>
-
+              
                 <div class="field">
                   <label class="label">Subject:</label>
                   <div class="control">
-                    <input
-                      class="input"
-                      type="text"
-                      placeholder="e.g. Subject of issue"
-                    />
+                    <input class="input" type="text" id="subject" placeholder="e.g. Subject of issue" />
                   </div>
                 </div>
-
+              
                 <div class="field">
                   <label class="label">Message:</label>
                   <div class="control">
-                    <textarea
-                      class="textarea"
-                      placeholder="Describe your issue here..."
-                      rows="6"
-                    ></textarea>
+                    <textarea class="textarea" id="message" placeholder="Describe your issue here..." rows="6"></textarea>
                   </div>
                 </div>
-
-                <button class="button is-primary is-fullwidth">Submit</button>
-
-                <p class="register-text">
-                  Have an account? <a href="/login">Login here</a>
-                </p>
+              
+                <button class="button is-primary is-fullwidth" type="submit">Submit</button>
               </form>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <script>
+      function sendEmail(event) {
+        // Stop the form from submitting normally
+        event.preventDefault();
+        // email to constant email address
+        const MAIL_TO = "student-services@university.edu";
+        
+        // fetching email contents from form
+        const email = document.getElementById("email").value;
+        const subject = document.getElementById("subject").value;
+        const message = document.getElementById("message").value;
+        const name = document.getElementById("name").value;
+
+        // formatted email message
+        const bodyRaw = `Hi, \nMy name is ${name}.\n\n${message}\n\nRegards, ${name}\nMy email is - ${email}`;
+
+        const subjectEncoded = encodeURIComponent(subject);
+        const bodyEncoded = encodeURIComponent(bodyRaw);
+
+        window.location.href = `mailto:${MAIL_TO}?subject=${subjectEncoded}&body=${bodyEncoded}`;
+        return false;
+      }
+    </script>
   </body>
 </html>
