@@ -7,9 +7,9 @@
     <!-- Student side -->
     <% if (user && user.role === 'student') { %>
     <p class="title">
-      Welcome, <%= studentData[0].first_name %> <%= studentData[0].last_name %>
+      Welcome, <%= studentData.first_name %> <%= studentData.last_name %>
     </p>
-    <p class="subtitle-studentId">Student ID: <%= studentData[0].sId %></p>
+    <p class="subtitle-studentId">Student ID: <%= studentData.sId %></p>
 
     <% if (title === 'Student Dashboard') { %>
     <p class="subtitle-page-title">

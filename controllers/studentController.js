@@ -1,6 +1,11 @@
 // controllers/studentController.js
+// required models 
 const studentModel = require("../models/studentModel");
 const moduleModel = require("../models/moduleModel");
+const studentRecordModel = require("../models/studentRecordModel");
+const connection = require("../config/config");
+// scripts 
+const { determineProgression } = require("../utils/progression-logic");
 
 exports.showDashboard = async (req, res) => {
   try {
@@ -12,7 +17,7 @@ exports.showDashboard = async (req, res) => {
     res.render("student/student-dashboard", {
       title: "Student Dashboard",
       user: req.session.user,
-      studentData,
+      studentData: studentData[0]
     });
   } catch (err) {
     console.error("Error in showDashboard controller:", err);
@@ -32,7 +37,7 @@ exports.showModules = async (req, res) => {
   res.render("student/modules", {
     title: "Modules",
     user: req.session.user,
-    studentData,
+    studentData: studentData[0],
     modules,
   });
 };
@@ -60,27 +65,79 @@ exports.showNotifications = async (req, res) => {
 };
 
 exports.showProfile = async (req, res) => {
-  const userId = req.session.user.user_id;
-  const studentData = await studentModel.getStudentData(userId);
+  try {
+    const userId = req.session.user.user_id;
+    const [studentData] = await studentModel.getStudentData(userId);
+    console.log("student data ",studentData);
+    // const student = await studentModel.getStudentBySId(studentData.student_id);
+    // console.log("student", student);
+    const user_data = await studentModel.getStudentUserData(studentData.user_id);
+    console.log("USER DATA", user_data);
+    const module_data = await studentModel.getModulesByStudentId(
+      studentData.student_id
+    );
 
-  res.render("student/profile", {
-    title: "Student Profile",
-    user: req.session.user,
-    studentData,
-  });
+    // attach the student program details
+    const studentWithProgramDetails = await studentModel.attachProgramDetails(
+      [studentData] 
+    );
+
+    if (!studentWithProgramDetails) {
+      return res.status(404).send("Student not found");
+    }
+
+    const studentRecord = await studentRecordModel.getStudentRecord(
+      studentWithProgramDetails
+    );
+    console.log("student record", studentRecord);
+    const studentProgression = await determineProgression(studentRecord);
+    console.log(module_data);
+
+    res.render("student/profile", {
+      title: "Student Profile",
+      user: req.session.user,
+      studentData: studentWithProgramDetails[0],
+      user_data: user_data[0],
+      module_data,
+      studentRecord: studentRecord,
+      studentProgression: studentProgression,
+    });
+  } catch (err) {
+    console.error("Error fetching student:", err);
+    res.status(500).send("Internal Server Error");
+  }
 };
 
-// exports.updateProfile = (req, res) => {
-//   // Process the profile update logic here
-//   res.redirect('student/profile', { title: 'Student Profile', user: req.session.user });
-// };
+exports.updateProfile = async (req, res) => {
+  const student_id = req.params.id;
+  const [userResult] = await connection.query(
+    "SELECT user_id FROM student WHERE student_id = ?",
+    [student_id]
+  );
 
-// exports.showSubmit = (req, res) => {
-//   const moduleId = req.params.moduleId;
-//   res.render('student/submit', { title: 'Submit Assignment', user: req.user, moduleId });
-// };
+  if (!userResult || userResult.length === 0) {
+    return res.status(404).send("Student not found");
+  }
+  const userId = userResult[0].user_id;
 
-// exports.handleSubmit = (req, res) => {
-//   // Process assignment submission logic here
-//   res.redirect('/dashboard');
-// };
+  const {
+    secondary_email,
+  } = req.body;
+
+  try {
+    
+    await connection.query(
+      `
+        UPDATE user 
+        SET secondary_email = ? 
+        WHERE user_id = ?`,
+      [ secondary_email, userId]
+    );
+
+    res.redirect(`/student-dashboard/profile`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to update student.");
+  }
+};
+

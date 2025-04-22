@@ -250,15 +250,37 @@
                 <tbody>
                   <tr>
                     <th>Total Credits:</th>
-                    <td><%= student.Total_credits_earned %></td>
+                    <% let totalCredits = 0; %> <%
+                    studentRecord.creditsPassed.forEach((level) => { %> <%
+                    totalCredits += level.credits_passed %> <% }) %>
+                    <td><%= totalCredits %></td>
                   </tr>
                   <tr>
-                    <th>Average grade:</th>
-                    <td><%= student.average_grade %></td>
+                    <th>Credits Per Year</th>
+                    <% studentRecord.creditsPassed.forEach((level) => { %>
+                    <td>
+                      <%= level.module_level %> : <%= level.credits_passed %>
+                    </td>
+                    <% }) %>
+                  </tr>
+                  <tr>
+                    <th>Average grade Per Year:</th>
+                    <% studentRecord.averageMarkPerYear.forEach((level) => { %>
+                    <td>
+                      <%= level.level %> : <%=
+                      parseFloat(level.avg_mark).toFixed(2)%>
+                    </td>
+                    <% }) %>
                   </tr>
                   <tr>
                     <th>Progression Status:</th>
-                    <td><%= student.progression_status %></td>
+                    <><%= studentProgression.outcome %></td>
+                  </tr>
+                  <tr>
+                    <th>Progression Details:</th>
+                    <% studentProgression.reason.forEach((reason) => { %>
+                    - <%= reason %>
+                    <% }) %>
                   </tr>
                 </tbody>
               </table>
@@ -268,7 +290,7 @@
           <div
             class="column is-half has-text-weight-bold is-flex is-justify-content-center is-align-items-center"
           >
-            <div class="box">Put a pie chart here</div>
+            <div class="box"><canvas id="studentProgressionChart"></canvas></div>
           </div>
         </div>
 
@@ -424,6 +446,35 @@
         </div>
       </div>
     </div>
-    <script src="/js/edit-student-details.js"></script>
+    <script src="/js/edit-student-details-admin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+      const ctx = document.getElementById("studentProgressionChart");
+
+      const labels = studentRecord.modules.map((module) => module.module_title);
+      const data = studentRecord.modules.map((module) => module.grade);
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          datasets: [
+            {
+              label: "# of Votes",
+              data: [12, 19, 3, 5, 2, 3],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    </script>
   </body>
 </html>

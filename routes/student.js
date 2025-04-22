@@ -11,7 +11,7 @@ router.get('/student-dashboard/progress', ensureAuth, ensureStudent, studentCont
 router.get('/student-dashboard/notifications', ensureAuth, ensureStudent, studentController.showNotifications);
 
 router.get('/student-dashboard/profile', ensureAuth, ensureStudent, studentController.showProfile);
-// router.post('/profile/update', ensureAuth, ensureStudent, studentController.updateProfile);
+router.post('/profile/update/:id', ensureAuth, ensureStudent, studentController.updateProfile);
 // router.get('/submit/:moduleId', ensureAuth, ensureStudent, studentController.showSubmit);
 // router.post('/submit/:moduleId', ensureAuth, ensureStudent, studentController.handleSubmit);
 

@@ -18,48 +18,283 @@
 
   <body class="container-main">
     <div class="container mTop">
-      <%- include('../partials/header.ejs') %>
+       <%#  Navigation header partial  %>
+       <%- include('../partials/header.ejs') %>
+       <%# Header banner partical for each page with page specific information %>
+       <%- include('../partials/dashboard-pages-welcome.ejs') %>
 
-      <%- include('../partials/dashboard-pages-welcome.ejs') %>
 
-      <div class="columns is-variable is-6">
-        <div class="column">
-          <div class="card">
-            <header class="card-header">
-              <p class="card-header-title">Personal Information</p>
-            </header>
-            <div class="card-content">
-              <div class="content">
-                <ul class="profile-information">
-                  <li><strong>Name:</strong> <%= studentData[0].first_name %> <%= studentData[0].last_name %> </li>
-                  <li><strong>Student Number:</strong> <%= studentData[0].sId %> </li>
-                  <li><strong>Degree Programme:</strong> Not yet Implimented</li>
-                  <li><strong>Email:</strong> <%= user.email %> </li>
-                  <li><strong>Year of Study:</strong> Not yet Implimented</li>
-                </ul>
+       <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
+        <div class="columns is-mobile">
+          <div class="column has-text-left">
+            <a href="" class="button is-light is-medium"
+              >Produce Student Summary Report</a
+            >
+          </div>
+          <div class="column"></div>
+        </div>
+
+        <hr />
+        <div class="columns is-mobile">
+          <div
+            class="column is-half is-flex is-justify-content-center is-align-items-center"
+          >
+            <figure class="image has-text-centered">
+              <img
+                class="is-rounded"
+                style="width: 20rem; height: auto; border: 3px solid #ccc"
+                src="/images/siluete-lock-person.png"
+                alt="Placeholder image"
+              />
+              <figcaption class="mt-2">Student Profile Image</figcaption>
+            </figure>
+          </div>
+          <div class="column is-narrow">
+            <div style="border-left: 2px solid #ccc; height: 100%"></div>
+          </div>
+
+          <!-- table with students details -->
+          <div class="box">
+            <form
+              id="student-details-form"
+              method="POST"
+              action="/profile/update/<%= studentData.student_id %>"
+            >
+              <div class="columns">
+                <div
+                  class="column is-half has-text-weight-bold is-flex"
+                  style="width: 15rem"
+                >
+                  Student First Name:
+                </div>
+                <div class="column">
+                  <input
+                    class="input"
+                    type="text"
+                    name="first_name"
+                    value="<%= studentData.first_name %>"
+                    disabled
+                    readonly
+                  />
+                </div>
               </div>
-            </div>
+
+              <div class="columns">
+                <div
+                  class="column is-half has-text-weight-bold is-flex"
+                  style="width: 15rem"
+                >
+                  Student Last Name:
+                </div>
+                <div class="column">
+                  <input
+                    class="input"
+                    type="text"
+                    name="last_name"
+                    value="<%= studentData.last_name %>"
+                    disabled
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="columns">
+                <div
+                  class="column is-one-third has-text-weight-bold"
+                  style="width: 15rem"
+                >
+                  Student Number:
+                </div>
+                <div class="column">
+                  <input
+                    class="input"
+                    type="text"
+                    name="sId"
+                    value="<%= studentData.sId %>"
+                    disabled
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="columns">
+                <div
+                  class="column is-one-third has-text-weight-bold"
+                  style="width: 15rem"
+                >
+                  Email:
+                </div>
+                <div class="column">
+                  <input
+                    class="input"
+                    type="email"
+                    name="email"
+                    value="<%= user_data.email %>"
+                    disabled
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="columns">
+                <div
+                  class="column is-one-third has-text-weight-bold"
+                  style="width: 15rem"
+                >
+                  Secondary Email:
+                </div>
+                <div class="column">
+                  <input
+                    class="input"
+                    type="email"
+                    name="secondary_email"
+                    value="<%= user_data.secondary_email || null %>"
+                    placeholder="No email saved"
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <div class="columns">
+                <div
+                  class="column is-one-third has-text-weight-bold"
+                  style="width: 15rem"
+                >
+                  Degree Programme:
+                </div>
+                <div class="column">
+                  <input
+                    class="input"
+                    type="text"
+                    name="degree"
+                    value="<%= studentData.program_name %>"
+                    disabled
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="columns">
+                <div
+                  class="column is-one-third has-text-weight-bold"
+                  style="width: 15rem"
+                >
+                  Study Status:
+                </div>
+                <div class="column">
+                  <input
+                    class="input"
+                    type="text"
+                    name="status_study"
+                    value="<%= studentData.status_study %>"
+                    disabled
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="columns">
+                <div
+                  class="column is-one-third has-text-weight-bold"
+                  style="width: 15rem"
+                >
+                  Entry level:
+                </div>
+                <div class="column">
+                  <input
+                    class="input"
+                    type="text"
+                    name="entry_level"
+                    value="<%= studentData.entry_level %>"
+                    disabled
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="has-text-right mt-4">
+                <button type="button" id="edit-btn" class="button is-primary">
+                  Edit Details
+                </button>
+                <button
+                  type="submit"
+                  id="save-btn"
+                  class="button is-success is-hidden"
+                >
+                  Save
+                </button>
+                <button
+                  id="cancel-btn"
+                  class="button is-light is-hidden"
+                  type="button"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
           </div>
         </div>
 
-        <div class="column">
-          <div class="card">
-            <header class="card-header">
-              <p class="card-header-title">Progression Summary</p>
-            </header>
-            <div class="card-content">
-              <div class="content">
-                <ul class="profile-information">
-                  <li><strong>Total Credits Earned:</strong> Not yet Implimented</li>
-                  <li><strong>Average Grade:</strong> Not yet Implimented</li>
-                  <li><strong>Progression Status:</strong> Not yet Implimented</li>
-                </ul>
-              </div>
+        <hr />
+
+        <h1 class="title">Progression Summary</h1>
+
+        <div class="columns is-mobile">
+          <div
+            class="column is-half has-text-weight-bold is-flex is-justify-content-center is-align-items-center"
+          >
+            <div class="box">
+              <table class="table is-striped is-fullwidth">
+                <tbody>
+                  <tr>
+                    <th>Total Credits:</th>
+                    <% let totalCredits = 0; %> <%
+                    studentRecord.creditsPassed.forEach((level) => { %> <%
+                    totalCredits += level.credits_passed %> <% }) %>
+                    <td><%= totalCredits %></td>
+                  </tr>
+                  <tr>
+                    <th>Credits Per Year</th>
+                    <% studentRecord.creditsPassed.forEach((level) => { %>
+                    <td>
+                      <%= level.module_level %> : <%= level.credits_passed %>
+                    </td>
+                    <% }) %>
+                  </tr>
+                  <tr>
+                    <th>Average grade Per Year:</th>
+                    <% studentRecord.averageMarkPerYear.forEach((level) => { %>
+                    <td>
+                      <%= level.level %> : <%=
+                      parseFloat(level.avg_mark).toFixed(2)%>
+                    </td>
+                    <% }) %>
+                  </tr>
+                  <tr>
+                    <th>Progression Status:</th>
+                    <><%= studentProgression.outcome %></td>
+                  </tr>
+                  <tr>
+                    <th>Progression Details:</th>
+                    <% studentProgression.reason.forEach((reason) => { %>
+                    - <%= reason %>
+                    <% }) %>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
+
+          <div
+            class="column is-half has-text-weight-bold is-flex is-justify-content-center is-align-items-center"
+          >
+            <div class="box"><canvas id="studentProgressionChart"></canvas></div>
+          </div>
         </div>
-      </div>
+
+        <hr />
 
     </div>
+    <script src="/js/edit-student-details-student.js"></script>
   </body>
 </html>
