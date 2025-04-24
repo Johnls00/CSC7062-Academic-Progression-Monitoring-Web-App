@@ -260,9 +260,10 @@ async function submitNewMessage() {
   }
 }
 
-document
-  .querySelector("#send-new-notification")
-  .addEventListener("click", function (e) {
+// added if to to stop error on student side where new notifications cant be sent.
+const newNotificationBtn = document.querySelector("#send-new-notification");
+if (newNotificationBtn) {
+  newNotificationBtn.addEventListener("click", function (e) {
     e.preventDefault();
 
     const contentBox = document.querySelector(".newNotificationToggle");
@@ -277,6 +278,7 @@ document
 
     renderNewNotificationForm();
   });
+}
 
 // Handle reply message
 async function sendReply() {
@@ -391,23 +393,25 @@ function clearAllArticles(containerId) {
 }
 
 //contoller for tabs on the left side
-const messagesTab = document.getElementById("messages-tab");
-const notificationsTab = document.getElementById("notifications-tab");
-const messagesSection = document.getElementById("messages-section");
-const notificationsSection = document.getElementById("notifications-section");
+document.addEventListener("DOMContentLoaded", () => {
+  const messagesTab = document.getElementById("messages-tab");
+  const notificationsTab = document.getElementById("notifications-tab");
+  const messagesSection = document.getElementById("messages-section");
+  const notificationsSection = document.getElementById("notifications-section");
 
-messagesTab.addEventListener("click", (e) => {
-  e.preventDefault();
-  messagesTab.classList.add("is-active");
-  notificationsTab.classList.remove("is-active");
-  messagesSection.style.display = "block";
-  notificationsSection.style.display = "none";
-});
+  messagesTab.addEventListener("click", (e) => {
+    e.preventDefault();
+    messagesTab.classList.add("is-active");
+    notificationsTab.classList.remove("is-active");
+    messagesSection.style.display = "block";
+    notificationsSection.style.display = "none";
+  });
 
-notificationsTab.addEventListener("click", (e) => {
-  e.preventDefault();
-  notificationsTab.classList.add("is-active");
-  messagesTab.classList.remove("is-active");
-  notificationsSection.style.display = "block";
-  messagesSection.style.display = "none";
+  notificationsTab.addEventListener("click", (e) => {
+    e.preventDefault();
+    notificationsTab.classList.add("is-active");
+    messagesTab.classList.remove("is-active");
+    notificationsSection.style.display = "block";
+    messagesSection.style.display = "none";
+  });
 });
