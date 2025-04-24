@@ -58,7 +58,7 @@
               </p>
 
               <!-- panel content -->
-              <!-- shows all the conversations sent to admins  -->
+              <!-- shows all the conversations sent to student  -->
               <div class="scrollable-panel-blocks is-active" id="messages-section">
                 <%
                 Object.keys(allConversations).forEach(function(conversation_id)
@@ -86,7 +86,7 @@
                 <% }) %>
               </div>
 
-              <!-- notification window - shows all the notifcation sent  -->
+              <%# notification window - shows all the notifcation sent to users cohort %> 
               <div
                 class="scrollable-panel-blocks"
                 id="notifications-section"
