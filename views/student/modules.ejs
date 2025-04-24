@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Modules</title>
+    <title><%= title %></title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
@@ -18,18 +18,20 @@
 
   <body class="container-main">
     <div class="container mTop">
-      <%- include('../partials/header.ejs') %> <%-
-      include('../partials/dashboard-pages-welcome.ejs') %>
+      <%#  Navigation header partial  %>
+      <%- include('../partials/header.ejs') %>
+      <%# Header banner partical for each page with page specific information %>
+      <%- include('../partials/dashboard-pages-welcome.ejs') %>
+
 
       <div class="has-background-white p-6 mtopclear mybk3 rounded-box">
         <h2 class="title">Modules</h2>
         <p>Here you can view all the modules you are enrolled in.</p>
         <p>Click on a module to view more details.</p>
 
-        <!-- create column for module table -->
+        <%# create column for module table  %> 
         <div class="column is-fullwidth is-flex is-justify-content-center is-align-items-center">
-          <!-- Module table -->
-          <!-- <div class="has-background-white p-6 mtopclear mybk3"> -->
+          <%# Module table %>
           <div class="box is-fullwidth">
             <div class="content">
               <table class="table is-fullwidth">
@@ -50,6 +52,7 @@
                 <tbody>
                   <% modules.forEach((module) => { %>
                   <tr>
+                    <%# display student module data from passes object %>
                     <td><%= module.subject_code %></td>
                     <td><%= module.subject_catalog %></td>
                     <td><%= module.module_title %></td>
@@ -81,8 +84,6 @@
               </table>
             </div>
           </div>
-
-          <!-- </div> -->
         </div>
       </div>
     </div>
