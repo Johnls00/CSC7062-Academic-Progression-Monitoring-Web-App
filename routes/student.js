@@ -8,11 +8,9 @@ const { ensureAuth, ensureStudent } = require('../middleware/auth');
 router.get('/student-dashboard', ensureAuth, ensureStudent, studentController.showDashboard);
 router.get('/student-dashboard/modules', ensureAuth, ensureStudent, studentController.showModules);
 router.get('/student-dashboard/progress', ensureAuth, ensureStudent, studentController.showProgress);
-router.get('/student-dashboard/notifications', ensureAuth, ensureStudent, studentController.showNotifications);
+router.get('/student-dashboard/messaging-hub', ensureAuth, ensureStudent, studentController.showMessagingHub);
 
 router.get('/student-dashboard/profile', ensureAuth, ensureStudent, studentController.showProfile);
 router.post('/profile/update/:id', ensureAuth, ensureStudent, studentController.updateProfile);
-// router.get('/submit/:moduleId', ensureAuth, ensureStudent, studentController.showSubmit);
-// router.post('/submit/:moduleId', ensureAuth, ensureStudent, studentController.handleSubmit);
 
-module.exports = router; 
+module.exports = router;

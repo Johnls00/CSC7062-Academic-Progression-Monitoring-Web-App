@@ -82,7 +82,8 @@ exports.viewStudent = async (req, res) => {
 
     const studentRecord = await studentRecordModel.getStudentRecord(studentWithProgramDetails);
     console.log("student record", studentRecord);
-    const studentProgression = determineProgression(studentRecord);
+    const studentProgression = await determineProgression(studentRecord);
+    console.log(module_data)
 
     res.render("admin/student-details", {
       title: "Student Details",
@@ -90,6 +91,8 @@ exports.viewStudent = async (req, res) => {
       student: studentWithProgramDetails[0],
       user_data: user_data[0],
       module_data,
+      studentRecord: studentRecord,
+      studentProgression: studentProgression,
     });
   } catch (err) {
     console.error("Error fetching student:", err);

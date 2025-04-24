@@ -15,11 +15,11 @@ router.post("/send-notification", async (req, res) => {
   try {
     // Get student IDs first
     const [cohort_student_ids] = await connection.query(
-      "SELECT `student_id` FROM `student` WHERE `sId` LIKE ?",
+      "SELECT `user_id` FROM `student` WHERE `sId` LIKE ?",
       [`%${cohort}%`]
     );
   
-    console.log("student ids: ", cohort_student_ids);
+    console.log("user ids: ", cohort_student_ids);
   
     // Create the notification once
     const [newNotification] = await connection.query(
@@ -33,7 +33,7 @@ router.post("/send-notification", async (req, res) => {
     for (const student of cohort_student_ids) {
       await connection.query(
         "INSERT INTO `user_notifications`(`user_id`, `notification_id`) VALUES (?, ?)",
-        [student.student_id, notificationId]
+        [student.user_id, notificationId]
       );
     }
   

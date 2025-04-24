@@ -3,6 +3,8 @@
 const studentModel = require("../models/studentModel");
 const moduleModel = require("../models/moduleModel");
 const studentRecordModel = require("../models/studentRecordModel");
+const messageModel = require("../models/messageModel");
+const notificationModel = require("../models/notificationModel");
 const connection = require("../config/config");
 // scripts 
 const { determineProgression } = require("../utils/progression-logic");
@@ -53,16 +55,28 @@ exports.showProgress = async (req, res) => {
   });
 };
 
-exports.showNotifications = async (req, res) => {
-  const userId = req.session.user.user_id;
-  const studentData = await studentModel.getStudentData(userId);
+exports.showMessagingHub = async (req, res) => {
+  try {
+    const userId = req.session.user.user_id;
+    const studentData = await studentModel.getStudentData(userId);
 
-  res.render("student/notifications", {
-    title: "Notifications",
-    user: req.session.user,
-    studentData,
-  });
+    const allConversationsForUser = await messageModel.getAllUserConversations(userId);
+    const allNotificationsForUser = await notificationModel.getUserNotifications(userId);
+    console.log("notifications ", allNotificationsForUser);
+
+    res.render("student/messaging", {
+      title: "Messaging Hub",
+      user: req.session.user,
+      studentData: studentData[0],
+      allConversations: allConversationsForUser,
+      allNotifications: allNotificationsForUser,
+    });
+  } catch (err) {
+    console.error("Error fetching Messages or notifications for user:", err);
+    res.status(500).send("Internal Server Error");
+  }
 };
+
 
 exports.showProfile = async (req, res) => {
   try {
