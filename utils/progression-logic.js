@@ -33,7 +33,7 @@ async function determineProgression(record){
     const MIN_CREDITS_TO_PASS = 100;
     const MIN_MARK_TO_PASS = 40;
     const MAX_MODULE_ATTEMPTS = 4;
-    
+
     //progression object 
     const progression = {
         canProgress: false,
@@ -51,10 +51,11 @@ async function determineProgression(record){
     } else {
 
         const levelCredits = record.creditsPassed.find(item => item.module_level === record.studentLevel);
+        console.log("level credits", levelCredits)
         // const levelAverage = record.averageMarkPerYear.find(item => item.level === record.studentLevel);
 
         // Progression rule 1 - Pass at least 100 credits
-        if(levelCredits.creditsPassed < MIN_CREDITS_TO_PASS){
+        if(levelCredits.creditsPassed < MIN_CREDITS_TO_PASS && levelCredits ){
             progression.reason.push("Insufficient credits achieved at " + record.studentLevel + ". (minimum " + MIN_CREDITS_TO_PASS +  " required)");
         }
 
@@ -95,11 +96,9 @@ async function determineProgression(record){
                 progression.outcome.push("Student cannot progress to next level.")
             }
         }
-        console.log(progression) // debug line 
+        console.log(progression) // debug line
         return progression
     }
-
-    
 }
 
 module.exports = { determineProgression };
