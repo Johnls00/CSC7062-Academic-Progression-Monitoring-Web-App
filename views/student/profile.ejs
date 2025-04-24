@@ -237,12 +237,10 @@
 
         <hr />
 
-        <h1 class="title">Progression Summary</h1>
+        <h1 class="title" style="padding-bottom: 2rem;">Progression Summary</h1>
 
         <div class="columns is-mobile">
-          <div
-            class="column is-half has-text-weight-bold is-flex is-justify-content-center is-align-items-center"
-          >
+          <div class="column is-half has-text-weight-bold is-flex is-justify-content-center is-align-items-center">
             <div class="box">
               <table class="table is-striped is-fullwidth">
                 <tbody>
@@ -253,32 +251,37 @@
                     totalCredits += level.credits_passed %> <% }) %>
                     <td><%= totalCredits %></td>
                   </tr>
+                  <% studentRecord.creditsPassed.forEach((level) => { %>
                   <tr>
-                    <th>Credits Per Year</th>
-                    <% studentRecord.creditsPassed.forEach((level) => { %>
-                    <td>
-                      <%= level.module_level %> : <%= level.credits_passed %>
-                    </td>
-                    <% }) %>
+                  <th>Credits - <%= level.module_level %></th>
+                  <td><%= level.credits_passed %></td>
                   </tr>
+                  <% }) %>
                   <tr>
-                    <th>Average grade Per Year:</th>
-                    <% studentRecord.averageMarkPerYear.forEach((level) => { %>
-                    <td>
-                      <%= level.level %> : <%=
-                      parseFloat(level.avg_mark).toFixed(2)%>
-                    </td>
-                    <% }) %>
+
+                  <% studentRecord.averageMarkPerYear.forEach((level) => { %>
+                  <tr>
+                  <th>Average - <%= level.level %></th>
+                  <td><%= parseFloat(level.avg_mark).toFixed(2)%></td>
                   </tr>
+                  <% }) %>
                   <tr>
                     <th>Progression Status:</th>
-                    <><%= studentProgression.outcome %></td>
+                    <td><%= (studentProgression.outcome && studentProgression.outcome.length > 0) ? studentProgression.outcome : 'No outcome available' %></td>
                   </tr>
                   <tr>
-                    <th>Progression Details:</th>
-                    <% studentProgression.reason.forEach((reason) => { %>
-                    - <%= reason %>
-                    <% }) %>
+                  <th>Progression Details:</th>
+                  <td>
+                    <% if (studentProgression.reason && studentProgression.reason.length > 0) { %>
+                      <ul style="list-style-type: disc; padding-left: 1.5rem;">
+                        <% studentProgression.reason.forEach((reason) => { %>
+                          <li><%= reason %></li>
+                        <% }) %>
+                      </ul>
+                    <% } else { %>
+                      No additional details available
+                    <% } %>
+                  </td>
                   </tr>
                 </tbody>
               </table>
@@ -292,7 +295,7 @@
           </div>
         </div>
 
-        <hr />
+        <hr/>
 
     </div>
     <script src="/js/edit-student-details-student.js"></script>
