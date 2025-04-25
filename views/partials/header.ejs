@@ -20,6 +20,7 @@
             <div class="navbar-item is-flex">
               
               <a class="buttons is-flex">
+                <%# student nav buttons left side %>
                 <% if (user && user.role === 'student') { %>
                 <a class="button is-primary rounded-button" href="/student-dashboard">
                   <strong>Student Dashboard</strong>
@@ -29,6 +30,7 @@
                 <a class="button is-light" href="/student-dashboard/messaging-hub">Messaging Hub</a>
               </a> 
               
+              <%# admin nav buttons left side %>
               <% } else if (user && user.role === 'admin') { %>
                 <a class="button is-primary rounded-button" href="/admin/admin-dashboard">
                   <strong>Admin Dashboard</strong>
@@ -48,8 +50,10 @@
           <div class="navbar-end">
             <div class="navbar-item">
               <div class="buttons is-flex">
+                <%# student nav buttons left side %>
                 <% if (user && user.role === 'student') { %>
                   <a class="button is-danger" href="/logout">Log Out</a>
+                <%# admin nav buttons right side %>
                 <% } else if (user && user.role === 'admin') { %>
                   <a class="button is-info" href="/admin/mass-upload">Mass Records Upload</a>
                   <a class="button is-danger" href="/logout">Logout</a>

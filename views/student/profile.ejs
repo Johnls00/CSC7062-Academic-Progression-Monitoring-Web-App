@@ -299,5 +299,52 @@
 
     </div>
     <script src="/js/edit-student-details-student.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+      const moduleGrades = <%- JSON.stringify(studentRecord.modules) %>;
+      const ctx = document.getElementById('studentProgressionChart').getContext('2d');
+
+      const labels = moduleGrades.map(mod => `Module ${mod.module_id}`);
+      const grades = moduleGrades.map(mod => mod.grade);
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Module Grades',
+            data: grades,
+            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100
+            }
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: 'Student Module Grades'
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `Grade: ${context.parsed.y}`;
+                }
+              }
+            }
+          }
+        }
+      });
+    });
+    
+    </script>
+    
   </body>
 </html>
