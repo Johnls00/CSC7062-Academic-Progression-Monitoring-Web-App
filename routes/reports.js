@@ -8,6 +8,9 @@ const fs = require("fs");
 // models
 const studentModel = require("../models/studentModel");
 const studentRecordModel = require("../models/studentRecordModel");
+const programModel = require("../models/programModels");
+const moduleModel = require("../models/moduleModel");
+const connection = require("../config/config");
 // scripts
 const { determineProgression } = require("../utils/progression-logic");
 
@@ -77,7 +80,6 @@ router.get("/generateReport/studentSummary/:id", async (req, res) => {
             if (err) {
               console.error("Error downloading the file:", err);
             } else {
-              // Clean up: optional - delete file after download
               fs.unlink(result.filename, (err) => {
                 if (err) console.error("Failed to delete temp pdf:", err);
               });
@@ -92,6 +94,150 @@ router.get("/generateReport/studentSummary/:id", async (req, res) => {
   } catch (error) {
     console.error("Error generating report:", error);
     res.status(500).send("Failed to generate report");
+  }
+});
+
+router.get("/getOptions", async (req, res) => {
+  const type = req.query.type;
+
+  try {
+    let data;
+    if (type === "program") {
+      data = await programModel.getAllPrograms();
+    } else if (type === "module") {
+      data = await moduleModel.getAllModules();
+    } else {
+      return res.status(400).json({ message: "Invalid type" });
+    }
+
+    res.json(data);
+  } catch (error) {
+    console.error("Error fetching options:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.get("/getModuleResultsByProgram/:id", async (req, res) => {
+  const programId = req.params.id;
+
+  try {
+    const [programModuleResults] = await connection.query(
+      `SELECT 
+  pm.level,
+  m.module_id,
+  m.module_title,
+  SUM(CASE WHEN sm.grade_result = 'pass' THEN 1 ELSE 0 END) +
+  SUM(CASE WHEN sm.resit_result = 'pass' THEN 1 ELSE 0 END) AS pass_count,
+  SUM(CASE WHEN sm.grade_result = 'fail' THEN 1 ELSE 0 END) +
+  SUM(CASE WHEN sm.resit_result = 'fail' THEN 1 ELSE 0 END) AS fail_count,
+  ROUND(
+    ( (SUM(CASE WHEN sm.grade_result = 'pass' THEN 1 ELSE 0 END) +
+       SUM(CASE WHEN sm.resit_result = 'pass' THEN 1 ELSE 0 END)
+      ) /
+      (
+       (SUM(CASE WHEN sm.grade_result = 'pass' THEN 1 ELSE 0 END) +
+        SUM(CASE WHEN sm.resit_result = 'pass' THEN 1 ELSE 0 END)) +
+       (SUM(CASE WHEN sm.grade_result = 'fail' THEN 1 ELSE 0 END) +
+        SUM(CASE WHEN sm.resit_result = 'fail' THEN 1 ELSE 0 END))
+      )
+    ) * 100, 2
+  ) AS pass_percentage,
+  ROUND(
+    ( (SUM(CASE WHEN sm.grade_result = 'fail' THEN 1 ELSE 0 END) +
+       SUM(CASE WHEN sm.resit_result = 'fail' THEN 1 ELSE 0 END)
+      ) /
+      (
+       (SUM(CASE WHEN sm.grade_result = 'pass' THEN 1 ELSE 0 END) +
+        SUM(CASE WHEN sm.resit_result = 'pass' THEN 1 ELSE 0 END)) +
+       (SUM(CASE WHEN sm.grade_result = 'fail' THEN 1 ELSE 0 END) +
+        SUM(CASE WHEN sm.resit_result = 'fail' THEN 1 ELSE 0 END))
+      )
+    ) * 100, 2
+  ) AS fail_percentage
+FROM
+  program_module pm
+JOIN
+  module m ON pm.module_id = m.module_id
+JOIN
+  student_module sm ON sm.module_id = m.module_id
+WHERE
+  pm.program_id = ?
+GROUP BY
+  pm.level, m.module_id, m.module_title
+ORDER BY
+  pm.level ASC, m.module_title ASC;`,
+      [programId]
+    );
+
+    res.json(programModuleResults);
+  } catch (error) {
+    console.error("Error fetching modules:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.get("/getModuleResults/:id", async (req, res) => {
+  const moduleId = req.params.id;
+
+  try {
+    const [ModuleResult] = await connection.query(
+      `
+      SELECT 
+  m.module_id,
+  m.module_title,
+  SUM(CASE WHEN sm.grade_result = 'pass' THEN 1 ELSE 0 END) +
+  SUM(CASE WHEN sm.resit_result = 'pass' THEN 1 ELSE 0 END) AS pass_count,
+  SUM(CASE WHEN sm.grade_result = 'fail' THEN 1 ELSE 0 END) +
+  SUM(CASE WHEN sm.resit_result = 'fail' THEN 1 ELSE 0 END) AS fail_count,
+  ROUND(
+    (
+      (
+        SUM(CASE WHEN sm.grade_result = 'pass' THEN 1 ELSE 0 END) +
+        SUM(CASE WHEN sm.resit_result = 'pass' THEN 1 ELSE 0 END)
+      ) /
+      NULLIF(
+        (
+          SUM(CASE WHEN sm.grade_result = 'pass' THEN 1 ELSE 0 END) +
+          SUM(CASE WHEN sm.resit_result = 'pass' THEN 1 ELSE 0 END) +
+          SUM(CASE WHEN sm.grade_result = 'fail' THEN 1 ELSE 0 END) +
+          SUM(CASE WHEN sm.resit_result = 'fail' THEN 1 ELSE 0 END)
+        ),
+        0
+      )
+    ) * 100, 2
+  ) AS pass_percentage,
+  ROUND(
+    (
+      (
+        SUM(CASE WHEN sm.grade_result = 'fail' THEN 1 ELSE 0 END) +
+        SUM(CASE WHEN sm.resit_result = 'fail' THEN 1 ELSE 0 END)
+      ) /
+      NULLIF(
+        (
+          SUM(CASE WHEN sm.grade_result = 'pass' THEN 1 ELSE 0 END) +
+          SUM(CASE WHEN sm.resit_result = 'pass' THEN 1 ELSE 0 END) +
+          SUM(CASE WHEN sm.grade_result = 'fail' THEN 1 ELSE 0 END) +
+          SUM(CASE WHEN sm.resit_result = 'fail' THEN 1 ELSE 0 END)
+        ),
+        0
+      )
+    ) * 100, 2
+  ) AS fail_percentage
+FROM
+  student_module sm
+JOIN
+  module m ON sm.module_id = m.module_id
+WHERE
+  sm.module_id = ?
+`,
+      [moduleId]
+    );
+
+    res.json(ModuleResult);
+
+  } catch (error) {
+    console.error("Error fetching modules:", error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 

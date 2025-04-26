@@ -17,52 +17,119 @@
 
   <body class="container-main">
     <div class="container mTop custom-wide-container">
-       <%#  Navigation header partial  %>
-       <%- include('../partials/header.ejs') %>
-       <%# Header banner partical for each page with page specific information %>
-       <%- include('../partials/dashboard-pages-welcome.ejs') %>
-     
-        <%# main body of reports page %>
+      <%- include('../partials/header.ejs') %> <%-
+      include('../partials/dashboard-pages-welcome.ejs') %>
+
       <div
         class="has-background-white p-6 mtopclear mybk3 rounded-box"
         style="margin-bottom: 2rem !important"
       >
-        <h1>Upload CSV to Server</h1>
-        <form id="process-file" enctype="multipart/form-data">
-          <div class="columns">
-            <div class="column is-half">
-              <div id="student-data-file" class="file is-medium has-name">
-                <label class="file-label">
-                  <input
-                    class="file-input"
-                    type="file"
-                    name="studentData"
-                    accept=".csv"
-                  />
-                  <span class="file-cta">
-                    <span class="file-icon">
-                      <i class="fas fa-upload"></i>
-                    </span>
-                    <span class="file-label"> Choose a file… </span>
-                  </span>
-                  <span class="file-name"> no file uploaded </span>
-                </label>
+        <div class="columns is-multiline">
+          <div class="column is-full">
+            <p class="title">Progression Rates</p>
+          </div>
+
+          <%# LEFT: Program or Module Selection  %>
+          <div class="column is-half">
+            <div class="dropdown" id="left-dropdown">
+              <div class="dropdown-trigger">
+                <button
+                  class="button"
+                  aria-haspopup="true"
+                  aria-controls="left-dropdown-menu"
+                >
+                  <span>Select Program or Module</span>
+                  <span class="icon is-small"
+                    ><i class="fas fa-angle-down" aria-hidden="true"></i
+                  ></span>
+                </button>
+              </div>
+              <div class="dropdown-menu" id="left-dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                  <a class="dropdown-item" onclick="selectType('program')"
+                    >Program</a
+                  >
+                  <a class="dropdown-item" onclick="selectType('module')"
+                    >Module</a
+                  >
+                </div>
               </div>
             </div>
+          </div>
 
-            <div class="column is-half">
-              <button
-                class="button is-primary is-centered is-large"
-                type="submit"
-              >
-                Process file
-              </button>
+          <%# RIGHT: Program Names or Module Names %> 
+          <div class="column is-half has-text-right">
+            <div class="dropdown is-right" id="right-dropdown">
+              <div class="dropdown-trigger">
+                <button
+                  class="button"
+                  aria-haspopup="true"
+                  aria-controls="right-dropdown-menu"
+                >
+                  <span id="right-dropdown-button-text">Select</span>
+                  <span class="icon is-small"
+                    ><i class="fas fa-angle-down" aria-hidden="true"></i
+                  ></span>
+                </button>
+              </div>
+              <div class="dropdown-menu" id="right-dropdown-menu" role="menu">
+                <div
+                  class="dropdown-content"
+                  id="right-dropdown-content"
+                  style="
+                    padding: 0.5rem 1rem;
+                    max-height: calc(2.5rem * 10);
+                    overflow-y: auto;
+                  "
+                >
+                 <%# Dynamic options will be inserted here %> 
+                </div>
+              </div>
             </div>
           </div>
-        </form>
+          <div class="column is-half">
+            <div class="dropdown" style="display: none;" id="program-level-dropdown">
+              <div class="dropdown-trigger">
+                <button
+                  class="button"
+                  aria-haspopup="true"
+                  aria-controls="left-dropdown-menu"
+                >
+                  <span>Select Program Level</span>
+                  <span class="icon is-small"
+                    ><i class="fas fa-angle-down" aria-hidden="true"></i
+                  ></span>
+                </button>
+              </div>
+              <div class="dropdown-menu" id="program-level-dropdown-menu" role="menu">
+                <div class="program-level-dropdown-content">
+                  <%# Dynamic options will be inserted here %> 
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column is-half">
+            <p class="title" style="text-align: right; padding-bottom: 2rem;" id="progressionChartTitle"></p>
+            <p class="subtitle" style="text-align: right;" id="progressionChartSubtitle"></p>
+          </div>
+
+          <div class="column is-half"></div>
+          <div class="box" style="margin: 0 auto; width: 100%">
+            <canvas
+              id="progressionRatesChart"
+              width="1000rem"
+              height="500rem"
+            ></canvas>
+          </div>
+          
+        </div>
       </div>
     </div>
 
-    <script src="/js/mass-upload-handler.js"></script>
+    <script src="/js/reports-logic.js"></script>
+    <%# charts %>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    
   </body>
 </html>
