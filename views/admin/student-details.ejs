@@ -18,17 +18,17 @@
 
   <body class="container-main">
     <div class="container mTop" style="width: 90%">
-      <%#  Navigation header partial  %>
-      <%- include('../partials/header.ejs') %>
+      <%# Navigation header partial %> <%- include('../partials/header.ejs') %>
       <%# Header banner partical for each page with page specific information %>
       <%- include('../partials/dashboard-pages-welcome.ejs') %>
 
       <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
         <div class="columns is-mobile">
+          <%# button handles report generation for student %>
           <div class="column has-text-left">
-            <a href="" class="button is-light is-medium"
-              >Produce Student Summary Report</a
-            >
+            <button class="button is-primary is-medium" id="generateReport">
+              Produce Student Summary Report
+            </button>
           </div>
           <div class="column"></div>
 
@@ -241,7 +241,7 @@
 
         <hr />
 
-        <h1 class="title" style="padding-bottom: 2rem;">Progression Summary</h1>
+        <h1 class="title" style="padding-bottom: 2rem">Progression Summary</h1>
 
         <div class="columns is-mobile">
           <div
@@ -259,35 +259,39 @@
                   </tr>
                   <% studentRecord.creditsPassed.forEach((level) => { %>
                   <tr>
-                  <th>Credits - <%= level.module_level %></th>
-                  <td><%= level.credits_passed %></td>
+                    <th>Credits - <%= level.module_level %></th>
+                    <td><%= level.credits_passed %></td>
                   </tr>
                   <% }) %>
                   <tr>
+                    <% studentRecord.averageMarkPerYear.forEach((level) => { %>
+                  </tr>
 
-                  <% studentRecord.averageMarkPerYear.forEach((level) => { %>
                   <tr>
-                  <th>Average - <%= level.level %></th>
-                  <td><%= parseFloat(level.avg_mark).toFixed(2)%></td>
+                    <th>Average - <%= level.level %></th>
+                    <td><%= parseFloat(level.avg_mark).toFixed(2)%></td>
                   </tr>
                   <% }) %>
                   <tr>
                     <th>Progression Status:</th>
-                    <td><%= (studentProgression.outcome && studentProgression.outcome.length > 0) ? studentProgression.outcome : 'No outcome available' %></td>
+                    <td>
+                      <%= (studentProgression.outcome &&
+                      studentProgression.outcome.length > 0) ?
+                      studentProgression.outcome : 'No outcome available' %>
+                    </td>
                   </tr>
                   <tr>
-                  <th>Progression Details:</th>
-                  <td>
-                    <% if (studentProgression.reason && studentProgression.reason.length > 0) { %>
-                      <ul style="list-style-type: disc; padding-left: 1.5rem;">
+                    <th>Progression Details:</th>
+                    <td>
+                      <% if (studentProgression.reason &&
+                      studentProgression.reason.length > 0) { %>
+                      <ul style="list-style-type: disc; padding-left: 1.5rem">
                         <% studentProgression.reason.forEach((reason) => { %>
-                          <li><%= reason %></li>
+                        <li><%= reason %></li>
                         <% }) %>
                       </ul>
-                    <% } else { %>
-                      No additional details available
-                    <% } %>
-                  </td>
+                      <% } else { %> No additional details available <% } %>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -297,7 +301,9 @@
           <div
             class="column is-half has-text-weight-bold is-flex is-justify-content-center is-align-items-center"
           >
-            <div class="box"><canvas id="studentProgressionChart"></canvas></div>
+            <div class="box">
+              <canvas id="studentProgressionChart"></canvas>
+            </div>
           </div>
         </div>
 
@@ -453,7 +459,22 @@
         </div>
       </div>
     </div>
+    // editing logic for student details 
     <script src="/js/edit-student-details-admin.js"></script>
+    // handle report generation
+    <script>
+      document
+        .getElementById("generateReport")
+        .addEventListener("click", () => {
+          
+          const studentId = document.getElementById("student-sId").value;
+          window.open(
+            `/reports/generateReport/studentSummary/${studentId}`,
+            "_blank"
+          );
+        });
+    </script>
+    // chart for student modules 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
@@ -463,7 +484,7 @@
       const data = studentRecord.modules.map((module) => module.grade);
 
       new Chart(ctx, {
-        type: 'bar',
+        type: "bar",
         data: {
           labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
           datasets: [

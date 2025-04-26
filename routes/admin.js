@@ -26,10 +26,6 @@ router.delete('/admin/degree-details/delete-degree-module/:id', ensureAuth, ensu
 // Manage Modules
 router.get('/admin/modules', ensureAuth, ensureAdmin, adminController.showModules);
 
-
-
-
-
 // Reports
 router.get('/admin/reports', ensureAuth, ensureAdmin, adminController.generateReports);
 

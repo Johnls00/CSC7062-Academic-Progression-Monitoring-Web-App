@@ -81,9 +81,7 @@ exports.viewStudent = async (req, res) => {
     }
 
     const studentRecord = await studentRecordModel.getStudentRecord(studentWithProgramDetails);
-    console.log("student record", studentRecord);
     const studentProgression = await determineProgression(studentRecord);
-    console.log(module_data)
 
     res.render("admin/student-details", {
       title: "Student Details",

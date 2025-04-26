@@ -68,7 +68,7 @@ async function getModulesByStudentId(studentId) {
         // console.log(`Module Info for module_id ${moduleId}:`, module_Info);
     
         if (module_Info && module_Info.length > 0) {
-          modules[i].module_id = module_Info[0].moduleId;
+          modules[i].module_id = module_Info[0].module_id;
           modules[i].subject_code = module_Info[0].subject_code;
           modules[i].subject_catalog = module_Info[0].subject_catalog;
           modules[i].module_title = module_Info[0].module_title;
