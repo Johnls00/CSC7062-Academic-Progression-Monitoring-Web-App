@@ -28,10 +28,10 @@ app.use(session({
 
 // Middleware to print session data for every request debugging
 // This is useful for debugging purposes
-app.use((req, res, next) => {
-  console.log("Session at middleware level:", req.session);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log("Session at middleware level:", req.session);
+//   next();
+// });
 
 // Serve static files (CSS, images, etc.)
 app.use(express.static(path.join(__dirname, 'public')));
@@ -46,20 +46,22 @@ app.set('view engine', 'ejs');
 const authRoutes = require('./routes/auth'); // Authentication routes
 const studentRoutes = require('./routes/student'); // Student-specific routes
 const adminRoutes = require('./routes/admin'); // Admin-specific routes
-const indexRoutes = require('./routes/index'); // Base route
 const notificationRoutes = require('./routes/notifications'); // notification routes
 const messagesRoutes = require('./routes/messages'); // notification routes
 const uploadRoutes = require('./routes/uploadHandler'); // file upload routes
+const reportRoutes = require("./routes/reports"); // reports route
 
+const indexRoutes = require('./routes/index'); // Base route
 
 // Use routers
-   // Base route
+// Base route
 app.use('/auth', authRoutes);    // Authentication routes
 app.use('/student', studentRoutes);  // Student-specific routes
 app.use('/admin', adminRoutes);  // Admin-specific routes
-app.use('/messages', messagesRoutes); // notification routes
-app.use("/notifications", notificationRoutes);
+app.use('/messages', messagesRoutes); // message routes
+app.use('/notifications', notificationRoutes); // notification routes
 app.use('/uploadHandler', uploadRoutes); // handle file uploads
+app.use('/reports', reportRoutes); // handles report generation
 
 
 app.use('/', indexRoutes);    // Keep this at the bottom of routes or it will break again 

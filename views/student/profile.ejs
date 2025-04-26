@@ -23,13 +23,14 @@
        <%# Header banner partical for each page with page specific information %>
        <%- include('../partials/dashboard-pages-welcome.ejs') %>
 
-
        <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
         <div class="columns is-mobile">
-          <div class="column has-text-left">
-            <a href="" class="button is-light is-medium"
-              >Produce Student Summary Report</a
-            >
+           <%# button handles report generation for student %>
+           <div class="column has-text-left">
+            <input type="hidden" id="student-sId" value="<%= studentData.sId %>" />
+            <button class="button is-primary is-medium" id="generateReport">
+              Produce Student Summary Report
+            </button>
           </div>
           <div class="column"></div>
         </div>
@@ -298,7 +299,22 @@
         <hr/>
 
     </div>
-    <script src="/js/edit-student-details-student.js"></script>
+    // editing logic for student details 
+    <script src="/js/edit-student-details-admin.js"></script>
+    // handle report generation
+    <script>
+      document
+        .getElementById("generateReport")
+        .addEventListener("click", () => {
+          
+          const studentId = document.getElementById("student-sId").value;
+          window.open(
+            `/reports/generateReport/studentSummary/${studentId}`,
+            "_blank"
+          );
+        });
+    </script>
+    // chart for student modules 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
