@@ -299,7 +299,7 @@
           </div>
 
           <div
-            class="column is-half has-text-weight-bold is-flex is-justify-content-center is-align-items-center"
+            class="column is-half has-text-weight-bold is-justify-content-center is-align-items-center"
           >
             <div class="box">
               <canvas id="studentProgressionChart"></canvas>
@@ -459,14 +459,13 @@
         </div>
       </div>
     </div>
-    // editing logic for student details 
+    <%# editing logic for student details %>
     <script src="/js/edit-student-details-admin.js"></script>
-    // handle report generation
+    <%# handle report generation %>
     <script>
       document
         .getElementById("generateReport")
         .addEventListener("click", () => {
-          
           const studentId = document.getElementById("student-sId").value;
           window.open(
             `/reports/generateReport/studentSummary/${studentId}`,
@@ -474,34 +473,63 @@
           );
         });
     </script>
-    // chart for student modules 
+    <%# chart for student modules %>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script>
-      const ctx = document.getElementById("studentProgressionChart");
+        document.addEventListener('DOMContentLoaded', () => {
+        const moduleGrades = <%- JSON.stringify(studentRecord.modules) %>;
+        const ctx = document.getElementById('studentProgressionChart').getContext('2d');
 
-      const labels = studentRecord.modules.map((module) => module.module_title);
-      const data = studentRecord.modules.map((module) => module.grade);
+        const labels = moduleGrades.map(module => `Module ${module.module_code}`);
+        const grades = moduleGrades.map(module => module.grade);
+        const results = moduleGrades.map(module => module.result)
 
-      new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-          datasets: [
-            {
-              label: "# of Votes",
-              data: [12, 19, 3, 5, 2, 3],
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Module Grades',
+              data: grades, results,
+              backgroundColor: 'rgba(54, 162, 235, 0.6)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+            }]
           },
-        },
+          options: {
+            responsive: true,
+            mainAspectRatio: false,
+            scales: {
+
+              y: {
+                beginAtZero: true,
+                max: 100
+              }
+            },
+            plugins: {
+              title: {
+                display: true,
+                text: 'Student Module Grades'
+              },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const module = moduleGrades[context.dataIndex]; 
+                    const grade = context.parsed.y;
+                    const result = module.result || 'N/A';
+
+
+                    return [
+                      `Grade: ${grade}`,
+                      `Result: ${result}`,
+                    ];
+
+                  }
+                }
+              }
+            }
+          }
+        });
       });
     </script>
   </body>

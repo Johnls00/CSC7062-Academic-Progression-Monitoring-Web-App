@@ -141,6 +141,7 @@ async function getStudentRecord(student) {
     `
     SELECT
         m.module_id AS module_id,
+        CONCAT(m.subject_code, m.subject_catalog) AS module_code,
         COALESCE(sm.resit_result, sm.grade_result) AS result,
         CASE
             WHEN sm.resit_result = 'pass capped' THEN 40
@@ -162,6 +163,7 @@ async function getStudentRecord(student) {
   //   mapping results to student record
   studentRecord.modules = moduleGradesAndResults.map((module) => ({
     module_id: module.module_id,
+    module_code: module.module_code,
     result: module.result,
     grade: module.grade,
   }));

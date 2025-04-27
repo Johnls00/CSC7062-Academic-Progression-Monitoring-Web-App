@@ -111,8 +111,8 @@ exports.showProfile = async (req, res) => {
       title: "Student Profile",
       user: req.session.user,
       studentData: studentWithProgramDetails[0],
-      user_data: user_data[0],
-      module_data,
+      userData: user_data[0],
+      moduleData: module_data,
       studentRecord: studentRecord,
       studentProgression: studentProgression,
     });
