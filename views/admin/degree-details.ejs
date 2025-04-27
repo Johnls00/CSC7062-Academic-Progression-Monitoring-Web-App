@@ -47,11 +47,11 @@
 
         <% console.log(program_id); %>
 
-        <div class="columns is-mobile is-multiline">
+        <div class="columns is-mobile is-multiline is-full is-flex is-justify-content-center is-align-items-center">
           <form
             id="add-module-form"
             method="POST"
-            action="/admin/degree-details/add-degree-module/<%=program_id %>"
+            action="/admin/degree-details/add-degree-module/<%= program_id %>"
             class="is-hidden is-fullwidth"
           >
             <div class="columns is-mobile is-multiline">
@@ -134,11 +134,6 @@
                 <% let count = 0; %> <% program_modules.forEach((module) => {
                 count++; %>
                 <tr>
-                  <input
-                    type="hidden"
-                    id="program_module_id"
-                    value="<%= module.program_module_id %>"
-                  />
                   <td><%= count %></td>
                   <td><%= module.subject_code %></td>
                   <td><%= module.subject_catalog %></td>
@@ -154,6 +149,7 @@
                     <button
                       type="button"
                       class="delete-program-module-btn button is-danger"
+                      data-program_module_id="<%= module.program_module_id %>"
                     >
                       Delete Module
                     </button>

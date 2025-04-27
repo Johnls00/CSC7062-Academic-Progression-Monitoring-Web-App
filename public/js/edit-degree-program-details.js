@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const addModuleForm = document.getElementById("add-module-form");
   const addModuleBtn = document.getElementById("add-module-btn");
   const cancelModulesBtn = document.getElementById("cancel-modules-btn");
+  const deleteProgramModuleBtns = document.querySelectorAll(".delete-program-module-btn");
 
   revealAddModuleFormBtn.addEventListener("click", () => {
     addModuleForm.classList.remove("is-hidden");
@@ -13,10 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
     revealAddModuleFormBtn.classList.add("is-hidden");
   });
 
-  if (cancelBtn) {
-    cancelBtn.addEventListener("click", () => {
-      saveBtn.classList.add("is-hidden");
-      cancelBtn.classList.add("is-hidden");
+  if (cancelModulesBtn) {
+    cancelModulesBtn.addEventListener("click", () => {
+      addModuleBtn.classList.add("is-hidden");
+      cancelModulesBtn.classList.add("is-hidden");
       addModuleBtn.classList.add("is-hidden");
       addModuleForm.classList.add("is-hidden");
       addModuleForm.reset();
@@ -25,8 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (addModuleBtn) {
     addModuleBtn.addEventListener("click", () => {
-      saveBtn.classList.remove("is-hidden");
-      cancelBtn.classList.remove("is-hidden");
+      addModuleBtn.classList.remove("is-hidden");
+      cancelModulesBtn.classList.remove("is-hidden");
       addModuleBtn.classList.remove("is-hidden");
       addModuleForm.classList.remove("is-hidden");
     });
@@ -66,40 +67,31 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Delete button functionality
-  document.querySelectorAll(".delete-program-module-btn").forEach((btn) => {
-    btn.addEventListener("click", async (event) => {
-      const confirmed = confirm(
-        "Are you sure you want to delete this module from the degree program?"
-      );
-      if (!confirmed) return;
+  deleteProgramModuleBtns.forEach((button) => {
+    button.addEventListener("click", () => {
+      console.log("Delete button clicked");
 
-      const row = btn.closest("tr");
-      const programModuleIdInput = row.querySelector("input#program_module_id");
-      if (!programModuleIdInput) {
-        alert("Module ID not found.");
-        return;
-      }
+      if (confirm("Are you sure you want to delete this degree module?")) {
+        const programModuleId = button.dataset.program_module_id;
 
-      const programModuleId = programModuleIdInput.value;
-
-      try {
-        const response = await fetch(
-          `/admin/degree-details/delete-degree-module/${programModuleId}`,
-          {
-            method: "DELETE",
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to delete module");
-        }
-
-        const data = await response.json();
-        alert(data.message || "Module deleted successfully.");
-        location.reload();
-      } catch (error) {
-        console.error("Error deleting module:", error);
-        alert("Failed to delete program module.");
+        fetch(`/admin/degree-details/delete-degree-module/${programModuleId}`, {
+          method: "DELETE",
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error("Program module Deletion failed");
+            }
+          })
+          .then((data) => {
+            alert(data.message);
+            window.location.reload();
+          })
+          .catch((error) => {
+            console.error("Error deleting Program module:", error);
+            alert("Failed to delete program module.");
+          });
       }
     });
   });

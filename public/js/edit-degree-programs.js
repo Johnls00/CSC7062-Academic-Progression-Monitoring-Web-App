@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then((data) => {
               alert(data.message);
-              window.location.href = `/admin/degree-programs`;
+              window.location.reload();
             })
             .catch((error) => {
               console.error("Error deleting Program:", error);
