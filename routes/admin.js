@@ -25,6 +25,8 @@ router.post('/admin/degree-details/add-degree-module/:id', ensureAuth, ensureAdm
 router.delete('/admin/degree-details/delete-degree-module/:id', ensureAuth, ensureAdmin, adminController.deleteProgramModule);
 // Manage Modules
 router.get('/admin/modules', ensureAuth, ensureAdmin, adminController.showModules);
+router.post("/admin/modules/addModule", ensureAuth, ensureAdmin, adminController.addModule);
+router.post("/admin/modules/deleteModule", ensureAuth, ensureAdmin, adminController.deleteModule);
 
 // Reports
 router.get('/admin/reports', ensureAuth, ensureAdmin, adminController.generateReports);

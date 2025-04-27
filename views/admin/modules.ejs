@@ -51,7 +51,7 @@
               class="box"
               style="display: none; margin-top: 1rem"
             >
-              <form action="/admin/module/new" method="POST">
+              <form action="/admin/modules/addModule" method="POST">
                 <table class="table is-fullwidth">
                   <thead>
                     <tr>
@@ -97,8 +97,8 @@
                         />
                       </td>
                       <td>
-                        <button type="submit" class="button is-success">
-                          Create
+                        <button id="add-module-btn" class="button is-success">
+                          Add Module
                         </button>
                       </td>
                     </tr>
@@ -124,13 +124,24 @@
                 </thead>
                 <tbody>
                   <% let count = 0; %> <% modules.forEach((module) => { count++; %>
+                    <input
+                    type="hidden"
+                    id="module-id"
+                    value="<%= module.module_id%>"
+                  />
                   <tr>
                     <td><%= count %></td>
                     <td><%= module.subject_code %></td>
                     <td><%= module.subject_catalog %></td>
                     <td><%= module.module_title %></td>
                     <td><%= module.credit_value %></td>
-                    <td><a href="#" class="button is-danger">Delete</a></td>
+                    <td><button
+                      id="delete-module-btn"
+                        type="button"
+                        class="delete-student-module-btn button is-danger"
+                      >
+                        Delete Module
+                      </button></td>
                   </tr>
                   <% }); %>
                 </tbody>
@@ -142,12 +153,6 @@
     </div>
 
     <script src="/js/module-search.js"></script>
-    <script>
-      function showNewModuleForm(event) {
-        event.preventDefault();
-        const form = document.getElementById("newModuleForm");
-        form.style.display = form.style.display === "none" ? "block" : "none";
-      }
-    </script>
+    <script src="/js/edit-module-details.js"></script>
   </body>
 </html>
