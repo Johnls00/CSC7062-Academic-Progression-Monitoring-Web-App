@@ -20,6 +20,7 @@ router.delete('/admin/student/delete-student-module/:userModuleId', ensureAuth, 
 
 // Manage degrees 
 router.get('/admin/degree-programs', ensureAuth, ensureAdmin, adminController.showDegreePrograms);
+router.post("/admin/degree/new-degree", ensureAuth, ensureAdmin, adminController.addProgram)
 router.get('/admin/degree-details/:id', ensureAuth, ensureAdmin, adminController.showDegreeDetails);
 router.post('/admin/degree-details/add-degree-module/:id', ensureAuth, ensureAdmin, adminController.addProgramModule);
 router.delete('/admin/degree-details/delete-degree-module/:id', ensureAuth, ensureAdmin, adminController.deleteProgramModule);

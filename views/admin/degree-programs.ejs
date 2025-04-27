@@ -36,12 +36,59 @@
           </div>
           <div class="column is-half">
             <a
-              href="/admin/degree/new"
+              href="#"
+              onclick="showNewProgramForm(event)"
               style="vertical-align: middle"
               class="button is-primary is-pulled-right"
             >
               Add New Degree Program
             </a>
+          </div>
+        </div>
+
+        <!-- Hidden New Module Form -->
+        <div class="column is-full is-flex is-justify-content-center">
+          <div
+            id="newProgramForm"
+            class="box"
+            style="display: none; margin-top: 1rem"
+          >
+            <form action="/admin/degree/new-degree" method="POST">
+              <table class="table is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Program Code</th>
+                    <th>Program Name</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <input
+                        class="input"
+                        type="text"
+                        name="programCode"
+                        required
+                      />
+                    </td>
+                    <td>
+                      <input
+                        class="input"
+                        type="text"
+                        name="programName"
+                        required
+                      />
+                    </td>
+                    <td>
+                      <button id="add-program-btn" class="button is-success">
+                        Add Degree Program
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
           </div>
         </div>
 
@@ -78,5 +125,6 @@
       </div>
     </div>
     <script src="/js/degree-search.js"></script>
+    <script src="/js/edit-degree-programs.js"></script>
   </body>
 </html>

@@ -118,6 +118,22 @@ exports.showDegreePrograms = async (req, res) => {
   }
 };
 
+exports.addProgram = async (req, res) => {
+  try {
+    const { programCode, programName } = req.body;
+    console.log(programCode, programName);
+
+    await connection.query(`INSERT INTO program(program_code, name) VALUES (?,?)`, [programCode, programName]);
+
+    res.redirect(`/admin/degree-programs`);
+
+  } catch (error) {
+    console.error("Error adding program", error);
+    return res.status(500).send("Error adding program.");
+  }
+
+};
+
 exports.showDegreeDetails = async (req, res) => {
   try {
     const program_id = req.params.id;
