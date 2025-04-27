@@ -277,6 +277,7 @@ exports.updateStudent = async (req, res) => {
 exports.deleteStudent = async (req, res) => {
   const sId = req.params.id;
 
+  let deleteConnection;
   try {
     const [userResult] = await connection.query(
       "SELECT student_id, user_id FROM student WHERE sId = ?",
@@ -288,7 +289,7 @@ exports.deleteStudent = async (req, res) => {
     const { student_id, user_id } = userResult[0];
 
     // new connection allows the delete operation to be a Transaction
-    const deleteConnection = await connection.getConnection();
+    deleteConnection = await connection.getConnection();
 
     await deleteConnection.beginTransaction();
     await deleteConnection.query(
@@ -307,8 +308,10 @@ exports.deleteStudent = async (req, res) => {
 
     return res.status(200).json({ message: "Student deleted" });
   } catch (err) {
-    await deleteConnection.rollback();
-    deleteConnection.release();
+    if (deleteConnection){
+      await deleteConnection.rollback();
+      deleteConnection.release();
+    }
     console.error("Transaction failed:", err);
     res.status(500).send("Failed to delete student.");
   }
