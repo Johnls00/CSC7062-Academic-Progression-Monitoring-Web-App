@@ -8,7 +8,7 @@ const notificationModel = require("../models/notificationModel");
 const massUploadHandlerModel = require("../models/massUploadHandlerModel");
 const studentRecordModel = require("../models/studentRecordModel");
 const connection = require("../config/config");
-// scripts 
+// scripts
 const { determineProgression } = require("../utils/progression-logic");
 
 exports.showDashboard = async (req, res) => {
@@ -74,13 +74,17 @@ exports.viewStudent = async (req, res) => {
     );
 
     // attach the student program details
-    const studentWithProgramDetails = await studentModel.attachProgramDetails(student);
+    const studentWithProgramDetails = await studentModel.attachProgramDetails(
+      student
+    );
 
     if (!studentWithProgramDetails) {
       return res.status(404).send("Student not found");
     }
 
-    const studentRecord = await studentRecordModel.getStudentRecord(studentWithProgramDetails);
+    const studentRecord = await studentRecordModel.getStudentRecord(
+      studentWithProgramDetails
+    );
     const studentProgression = await determineProgression(studentRecord);
     console.log("module data ", module_data);
 
@@ -215,6 +219,49 @@ exports.showModules = async (req, res) => {
   }
 };
 
+exports.addModule = async (req, res) => {
+  try {
+    const { subjectCode, subjectCatalog, moduleTitle, credits } = req.body;
+    await connection.query(
+      `INSERT INTO module(subject_code, subject_catalog, module_title, credit_value) VALUES (?,?,?,?)`,
+      [subjectCode, subjectCatalog, moduleTitle, credits]
+    );
+
+    res.redirect("/admin/modules");
+  } catch (err) {
+    console.error("Error fetching student:", err);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+exports.deleteModule = async (req, res) => {
+  console.log("in delete module controller");
+  const moduleId = req.params.id;
+  console.log("module id ", moduleId);
+
+  let deleteConnection;
+  try {
+    // new connection allows the delete operation to be a Transaction
+    deleteConnection = await connection.getConnection();
+
+    await deleteConnection.beginTransaction();
+    await deleteConnection.query("DELETE FROM `module` WHERE `module_id` = ?", [
+      moduleId,
+    ]);
+    await deleteConnection.commit();
+    deleteConnection.release();
+
+    return res.status(200).json({ message: "Module deleted" });
+  } catch (err) {
+    if (deleteConnection) {
+      await deleteConnection.rollback();
+      deleteConnection.release();
+    }
+    console.error("Transaction failed:", err);
+    res.status(500).send("Failed to delete module.");
+  }
+};
+
 exports.addStudent = async (req, res) => {
   // Logic to add a new student
   try {
@@ -258,7 +305,6 @@ exports.updateStudent = async (req, res) => {
       [first_name, last_name, sId, status_study, entry_level, studentId]
     );
 
-    
     await connection.query(
       `
         UPDATE user 
@@ -308,7 +354,7 @@ exports.deleteStudent = async (req, res) => {
 
     return res.status(200).json({ message: "Student deleted" });
   } catch (err) {
-    if (deleteConnection){
+    if (deleteConnection) {
       await deleteConnection.rollback();
       deleteConnection.release();
     }
@@ -387,11 +433,7 @@ exports.updateStudentModules = async (req, res) => {
 };
 
 exports.deleteStudentModule = async (req, res) => {
-
-  console.log("in delete student module controller");
   const { userModuleId } = req.params;
-  console.log("user module id ", userModuleId);
-  
 
   let deleteConnection;
   try {
@@ -408,7 +450,7 @@ exports.deleteStudentModule = async (req, res) => {
 
     return res.status(200).json({ message: "Student module record deleted" });
   } catch (err) {
-    if (deleteConnection){
+    if (deleteConnection) {
       await deleteConnection.rollback();
       deleteConnection.release();
     }

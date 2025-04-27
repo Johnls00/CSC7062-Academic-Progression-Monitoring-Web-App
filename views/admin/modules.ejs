@@ -51,7 +51,7 @@
               class="box"
               style="display: none; margin-top: 1rem"
             >
-              <form action="/admin/modules/addModule" method="POST">
+              <form action="/admin/modules/add-module" method="POST">
                 <table class="table is-fullwidth">
                   <thead>
                     <tr>
@@ -124,11 +124,6 @@
                 </thead>
                 <tbody>
                   <% let count = 0; %> <% modules.forEach((module) => { count++; %>
-                    <input
-                    type="hidden"
-                    id="module-id"
-                    value="<%= module.module_id%>"
-                  />
                   <tr>
                     <td><%= count %></td>
                     <td><%= module.subject_code %></td>
@@ -136,12 +131,12 @@
                     <td><%= module.module_title %></td>
                     <td><%= module.credit_value %></td>
                     <td><button
-                      id="delete-module-btn"
-                        type="button"
-                        class="delete-student-module-btn button is-danger"
-                      >
-                        Delete Module
-                      </button></td>
+                      type="button"
+                      class="delete-module-btn button is-danger"
+                      data-module-id="<%= module.module_id %>"
+                    >
+                      Delete Module
+                    </button></td>
                   </tr>
                   <% }); %>
                 </tbody>
