@@ -232,11 +232,12 @@ exports.addProgramModule = async (req, res) => {
 };
 
 exports.deleteProgramModule = async (req, res) => {
+  const programModuleId = req.params.id;
+  
+  let deleteConnection;
   try {
-    const programModuleId = req.params.id;
-
     // new connection allows the delete operation to be a Transaction
-    const deleteConnection = await connection.getConnection();
+    deleteConnection = await connection.getConnection();
 
     await deleteConnection.beginTransaction();
     await deleteConnection.query(
@@ -249,8 +250,10 @@ exports.deleteProgramModule = async (req, res) => {
 
     return res.status(200).json({ message: "program module deleted" });
   } catch (err) {
-    await deleteConnection.rollback();
-    deleteConnection.release();
+    if (deleteConnection) {
+      await deleteConnection.rollback();
+      deleteConnection.release();
+    }
     console.error("Transaction failed:", err);
     res.status(500).send("Failed to delete student.");
   }
