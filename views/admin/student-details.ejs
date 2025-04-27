@@ -136,7 +136,7 @@
                     class="input"
                     type="email"
                     name="email"
-                    value="<%= user_data.email %>"
+                    value="<%= userData.email %>"
                     disabled
                   />
                 </div>
@@ -154,7 +154,7 @@
                     class="input"
                     type="email"
                     name="secondary_email"
-                    value="<%= user_data.secondary_email || null %>"
+                    value="<%= userData.secondary_email || null %>"
                     placeholder="No email saved"
                     disabled
                   />
@@ -381,11 +381,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% module_data.forEach((module) => { %>
+                  <% moduleData.forEach((module) => { %>
                   <input
                     type="hidden"
-                    id="module-id"
-                    value="<%= module.student_id %>"
+                    id="user-module-id"
+                    value="<%= module.user_module_id%>"
                   />
                   <tr>
                     <input
@@ -443,6 +443,7 @@
                     </td>
                     <td>
                       <button
+                      id="delete-student-module-btn"
                         type="button"
                         class="delete-student-module-btn button is-danger"
                       >

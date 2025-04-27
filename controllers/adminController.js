@@ -82,13 +82,14 @@ exports.viewStudent = async (req, res) => {
 
     const studentRecord = await studentRecordModel.getStudentRecord(studentWithProgramDetails);
     const studentProgression = await determineProgression(studentRecord);
+    console.log("module data ", module_data);
 
     res.render("admin/student-details", {
       title: "Student Details",
       user: req.session.user,
       student: studentWithProgramDetails[0],
-      user_data: user_data[0],
-      module_data,
+      userData: user_data[0],
+      moduleData: module_data,
       studentRecord: studentRecord,
       studentProgression: studentProgression,
     });
@@ -383,33 +384,31 @@ exports.updateStudentModules = async (req, res) => {
 };
 
 exports.deleteStudentModule = async (req, res) => {
-  const { sId, moduleId } = req.params;
 
+  console.log("in delete student module controller");
+  const { userModuleId } = req.params;
+  console.log("user module id ", userModuleId);
+  
+
+  let deleteConnection;
   try {
-    const [userResult] = await connection.query(
-      "SELECT student_id, user_id FROM student WHERE sId = ?",
-      [sId]
-    );
-    if (!userResult || userResult.length === 0) {
-      return res.status(404).send("Student not found");
-    }
-    const studentId = userResult[0].student_id;
-
     // new connection allows the delete operation to be a Transaction
-    const deleteConnection = await connection.getConnection();
+    deleteConnection = await connection.getConnection();
 
     await deleteConnection.beginTransaction();
     await deleteConnection.query(
-      "DELETE FROM `student_module` WHERE `student_id` = ? AND `module_id` = ?",
-      [studentId, moduleId]
+      "DELETE FROM `student_module` WHERE `user_module_id` = ?",
+      [userModuleId]
     );
     await deleteConnection.commit();
     deleteConnection.release();
 
     return res.status(200).json({ message: "Student module record deleted" });
   } catch (err) {
-    await deleteConnection.rollback();
-    deleteConnection.release();
+    if (deleteConnection){
+      await deleteConnection.rollback();
+      deleteConnection.release();
+    }
     console.error("Transaction failed:", err);
     res.status(500).send("Failed to delete student module record.");
   }

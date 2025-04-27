@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   saveBtn.addEventListener("click", () => {
     studentDetailsForm.submit();
-  })
+  });
 
   // constants for module buttons
   const saveModulesBtn = document.getElementById("save-modules-btn");
@@ -68,65 +68,63 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // delete student module
-  document.querySelectorAll(".delete-student-module-btn").forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      console.log("Delete button clicked");
+  deleteStudentModuleBtn.addEventListener("click", () => {
+    console.log("Delete button clicked");
 
-      if (
-        confirm("Are you sure you want to delete this student module record?")
-      ) {
-        const sId = document.getElementById("student-sId").value;
-        const moduleId = document.getElementById("module-id").value;
+    if (
+      confirm("Are you sure you want to delete this student module record?")
+    ) {
+      const sId = document.getElementById("student-sId").value;
+      const userModuleId = document.getElementById("user-module-id").value;
 
-        fetch(`/admin/student/delete-student-module/${sId}/${moduleId}`, {
-          method: "DELETE",
+      fetch(`/admin/student/delete-student-module/${userModuleId}`, {
+        method: "DELETE",
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Module Deletion failed");
+          }
         })
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            } else {
-              throw new Error("Module Deletion failed");
-            }
-          })
-          .then((data) => {
-            alert(data.message); 
-            window.location.href = `/admin/student/${sId}`;
-          })
-          .catch((error) => {
-            console.error("Error deleting module:", error);
-            alert("Failed to delete student module.");
-          });
-      }
-    });
-
-    // delete student button
-    deleteStudentBtn.addEventListener("click", async () => {
-      if (
-        confirm(
-          "Are you sure you want to delete this student and all their records?"
-        )
-      ) {
-        const sId = document.getElementById("student-sId").value;
-
-        fetch(`/admin/student/delete/${sId}`, {
-          method: "DELETE",
+        .then((data) => {
+          alert(data.message);
+          window.location.href = `/admin/student/${sId}`;
         })
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            } else {
-              throw new Error("Deletion failed");
-            }
-          })
-          .then((data) => {
-            alert(data.message); // "Student deleted"
-            window.location.href = "/admin/students";
-          })
-          .catch((error) => {
-            console.error("Error deleting student:", error);
-            alert("Failed to delete student.");
-          });
-      }
-    });
+        .catch((error) => {
+          console.error("Error deleting module:", error);
+          alert("Failed to delete student module.");
+        });
+    }
+  });
+
+  // delete student button
+  deleteStudentBtn.addEventListener("click", async () => {
+    if (
+      confirm(
+        "Are you sure you want to delete this student and all their records?"
+      )
+    ) {
+      const sId = document.getElementById("student-sId").value;
+
+      fetch(`/admin/student/delete/${sId}`, {
+        method: "DELETE",
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Deletion failed");
+          }
+        })
+        .then((data) => {
+          alert(data.message); // "Student deleted"
+          window.location.href = "/admin/students";
+        })
+        .catch((error) => {
+          console.error("Error deleting student:", error);
+          alert("Failed to delete student.");
+        });
+    }
   });
 });
