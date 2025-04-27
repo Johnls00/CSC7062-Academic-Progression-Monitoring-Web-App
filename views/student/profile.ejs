@@ -130,7 +130,7 @@
                     class="input"
                     type="email"
                     name="email"
-                    value="<%= user_data.email %>"
+                    value="<%= userData.email %>"
                     disabled
                     readonly
                   />
@@ -149,7 +149,7 @@
                     class="input"
                     type="email"
                     name="secondary_email"
-                    value="<%= user_data.secondary_email || null %>"
+                    value="<%= userData.secondary_email || null %>"
                     placeholder="No email saved"
                     disabled
                   />
@@ -299,9 +299,9 @@
         <hr/>
 
     </div>
-    // editing logic for student details 
+    <%#  editing logic for student details  %>
     <script src="/js/edit-student-details-admin.js"></script>
-    // handle report generation
+    <%# handle report generation %> 
     <script>
       document
         .getElementById("generateReport")
@@ -314,15 +314,16 @@
           );
         });
     </script>
-    // chart for student modules 
+    <%# chart for student modules  %> 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
       const moduleGrades = <%- JSON.stringify(studentRecord.modules) %>;
       const ctx = document.getElementById('studentProgressionChart').getContext('2d');
 
-      const labels = moduleGrades.map(mod => `Module ${mod.module_id}`);
-      const grades = moduleGrades.map(mod => mod.grade);
+      const labels = moduleGrades.map(module => `Module ${module.module_code}`);
+      const grades = moduleGrades.map(module => module.grade);
+      
 
       new Chart(ctx, {
         type: 'bar',
@@ -349,12 +350,21 @@
               text: 'Student Module Grades'
             },
             tooltip: {
-              callbacks: {
-                label: function(context) {
-                  return `Grade: ${context.parsed.y}`;
+                callbacks: {
+                  label: function(context) {
+                    const module = moduleGrades[context.dataIndex]; 
+                    const grade = context.parsed.y;
+                    const result = module.result || 'N/A';
+
+
+                    return [
+                      `Grade: ${grade}`,
+                      `Result: ${result}`,
+                    ];
+
+                  }
                 }
               }
-            }
           }
         }
       });
