@@ -53,7 +53,7 @@
             class="box"
             style="display: none; margin-top: 1rem"
           >
-            <form action="/admin/degree/new-degree" method="POST">
+            <form action="/admin/degree-programs/new-degree" method="POST">
               <table class="table is-fullwidth">
                 <thead>
                   <tr>
@@ -101,6 +101,7 @@
                   <th>Program Code</th>
                   <th>Program Name</th>
                   <th></th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -116,8 +117,15 @@
                       >View details</a
                     >
                   </td>
+                  <td><button
+                    type="button"
+                    class="delete-program-btn button is-danger"
+                    data-program_id="<%= degree.program_id %>"
+                  >
+                    Delete Degree Program
+                  </button></td>
                 </tr>
-                <% }) %>
+                <% }); %>
               </tbody>
             </table>
           </div>

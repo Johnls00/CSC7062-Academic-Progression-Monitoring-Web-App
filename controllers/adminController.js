@@ -106,6 +106,7 @@ exports.viewStudent = async (req, res) => {
 exports.showDegreePrograms = async (req, res) => {
   try {
     const degrees = await programModels.getAllPrograms();
+    console.log("degrees", degrees);
 
     res.render("admin/degree-programs", {
       title: "Degree Programs",
@@ -123,15 +124,50 @@ exports.addProgram = async (req, res) => {
     const { programCode, programName } = req.body;
     console.log(programCode, programName);
 
-    await connection.query(`INSERT INTO program(program_code, name) VALUES (?,?)`, [programCode, programName]);
+    await connection.query(
+      `INSERT INTO program(program_code, name) VALUES (?,?)`,
+      [programCode, programName]
+    );
 
     res.redirect(`/admin/degree-programs`);
-
   } catch (error) {
     console.error("Error adding program", error);
     return res.status(500).send("Error adding program.");
   }
+};
 
+exports.deleteProgram = async (req, res) => {
+  const  programId = req.params.id;
+  console.log(programId);
+
+  let deleteConnection;
+  try {
+    // new connection allows the delete operation to be a Transaction
+    deleteConnection = await connection.getConnection();
+
+    await deleteConnection.beginTransaction();
+    await deleteConnection.query(
+      "DELETE FROM `program` WHERE `program_id` = ?",
+      [programId]
+    );
+
+    await deleteConnection.query(
+      "DELETE FROM `program_module` WHERE `program_id` = ?",
+      [programId]
+    );
+
+    await deleteConnection.commit();
+    deleteConnection.release();
+
+    return res.status(200).json({ message: "Program deleted" });
+  } catch (err) {
+    if (deleteConnection) {
+      await deleteConnection.rollback();
+      deleteConnection.release();
+    }
+    console.error("Transaction failed:", err);
+    res.status(500).send("Failed to delete program.");
+  }
 };
 
 exports.showDegreeDetails = async (req, res) => {
@@ -197,7 +233,7 @@ exports.addProgramModule = async (req, res) => {
 
 exports.deleteProgramModule = async (req, res) => {
   try {
-    const program_module_id = req.params.id;
+    const programModuleId = req.params.id;
 
     // new connection allows the delete operation to be a Transaction
     const deleteConnection = await connection.getConnection();
@@ -205,7 +241,7 @@ exports.deleteProgramModule = async (req, res) => {
     await deleteConnection.beginTransaction();
     await deleteConnection.query(
       "DELETE FROM `program_module` WHERE `program_module_id` = ?",
-      [program_module_id]
+      [programModuleId]
     );
 
     await deleteConnection.commit();
