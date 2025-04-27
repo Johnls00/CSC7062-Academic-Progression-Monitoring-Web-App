@@ -38,7 +38,7 @@ async function determineProgression(record){
     const progression = {
         canProgress: false,
         reason: [],
-        resists: [],
+        resits: [],
         contactSupportOfficer: false,
         outcome: [],
     }
@@ -63,7 +63,7 @@ async function determineProgression(record){
         for (const module of record.modules) {
             if (module.grade != null && module.grade < MIN_MARK_TO_PASS){
                 const [moduleInfo] = await moduleModel.getModuleInfo(module.module_id);
-                progression.resists.push(moduleInfo.subject_code+moduleInfo.subject_catalog);
+                progression.resits.push(moduleInfo.subject_code+moduleInfo.subject_catalog);
                 progression.reason.push("Student must resit module " + moduleInfo.subject_code+moduleInfo.subject_catalog);
             }
         };

@@ -86,6 +86,7 @@ exports.viewStudent = async (req, res) => {
       studentWithProgramDetails
     );
     const studentProgression = await determineProgression(studentRecord);
+    console.log("student record", studentRecord);
     console.log("module data ", module_data);
 
     res.render("admin/student-details", {

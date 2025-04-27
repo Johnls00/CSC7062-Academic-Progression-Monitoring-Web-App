@@ -69,10 +69,8 @@ async function loadModulesGroupedByLevel(programId) {
   data.forEach((module) => {
     const level = module.level;
     if (!modulesGroupedByLevel[level]) {
-        // create an array if doesn't exist yet
       modulesGroupedByLevel[level] = []; 
     }
-    // add the module to the correct level
     modulesGroupedByLevel[level].push(module); 
   });
 
@@ -80,7 +78,6 @@ async function loadModulesGroupedByLevel(programId) {
 
   console.log("Grouped modules:", modulesGroupedByLevel);
 
-  // Now populate the Level dropdown
   populateLevelDropdown(modulesGroupedByLevel);
 }
 
@@ -163,7 +160,7 @@ async function loadModuleResultsData(moduleId) {
 }
 
 function drawChartForModule(moduleData) {
-    const module = moduleData[0]; // single module
+    const module = moduleData[0];
   
     const labels = ["Pass %", "Fail %"];
     const data = [module.pass_percentage, module.fail_percentage];

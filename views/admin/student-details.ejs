@@ -243,7 +243,7 @@
 
         <h1 class="title" style="padding-bottom: 2rem">Progression Summary</h1>
 
-        <div class="columns is-mobile">
+        <div class="columns is-mobile is-multiline">
           <div
             class="column is-half has-text-weight-bold is-flex is-justify-content-center is-align-items-center"
           >
@@ -300,6 +300,43 @@
 
           <div
             class="column is-half has-text-weight-bold is-justify-content-center is-align-items-center"
+          >
+            <div class="box">
+              <table class="table is-striped is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Module Title</th>
+                    <th>Attempts</th>
+                    <th>Result</th>
+                    <th>Resit Required</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% studentRecord.modules.forEach((module) => { %>
+                  <tr>
+                    <td><%= module.module_code %></td>
+                    <td>
+                      <% const matchingAttempt =
+                      studentRecord.moduleAttempts.find(attempt =>
+                      attempt.module_id === module.module_id); if
+                      (matchingAttempt) { %> <%= matchingAttempt.attempt_count
+                      %>/4<% } else { %> 0/4 <% } %>
+                    </td>
+                    <td><%= module.result %> (<%= module.grade %>%)</td>
+                    <td>
+                      <% const matchingResit =
+                      studentProgression.resits.includes(module.module_code); if
+                      (matchingResit) { %> Yes <% } else { %> No <% } %>
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div
+            class="column is-full has-text-weight-bold is-justify-content-center is-align-items-center"
           >
             <div class="box">
               <canvas id="studentProgressionChart"></canvas>
@@ -443,7 +480,7 @@
                     </td>
                     <td>
                       <button
-                      id="delete-student-module-btn"
+                        id="delete-student-module-btn"
                         type="button"
                         class="delete-student-module-btn button is-danger"
                       >
@@ -515,7 +552,7 @@
               tooltip: {
                 callbacks: {
                   label: function(context) {
-                    const module = moduleGrades[context.dataIndex]; 
+                    const module = moduleGrades[context.dataIndex];
                     const grade = context.parsed.y;
                     const result = module.result || 'N/A';
 
