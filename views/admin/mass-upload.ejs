@@ -26,44 +26,165 @@
       <%- include('../partials/header.ejs') %> <%-
       include('../partials/dashboard-pages-welcome.ejs') %>
 
-      <!-- main body of messaging hub -->
+      <!-- main body of Mass Uploads page -->
       <div
         class="has-background-white p-6 mtopclear mybk3 rounded-box"
         style="margin-bottom: 2rem !important"
       >
-        <h1>Upload CSV to Server</h1>
-        <form id="process-file" enctype="multipart/form-data">
-          <div class="columns">
-            <div class="column is-half">
-              <div id="student-data-file" class="file is-medium has-name">
-                <label class="file-label">
-                  <input
-                    class="file-input"
-                    type="file"
-                    name="studentData"
-                    accept=".csv"
-                  />
-                  <span class="file-cta">
-                    <span class="file-icon">
-                      <i class="fas fa-upload"></i>
+        <div class="notification">
+          <p><strong>Mass upload handler:</strong></p>
+          <ul style="margin-top: 0.5rem">
+            <li>
+              Use the file upload form below to mass upload student and module
+              records.
+            </li>
+            <li>
+              This should be the go to method of updating student records and
+              module records on mass.
+            </li>
+            <li>
+              The process is quick and easy and reduces user entry error.
+            </li>
+            <li>
+              If a student in the file does not already exist a student user
+              account will be created for them with a temp password.
+            </li>
+            <li>
+              New modules can also be included in the file, if the module does
+              not already exist a new record will be created for it.
+            </li>
+            <br />
+          </ul>
+
+          <form id="process-file" enctype="multipart/form-data">
+            <div class="columns">
+              <div class="column is-half">
+                <div id="student-data-file" class="file is-medium has-name">
+                  <label class="file-label">
+                    <input
+                      class="file-input"
+                      type="file"
+                      name="studentData"
+                      accept=".csv"
+                    />
+                    <span class="file-cta">
+                      <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                      </span>
+                      <span class="file-label"> Choose a file… </span>
                     </span>
-                    <span class="file-label"> Choose a file… </span>
-                  </span>
-                  <span class="file-name"> no file uploaded </span>
-                </label>
+                    <span class="file-name"> no file uploaded </span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="column is-half">
+                <button
+                  class="button is-primary is-centered is-large"
+                  type="submit"
+                >
+                  Process file
+                </button>
               </div>
             </div>
+          </form>
+        </div>
 
-            <div class="column is-half">
-              <button
-                class="button is-primary is-centered is-large"
-                type="submit"
-              >
-                Process file
-              </button>
-            </div>
+        <div class="notification is-light">
+          <p><strong>CSV Format Instructions:</strong></p>
+          <ul style="margin-top: 0.5rem">
+            <li>The CSV must include the following columns:</li>
+            <br />
+            <table class="table is-striped is-fullwidth">
+              <thead>
+                <tr>
+                  <th>Column Name</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>lastName</td>
+                  <td>Student's last name</td>
+                </tr>
+                <tr>
+                  <td>firstName</td>
+                  <td>Student's first name</td>
+                </tr>
+                <tr>
+                  <td>sId</td>
+                  <td>Student ID (e.g., 22-IFSY-0933003: Enrolment Year + Degree Code + Unique Student Number)</td>
+                </tr>
+                <tr>
+                  <td>acad_Yr</td>
+                  <td>Academic year (e.g., 2024/25)</td>
+                </tr>
+                <tr>
+                  <td>subjCode</td>
+                  <td>Subject code (e.g., IFSY)</td>
+                </tr>
+                <tr>
+                  <td>subjCatalog</td>
+                  <td>Subject catalog number (e.g., 123)</td>
+                </tr>
+                <tr>
+                  <td>moduleTitle</td>
+                  <td>Full title of the module</td>
+                </tr>
+                <tr>
+                  <td>firstGrade</td>
+                  <td>First attempt grade</td>
+                </tr>
+                <tr>
+                  <td>gradeResult</td>
+                  <td>Result of first attempt (pass/fail/excused/absent)</td>
+                </tr>
+                <tr>
+                  <td>resitGrade</td>
+                  <td>Grade if student resat</td>
+                </tr>
+                <tr>
+                  <td>resitResult</td>
+                  <td>Result of resit attempt (pass/fail/excused/absent)</td>
+                </tr>
+                <tr>
+                  <td>creditCount</td>
+                  <td>Credits awarded for the module</td>
+                </tr>
+                <tr>
+                  <td>semModule</td>
+                  <td>Semester module is taken (e.g., AUT, SPR)</td>
+                </tr>
+                <tr>
+                  <td>statusStudy</td>
+                  <td>Current study status</td>
+                </tr>
+                <tr>
+                  <td>entryLevel</td>
+                  <td>Student's entry level</td>
+                </tr>
+              </tbody>
+            </table>
+            <li>
+              The first row should be a header row with the column headers
+              above.
+            </li>
+            <li>All fields must be separated by commas.</li>
+            <li>
+              If a student does not have a result or grade for a particular
+              field the field should be left empty.
+            </li>
+          </ul>
+          <div class="my-4">
+            <a
+              href="/sample-files/sample-student-upload.csv"
+              class="button is-link is-medium"
+            >
+              <i class="fas fa-download" style="margin-right: 5px"></i> Download
+              Sample CSV
+            </a>
           </div>
-        </form>
+        </div>
       </div>
     </div>
 
