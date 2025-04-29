@@ -1,137 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Academic Summary</title>
-  <style>
-    body {
-      font-family: "Arial", sans-serif;
-      margin: 20px;
-      font-size: 12px;
-      color: #333;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    h1 {
-      margin: 0;
-      font-size: 20px;
-    }
-    .student-info,
-    .summary-table {
-      width: 100%;
-      margin-bottom: 10px;
-      border-collapse: collapse;
-    }
-    .student-info td {
-      padding: 4px 6px;
-    }
-    .summary-table th,
-    .summary-table td {
-      border: 1px solid #ccc;
-      padding: 6px 8px;
-      text-align: left;
-      font-size: 11px;
-    }
-    .summary-table th {
-      background-color: #f2f2f2;
-    }
-    .section-title {
-      font-size: 16px;
-      margin-top: 20px;
-      margin-bottom: 8px;
-      border-bottom: 1px solid #000;
-      padding-bottom: 3px;
-    }
-    footer {
-      margin-top: 20px;
-      font-size: 10px;
-      text-align: center;
-      color: #666;
-    }
-    ul {
-      margin: 5px 0;
-      padding-left: 18px;
-    }
-    li {
-      margin-bottom: 2px;
-    }
-  </style>
-</head>
-<body style="margin: 0; padding: 0;">
-  <header>
-    <h1>Academic Summary</h1>
-    <p><strong>Queens University Belfast</strong></p>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Academic Summary</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 20px;
+        font-size: 12px;
+        color: #333;
+      }
+      header {
+        text-align: center;
+        margin-bottom: 15px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 20px;
+      }
+      .student-info,
+      .summary-table {
+        width: 100%;
+        margin-bottom: 10px;
+        border-collapse: collapse;
+      }
+      .student-info td {
+        padding: 4px 6px;
+      }
+      .summary-table th,
+      .summary-table td {
+        border: 1px solid #ccc;
+        padding: 6px 8px;
+        text-align: left;
+        font-size: 11px;
+      }
+      .summary-table th {
+        background-color: #f2f2f2;
+      }
+      .section-title {
+        font-size: 16px;
+        margin-top: 20px;
+        margin-bottom: 8px;
+        border-bottom: 1px solid #000;
+        padding-bottom: 3px;
+      }
+      footer {
+        margin-top: 20px;
+        font-size: 10px;
+        text-align: center;
+        color: #666;
+      }
+      ul {
+        margin: 5px 0;
+        padding-left: 18px;
+      }
+      li {
+        margin-bottom: 2px;
+      }
+    </style>
+  </head>
+  <body style="margin: 0; padding: 0">
+    <header>
+      <h1>Academic Summary</h1>
+      <p><strong>Queens University Belfast</strong></p>
+    </header>
 
-  <table class="student-info">
-    <tr>
-      <td><strong>Name:</strong> <%= student.first_name %> <%= student.last_name %></td>
-      <td><strong>Student ID:</strong> <%= student.sId %></td>
-    </tr>
-    <tr>
-      <td><strong>Student Email:</strong> <%= userData.email %></td>
-      <td><strong>Secondary Email:</strong> <%= userData.secondary_email || "No email on file." %></td>
-    </tr>
-    <tr>
-      <td><strong>Program:</strong> <%= student.program_name %></td>
-      <td><strong>Academic Level:</strong> <%= studentRecord.studentLevel %></td>
-      <td><strong>Student Study Status:</strong> <%= student.status_study %></td>
-    </tr>
-  </table>
+    <div class="section-title">Student Details</div>
 
-  <div class="section-title">Module Performance</div>
-  <table class="summary-table">
-    <thead>
-      <tr>
-        <th>Module Code</th>
-        <th>Module Name</th>
-        <th>Credit Value</th>
-        <th>Grade</th>
-        <th>Result</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% moduleData.forEach(module => { 
-        const detail = studentRecord.modules.find(m => m.module_id === module.module_id); %>
-      <tr>
-        <td><%= module.subject_code + module.subject_catalog %></td>
-        <td><%= module.module_title %></td>
-        <td><%= module.credit_value %></td>
-        <td><%= detail?.grade || "N/A" %></td>
-        <td><%= detail?.result || "N/A" %></td>
-      </tr>
-      <% }); %>
-    </tbody>
-  </table>
+    <table class="summary-table is-striped is-fullwidth">
+      <tbody>
+        <tr>
+          <td><strong>Name:</strong></td>
+          <td><%= student.first_name %> <%= student.last_name %></td>
+        </tr>
+        <tr>
+          <td><strong>Student ID:</strong></td>
+          <td><%= student.sId %></td>
+        </tr>
+        <tr>
+          <td><strong>Student Email:</strong></td>
+          <td><%= userData.email %></td>
+        </tr>
+        <tr>
+          <td><strong>Secondary Email:</strong></td>
+          <td><%= userData.secondary_email || "No email on file." %></td>
+        </tr>
+        <tr>
+          <td><strong>Program:</strong></td>
+          <td><%= student.program_name %></td>
+        </tr>
+        <tr>
+          <td><strong>Academic Level:</strong></td>
+          <td><%= studentRecord.studentLevel %></td>
+        </tr>
+        <tr>
+          <td><strong>Student Study Status:</strong></td>
+          <td><%= student.status_study %></td>
+        </tr>
+      </tbody>
+    </table>
 
-  <div class="section-title">Summary</div>
-  <table class="student-info">
-    <tr>
-      <td><strong>Total Credits Earned:</strong> 
-        <% let totalCredits = 0; studentRecord.creditsPassed.forEach(level => { totalCredits += level.credits_passed }); %>
-        <%= totalCredits %>
-      </td>
-      <td><strong>Average Grade:</strong> <%= parseFloat(studentRecord.averageMark).toFixed(2) %></td>
-    </tr>
-    <tr>
-      <td><strong>Academic Progression Status:</strong> <%= studentProgression.outcome %></td>
-      <td>
-        <strong>Further Progression Details:</strong>
-        <% if (studentProgression.reason && studentProgression.reason.length > 0) { %>
-          <ul>
-            <% studentProgression.reason.forEach(function(reason) { %>
+    <div style="page-break-before: always"></div>
+
+    <div class="section-title">Module Results</div>
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Module Code</th>
+          <th>Module Name</th>
+          <th>Credit Value</th>
+          <th>Grade</th>
+          <th>Result</th>
+          <th>Academic Year</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% moduleData.forEach(module => { const detail =
+        studentRecord.modules.find(m => m.module_id === module.module_id); %>
+        <tr>
+          <td><%= module.subject_code + module.subject_catalog %></td>
+          <td><%= module.module_title %></td>
+          <td><%= module.credit_value %></td>
+          <td><%= detail?.grade || "N/A" %></td>
+          <td><%= detail?.result || "N/A" %></td>
+          <td><%= module.academic_year %></td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+
+    <div style="page-break-before: always"></div>
+
+    <div class="section-title">Student Academic Record Summary</div>
+    <table class="summary-table is-striped is-fullwidth">
+      <tbody>
+        <% let totalCredits = 0; studentRecord.creditsPassed.forEach(level => {
+        totalCredits += level.credits_passed; }); %>
+        <tr>
+          <td><strong>Total Credits Earned:</strong></td>
+          <td><%= totalCredits %></td>
+        </tr>
+        <% studentRecord.creditsPassed.forEach((level) => { %>
+        <tr>
+          <th>Credits - <%= level.module_level %></th>
+          <td><%= level.credits_passed %></td>
+        </tr>
+        <% }) %> <% studentRecord.averageMarkPerYear.forEach((level) => { %>
+        <tr>
+          <th>Average - <%= level.level %></th>
+          <td><%= parseFloat(level.avg_mark).toFixed(2)%></td>
+        </tr>
+        <% }) %>
+        <tr>
+          <td><strong>Academic Progression Status:</strong></td>
+          <td><%= studentProgression.outcome %></td>
+        </tr>
+        <tr>
+          <td><strong>Further Progression Details:</strong></td>
+          <td>
+            <% if (studentProgression.reason && studentProgression.reason.length
+            > 0) { %>
+            <ul>
+              <% studentProgression.reason.forEach(function(reason) { %>
               <li><%= reason %></li>
-            <% }) %>
-          </ul>
-        <% } else { %> No further data available. <% } %>
-      </td>
-    </tr>
-  </table>
+              <% }); %>
+            </ul>
+            <% } else { %> No further data available. <% } %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-  <footer>
-    Generated on <%= dateGenerated %> &middot; Students Academic Record
-  </footer>
-</body>
+    <footer>
+      Generated on <%= dateGenerated %> &middot; Students Academic Record
+    </footer>
+  </body>
 </html>
