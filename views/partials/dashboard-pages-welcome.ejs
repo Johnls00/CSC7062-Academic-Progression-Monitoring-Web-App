@@ -32,24 +32,52 @@
       Welcome to the Academic Progress Monitoring Systems Dashboard
     </p>
     <p class="subtitle-page-title">
-      You can manage students and courses from here
+      Access core administrative tools to manage students, degree programs, modules, messaging, and reports.
+    </p>
+    <p class="subtitle-page-title">
+      You can navigate to pages to manage students and courses from here
     </p>
     <% } else if (title === 'Student Management') { %>
     <p class="title">Student Management</p>
+    <p class="subtitle-page-title">
+      Search students, Add new students and view students details. 
+    </p>
+    <p class="block">
+      View all registered students, search for specific students, add new students, and manage individual student profiles.
+    </p>
+    <p class="subtitle-page-title">
+      Manage all student details from within the student details page.
+    </p>
     <% } else if (title === 'Student Details') { %>
     <p class="title">Student Details For: <%= student.first_name %> <%= student.last_name %></p>
     <% } else if (title === 'Degree Programs') { %>
-    <p class="title">Manage Degree Programs</p>
+      <p class="title">Manage Degree Programs</p>
+      <p class="subtitle-page-title">        
+      Search Degree Programs, Add new Degree Programs and view degree program module details.
+    </p>
     <% } else if (title === 'Degree Details') { %>
     <p class="title">Manage Modules For:</p>
     <p class="sub-title"><%= program_details.name %></p>
     <% } else if (title === 'Manage Modules') { %>
-      <p class="title">Manage Modules</p>
-    <% } else if (title === 'Course Management') { %>
-    <p class="title">Course Management</p>
+      <p class="title">Module Management</p>
+      <p class="block">
+        Browse and manage the list of modules offered across different programs, including editing and deleting modules.
+      </p>
+    <% } else if (title === 'Reports') { %>
+    <p class="title">Reports and Statistics</p>
+    <p class="block">
+      Generate reports and statistics related to module enrollments, performance, and other academic data.
+    </p>
+    <% } else if (title === 'Messaging Hub') { %>
+    <p class="title">Messaging Hub</p>
+    <p class="block">
+      Send and recieve messages across the University including student communications and cohort notifcations.
+    </p>
     <% } else if (title === 'Mass record management') { %>
       <p class="title">Messaging Hub</p>
-      <p class="sub-title"> Send and recieve messages </p>
+      <p class="block">
+        Send and receive messages across the system, including student communications and system notifications.
+      </p>
     <% } %> <% } %>
   </div>
 </section>
