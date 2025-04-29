@@ -3,7 +3,7 @@ const connection = require("../config/config"); // Ensure this path is correct
 
 // Home page
 exports.showHome = (req, res) => {
-  res.render("public/index", { title: "Home" });
+  res.render("public/login", { title: "Login" });
 };
 
 // Contact page
@@ -97,61 +97,6 @@ exports.handleLogin = async (req, res) => {
   }
 };
 
-// Register page (GET)
-exports.showRegister = (req, res) => {
-  res.render("public/register", { title: "Register" });
-};
-
-// Handle registration (POST)
-exports.handleRegister = async (req, res) => {
-  const { email, password } = req.body;
-
-  // Validate input
-  if (!email || !password) {
-    return res
-      .status(400)
-      .render("public/register", {
-        title: "Register",
-        error: "Email and password are required.",
-      });
-  }
-
-  try {
-    // Check if the user already exists
-    const [existingUser] = await connection.query(
-      "SELECT * FROM `user` WHERE `email` = ?",
-      [email]
-    );
-    if (existingUser.length > 0) {
-      return res
-        .status(400)
-        .render("public/register", {
-          title: "Register",
-          error: "Email is already registered.",
-        });
-    }
-
-    // Hash the password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    // Insert new user into the database
-    await connection.query(
-      "INSERT INTO `user` (`email`, `password`) VALUES (?, ?)",
-      [email, hashedPassword]
-    );
-
-    res.redirect("/login");
-  } catch (err) {
-    console.error("Registration error:", err);
-    res
-      .status(500)
-      .render("public/register", {
-        title: "Register",
-        error: "Registration failed due to server error",
-      });
-  }
-};
 
 // Logout route
 exports.handleLogout = (req, res) => {
