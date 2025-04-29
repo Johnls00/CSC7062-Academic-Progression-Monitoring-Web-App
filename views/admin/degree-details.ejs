@@ -22,11 +22,22 @@
       include('../partials/dashboard-pages-welcome.ejs') %>
 
       <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
-        <div class="columns">
-          <div class="column">
-            <div class="block">
-              Here you can 
+        <div class="columns is-multiline">
+          <div class="column is-full"> 
+            <div class="notification">
+              <p><strong>Degree Program Management:</strong></p>
+              <ul style="margin-top: 0.5rem">
+                <li>
+                  Here you can and remove modules from the selected degree program.
+                </li>
+                <li>
+                  Use the the add module program button to access the form to add modules and their details.
+                </li>
+                <br />
+              </ul>
             </div>
+          </div>
+          <div class="column">
             <div class="control">
               <input
                 id="DegreeSearch"
@@ -50,7 +61,9 @@
 
         <% console.log(program_id); %>
 
-        <div class="columns is-mobile is-multiline is-full is-flex is-justify-content-center is-align-items-center">
+        <div
+          class="columns is-mobile is-multiline is-full is-flex is-justify-content-center is-align-items-center"
+        >
           <form
             id="add-module-form"
             method="POST"
@@ -63,7 +76,8 @@
                   class="input is-medium"
                   type="text"
                   name="new_module_name"
-                  placeholder="Enter module name" required
+                  placeholder="Enter module name"
+                  required
                 />
                 <div class="select is-medium is-fullwidth">
                   <select name="new_module_level" required>

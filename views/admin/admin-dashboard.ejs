@@ -1,77 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= title %></title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/dashboard.css">
-    
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+  </head>
 
-<body class="container-main">
+  <body class="container-main">
     <div class="container mTop">
-        
-        <%- include('../partials/header.ejs') %>
-        
-        <%- include('../partials/dashboard-pages-welcome.ejs') %>
+      <%- include('../partials/header.ejs') %> <%-
+      include('../partials/dashboard-pages-welcome.ejs') %>
 
-                <!-- Services -->
-                <div class="has-background-white p-6 mtopclear mybk3 rounded-box">
+      <!-- Services -->
+      <div class="has-background-white p-6 mtopclear mybk3 rounded-box">
+        <h2 class="title" style="padding-top: 1rem"><span></span>Services</h2>
+        <div class="column is-full">
+          <div class="notification">
+            <ul style="margin-top: 0.5rem">
+              <li>
+                Access core administrative tools to manage students, degree
+                programs, modules, messaging, and reports.
+              </li>
+            </ul>
+          </div>
+        </div>
 
-                    <p class="block">
-                        Access core administrative tools to manage students, degree programs, modules, messaging, and reports.
-                      </p>
-
-                        <h2 class="title " style="padding-top: 1rem;"> <span></span>Services</h2>
-
-                        <div class="columns is-mobile is-multiline">
-                            <div class="column is-flex is-justify-content-center is-align-items-center is-one-quarter-tablet is-half-mobile">
-                                <div class="card cardH" onclick="window.location.href='/admin/students';" style="cursor: pointer;">
-                                    <div class="card-content">
-                                        <span class="material-icons">Students</span>
-                                        <div class="content is-size-7">
-                                            View your Academic profile overview, update your personal information, and more.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        
-                            <div class="column is-flex is-justify-content-center is-align-items-center is-one-quarter-tablet is-half-mobile">
-                                <div class="card cardH" onclick="window.location.href='/admin/degree-programs';" style="cursor: pointer;">
-                                    <div class="card-content">
-                                        <span class="material-icons">Degree programs</span>
-                                        <div class="content is-size-7">
-                                            View all degree programs, manage program modules by adding and removing modules and adjusting module details.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        
-                            <div class="column is-flex is-justify-content-center is-align-items-center is-one-quarter-tablet is-half-mobile">
-                                <div class="card cardH" onclick="window.location.href='/admin/reports';" style="cursor: pointer;">
-                                    <div class="card-content">
-                                        <span class="material-icons">Performance Reports</span>
-                                        <div class="content is-size-7">
-                                            View Pass and fail statistics for Degree Programs or Individual modules. View compiled data in tables or pie charts. 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        
-                            <div class="column is-flex is-justify-content-center is-align-items-center is-one-quarter-tablet is-half-mobile">
-                                <div class="card cardH" onclick="window.location.href='/admin/messaging';" style="cursor: pointer;">
-                                    <div class="card-content">
-                                        <span class="material-icons">Messaing Hub</span>
-                                        <div class="content is-size-7">
-                                            View, receive, and send messages to students. Send Notifications to cohorts based on degreee program. 
-                                    </div>
-                                </div>
-                            </div>
-
+        <div class="columns is-mobile is-multiline">
+          <div
+            class="column is-flex is-justify-content-center is-align-items-center is-one-third-tablet is-half-mobile"
+          >
+            <div
+              class="card cardH"
+              onclick="window.location.href='/admin/students';"
+              style="cursor: pointer"
+            >
+              <div class="card-content">
+                <span class="material-icons">Students</span>
+                <div class="content is-size-7">
+                  View your Academic profile overview, update your personal
+                  information, and more.
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="column is-flex is-justify-content-center is-align-items-center is-one-third-tablet is-half-mobile"
+          >
+            <div
+              class="card cardH"
+              onclick="window.location.href='/admin/degree-programs';"
+              style="cursor: pointer"
+            >
+              <div class="card-content">
+                <span class="material-icons">Degree programs</span>
+                <div class="content is-size-7">
+                  View all degree programs, manage program modules by adding and
+                  removing modules and adjusting module details.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="column is-flex is-justify-content-center is-align-items-center is-one-third-tablet is-half-mobile"
+          >
+            <div
+              class="card cardH"
+              onclick="window.location.href='/admin/modules';"
+              style="cursor: pointer"
+            >
+              <div class="card-content">
+                <span class="material-icons">Modules</span>
+                <div class="content is-size-7">
+                  View all modules, manage modules by adding and removing
+                  modules and adjusting module details.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="column is-flex is-justify-content-center is-align-items-center is-one-third-tablet is-half-mobile"
+          >
+            <div
+              class="card cardH"
+              onclick="window.location.href='/admin/reports';"
+              style="cursor: pointer"
+            >
+              <div class="card-content">
+                <span class="material-icons">Performance Reports</span>
+                <div class="content is-size-7">
+                  View Pass and fail statistics for Degree Programs or
+                  Individual modules. View compiled data in tables or pie
+                  charts.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="column is-flex is-justify-content-center is-align-items-center is-one-third-tablet is-half-mobile"
+          >
+            <div
+              class="card cardH"
+              onclick="window.location.href='/admin/messaging';"
+              style="cursor: pointer"
+            >
+              <div class="card-content">
+                <span class="material-icons">Messaing Hub</span>
+                <div class="content is-size-7">
+                  View, receive, and send messages to students. Send
+                  Notifications to cohorts based on degreee program.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="column is-flex is-justify-content-center is-align-items-center is-one-third-tablet is-half-mobile"
+          >
+            <div
+              class="card cardH"
+              onclick="window.location.href='/admin/mass-upload';"
+              style="cursor: pointer"
+            >
+              <div class="card-content">
+                <span class="material-icons">Mass Record Upload</span>
+                <div class="content is-size-7">
+                  Upload large sets of records at once to quickly update and
+                  module information in bulk.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

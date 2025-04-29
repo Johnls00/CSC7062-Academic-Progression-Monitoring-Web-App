@@ -18,22 +18,41 @@
 
   <body class="container-main">
     <div class="container mTop custom-wide-container">
-       <%#  Navigation header partial  %>
-       <%- include('../partials/header.ejs') %>
-       <%# Header banner partical for each page with page specific information %>
-       <%- include('../partials/dashboard-pages-welcome.ejs') %>
+      <%# Navigation header partial %> <%- include('../partials/header.ejs') %>
+      <%# Header banner partical for each page with page specific information %>
+      <%- include('../partials/dashboard-pages-welcome.ejs') %>
 
       <!-- main body of messaging hub -->
       <div
         class="has-background-white p-6 mtopclear mybk3 rounded-box"
         style="margin-bottom: 2rem !important"
       >
+        <div class="column is-full">
+          <div class="notification">
+            <p><strong>Messaging instructions:</strong></p>
+            <ul style="margin-top: 0.5rem">
+              <li>
+                Use the tab on the left to view your messages and notification.
+              </li>
+              <li>The buttons below can be used to create new messages to students or notifications for cohorts.</li>
+            </ul>
+          </div>
+        </div>
+
         <div class="columns is-multiline">
           <div class="column is-half">
-            <a href="#" class="button is-primary is-medium" id="send-new-message">Send New Message</a>
+            <a
+              href="#"
+              class="button is-primary is-medium"
+              id="send-new-message"
+              >Send New Message</a
+            >
           </div>
           <div class="column is-half">
-            <a href="#" class="button is-primary is-medium" id="send-new-notification"
+            <a
+              href="#"
+              class="button is-primary is-medium"
+              id="send-new-notification"
               >Create New Notification</a
             >
           </div>
@@ -59,55 +78,66 @@
               </p>
 
               <!-- panel content -->
-               <!-- shows all the conversations sent to admins  -->
+              <!-- shows all the conversations sent to admins  -->
               <div class="scrollable-panel-blocks" id="messages-section">
-                <% Object.keys(allConversations).forEach(function(conversation_id) { %>
-                  <% const firstMessage = allConversations[conversation_id][0]; %>
-                  <a href="#" class="panel-block" data-conversation-id="<%= conversation_id %>">
-                    <div
-                      class="is-flex is-justify-content-space-between is-align-items-center"
-                      style="width: 100%"
-                    >
-                      <span class="has-text-left">
-                        <%= String(firstMessage.subject).substring(0, 20) %>...
-                      </span>
-                      <small class="has-text-right">
-                        <%= new Date(firstMessage.timestamp).toLocaleString("en-GB", {
-                          dateStyle: "short", timeStyle: "short"
-                        }) %>
-                      </small>
-                    </div>
-                  </a>
+                <%
+                Object.keys(allConversations).forEach(function(conversation_id)
+                { %> <% const firstMessage =
+                allConversations[conversation_id][0]; %>
+                <a
+                  href="#"
+                  class="panel-block"
+                  data-conversation-id="<%= conversation_id %>"
+                >
+                  <div
+                    class="is-flex is-justify-content-space-between is-align-items-center"
+                    style="width: 100%"
+                  >
+                    <span class="has-text-left">
+                      <%= String(firstMessage.subject).substring(0, 20) %>...
+                    </span>
+                    <small class="has-text-right">
+                      <%= new
+                      Date(firstMessage.timestamp).toLocaleString("en-GB", {
+                      dateStyle: "short", timeStyle: "short" }) %>
+                    </small>
+                  </div>
+                </a>
                 <% }) %>
               </div>
 
-               <!-- notification window - shows all the notifcation sent  -->
-              <div class="scrollable-panel-blocks" id="notifications-section" style="display: none;">
-                <% console.log("all notifications ", allNotifications); %>
-                <% allNotifications.forEach((notification) => { %>
-                  <a href="#" class="panel-block" data-notification-id="<%= notification.notification_id %>">
-                    <div
-                      class="is-flex is-justify-content-space-between is-align-items-center"
-                      style="width: 100%"
-                    >
-                      <span class="has-text-left">
-                        <%= String(notification.subject).substring(0, 20) %>...
-                      </span>
-                      <small class="has-text-right">
-                        <%= new Date(notification.timestamp).toLocaleString("en-GB", {
-                          dateStyle: "short", timeStyle: "short"
-                        }) %>
-                      </small>
-                    </div>
-                  </a>
+              <!-- notification window - shows all the notifcation sent  -->
+              <div
+                class="scrollable-panel-blocks"
+                id="notifications-section"
+                style="display: none"
+              >
+                <% console.log("all notifications ", allNotifications); %> <%
+                allNotifications.forEach((notification) => { %>
+                <a
+                  href="#"
+                  class="panel-block"
+                  data-notification-id="<%= notification.notification_id %>"
+                >
+                  <div
+                    class="is-flex is-justify-content-space-between is-align-items-center"
+                    style="width: 100%"
+                  >
+                    <span class="has-text-left">
+                      <%= String(notification.subject).substring(0, 20) %>...
+                    </span>
+                    <small class="has-text-right">
+                      <%= new
+                      Date(notification.timestamp).toLocaleString("en-GB", {
+                      dateStyle: "short", timeStyle: "short" }) %>
+                    </small>
+                  </div>
+                </a>
 
-               <% }) %>
-                
+                <% }) %>
               </div>
 
-              <div class="panel-block">
-                
-              </div>
+              <div class="panel-block"></div>
             </nav>
           </div>
 
@@ -138,8 +168,7 @@
       window.allNotifications = <%- JSON.stringify(allNotifications) %>;
 
         document.querySelector("#submit-new-message").addEventListener("click", submitNewMessage);
-      
     </script>
-    <script src="/js/message-notifications-logic.js" ></script>
+    <script src="/js/message-notifications-logic.js"></script>
   </body>
 </html>
