@@ -1,0 +1,57 @@
+@startuml
+title APMS Web App System Architecture – Express + MySQL
+
+actor Student
+actor Admin
+component Client as "Browser\n(HTML/CSS/JS)\n(Chrome/Firefox/Safari)"
+
+package "Node.js + Express Server" {
+    component "Session Store (in-memory)" as SessionStore
+    component "Express Router" as Router
+    component "Auth Middleware\n(Session/Cookies)" as Auth
+    component "Admin Controller" as AdminCtrl
+    component "Student Controller" as StudentCtrl
+    component "Business Logic" as Logic
+    component "EJS Templating Engine" as Templating
+    component "Static File Middleware" as Static
+}
+
+database DB as "MySQL Database (APMS)"
+
+' User interaction
+Student --> Client : Uses Browser
+Admin --> Client : Uses Browser
+Client --> Static : GET /style.css
+
+' Page request flow
+Client --> Router : HTTP GET/POST Request
+Router --> Auth : Auth Check
+Auth --> SessionStore : Read/Write Session
+Auth --> StudentCtrl : Forward if Student
+Auth --> AdminCtrl : Forward if Admin
+
+note right of Auth
+  Middleware to check sessions
+  and route based on user role
+end note
+
+' Student request flow
+StudentCtrl --> Logic : Validate/Process Request
+Logic --> DB : Query for student data
+DB --> Logic : Student Data
+Logic --> Templating : Render Student View
+
+' Admin request flow
+AdminCtrl --> Logic : Validate/Process Request
+Logic --> DB : Query for reports/progress
+DB --> Logic : Report Data
+Logic --> Templating : Render Admin View
+
+' Final response to client
+Templating --> Client : HTML Response
+
+note right of Logic
+  Contains business rules for
+  academic progression evaluation
+end note
+@enduml
