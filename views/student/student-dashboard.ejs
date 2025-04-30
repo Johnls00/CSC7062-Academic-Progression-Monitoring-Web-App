@@ -1,66 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/dashboard.css">
-    
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+  </head>
 
-<body class="container-main">
+  <body class="container-main">
     <div class="container mTop">
-        <%#  Navigation header partial  %>
-        <%- include('../partials/header.ejs') %>
-        <%# Header banner partical for each page with page specific information %>
-        <%- include('../partials/dashboard-pages-welcome.ejs') %>
+      <%# Navigation header partial %> <%- include('../partials/header.ejs') %>
+      <%# Header banner partical for each page with page specific information %>
+      <%- include('../partials/dashboard-pages-welcome.ejs') %>
 
-                <!-- Services -->
-                <div class="has-background-white p-6 mtopclear mybk3 rounded-box">
-                        <p>Welcome to your student dashboard.</p>
-                        <p>Here you can view your academic progress, access your courses, and more.</p>
-                        <p>Use the Services hub below to access different sections of the dashboard.</p>
-                        <p>Your academic progress at a glance.</p> 
+      <!-- Services -->
+      <div class="has-background-white p-6 mtopclear mybk3 rounded-box">
+        <div class="column is-full">
+          <div class="notification">
+            <p><strong>Welcome to your student dashboard.</strong></p>
+            <ul style="margin-top: 0.5rem">
+              <li>
+                Here you can view your academic progress, access your courses,
+                and more.
+              </li>
+              <li>
+                Use the Services hub below to access different sections of the
+                dashboard.
+              </li>
+              <li>Your academic progress at a glance.</li>
+            </ul>
+          </div>
+        </div>
+        <h2 class="title" style="padding-top: 1rem"><span></span>Services</h2>
 
-                        <h2 class="title " style="padding-top: 1rem;"> <span></span>Services</h2>
-
-                        <div class="columns is-mobile is-multiline">
-                            <div class="column is-flex is-justify-content-center is-align-items-center is-one-third-tablet is-half-mobile">
-                                <div class="card cardH" onclick="window.location.href='/student-dashboard/profile';" style="cursor: pointer;">
-                                    <div class="card-content">
-                                        <span class="material-icons">Profile and Progression Summary</span>
-                                        <div class="content is-size-7">
-                                            View your Academic profile overview, update your personal information, and more.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        
-                            <div class="column is-flex is-justify-content-center is-align-items-center is-one-third-tablet is-half-mobile">
-                                <div class="card cardH" onclick="window.location.href='/student-dashboard/modules';" style="cursor: pointer;">
-                                    <div class="card-content">
-                                        <span class="material-icons">Modules and Grades</span>
-                                        <div class="content is-size-7">
-                                            View all the modules you are enrolled on, view grades, and module status.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        
-                            <div class="column is-flex is-justify-content-center is-align-items-center is-one-third-tablet is-half-mobile">
-                                <div class="card cardH" onclick="window.location.href='/student-dashboard/notifications';" style="cursor: pointer;">
-                                    <div class="card-content">
-                                        <span class="material-icons">Messaging Hub</span>
-                                        <div class="content is-size-7">
-                                            View, receive, and send messages to your administrators. Contact advisors for assistance and get feedback. View your degree program notifications.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+        <div class="columns is-mobile is-multiline">
+          <div
+            class="column is-flex is-justify-content-center is-align-items-center is-one-third-tablet is-half-mobile"
+          >
+            <div
+              class="card cardH"
+              onclick="window.location.href='/student-dashboard/profile';"
+              style="cursor: pointer"
+            >
+              <div class="card-content">
+                <span class="material-icons"
+                  >Profile and Progression Summary</span
+                >
+                <div class="content is-size-7">
+                  View your Academic profile overview, update your personal
+                  information, and more.
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="column is-flex is-justify-content-center is-align-items-center is-one-third-tablet is-half-mobile"
+          >
+            <div
+              class="card cardH"
+              onclick="window.location.href='/student-dashboard/modules';"
+              style="cursor: pointer"
+            >
+              <div class="card-content">
+                <span class="material-icons">Modules and Grades</span>
+                <div class="content is-size-7">
+                  View all the modules you are enrolled on, view grades, and
+                  module status.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="column is-flex is-justify-content-center is-align-items-center is-one-third-tablet is-half-mobile"
+          >
+            <div
+              class="card cardH"
+              onclick="window.location.href='/student-dashboard/notifications';"
+              style="cursor: pointer"
+            >
+              <div class="card-content">
+                <span class="material-icons">Messaging Hub</span>
+                <div class="content is-size-7">
+                  View, receive, and send messages to your administrators.
+                  Contact advisors for assistance and get feedback. View your
+                  degree program notifications.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

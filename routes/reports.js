@@ -75,7 +75,7 @@ router.get("/generateReport/studentSummary/:id", async (req, res) => {
       .then((result) => {
         res.download(
           result.filename,
-          `student-summary-${studentId}.pdf`,
+          `Student-Summary-${studentId}.pdf`,
           (err) => {
             if (err) {
               console.error("Error downloading the file:", err);
