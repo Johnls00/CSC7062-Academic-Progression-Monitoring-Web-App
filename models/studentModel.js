@@ -65,7 +65,6 @@ async function getModulesByStudentId(studentId) {
      for (let i = 0; i < modules.length; i++) {
         const moduleId = modules[i].module_id;
         const module_Info = await moduleModel.getModuleInfo(moduleId);
-        // console.log(`Module Info for module_id ${moduleId}:`, module_Info);
     
         if (module_Info && module_Info.length > 0) {
           modules[i].module_id = module_Info[0].module_id;
@@ -136,6 +135,19 @@ async function createStudent({ userId, sId, firstName, lastName, statusStudy, en
   }
 }
 
+async function getStudentByProgramCode(programCode) {
+  try {
+    const [ProgramStudents] = await connection.query(
+      "SELECT * FROM student WHERE sId LIKE ?",
+      [`%${programCode}%`] 
+    );
+
+    return ProgramStudents;
+  } catch (err) {
+    throw new Error("Failed to fetch students data");
+  }
+}
+
 module.exports = {
   getStudentUserData,
   getStudentData,
@@ -144,4 +156,5 @@ module.exports = {
   getAllStudents,
   attachProgramDetails,
   createStudent,
+  getStudentByProgramCode,
 };
