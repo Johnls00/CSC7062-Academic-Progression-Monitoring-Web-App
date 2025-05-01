@@ -9,11 +9,22 @@ const connection = require("../config/config");
 // scripts 
 const { determineProgression } = require("../utils/progression-logic");
 
+/**
+ * Renders the student dashboard view with student data.
+ *
+ * @route GET /student-dashboard
+ * @function
+ * @memberof module:studentController
+ * @param {Object} req - Express request object containing session data.
+ * @param {Object} res - Express response object used to render the dashboard.
+ *
+ * @returns {void} Renders 'student/student-dashboard' view.
+ *
+ * @throws Will send a 500 response if data retrieval fails.
+ */
 exports.showDashboard = async (req, res) => {
   try {
-    // console.log("Rendering student dashboard:", req.session.user);
     const userId = req.session.user.user_id;
-    // console.log("User ID:", userId); // Debugging line
     const studentData = await studentModel.getStudentData(userId);
 
     res.render("student/student-dashboard", {
@@ -27,7 +38,17 @@ exports.showDashboard = async (req, res) => {
   }
 };
 
-// Show courses page with data
+/**
+ * Renders the student modules view with the modules enrolled by the student.
+ *
+ * @route GET /student-dashboard/modules
+ * @function
+ * @memberof module:studentController
+ * @param {Object} req - Express request object containing session data.
+ * @param {Object} res - Express response object used to render the modules.
+ *
+ * @returns {void} Renders 'student/modules' view.
+ */
 exports.showModules = async (req, res) => {
   const userId = req.session.user.user_id;
   const studentData = await studentModel.getStudentData(userId);
@@ -35,7 +56,6 @@ exports.showModules = async (req, res) => {
     studentData[0].student_id
   );
 
-  // console.log("Courses data:", courses); // Debugging line
   res.render("student/modules", {
     title: "Modules",
     user: req.session.user,
@@ -44,6 +64,17 @@ exports.showModules = async (req, res) => {
   });
 };
 
+/**
+ * Renders the student progress view with student data.
+ *
+ * @route GET /student-dashboard/progress
+ * @function
+ * @memberof module:studentController
+ * @param {Object} req - Express request object containing session data.
+ * @param {Object} res - Express response object used to render the progress view.
+ *
+ * @returns {void} Renders 'student/progress' view.
+ */
 exports.showProgress = async (req, res) => {
   const userId = req.session.user.user_id;
   const studentData = await studentModel.getStudentData(userId);
@@ -55,6 +86,19 @@ exports.showProgress = async (req, res) => {
   });
 };
 
+/**
+ * Renders the messaging hub for the student, showing conversations and notifications.
+ *
+ * @route GET /student-dashboard/messaging
+ * @function
+ * @memberof module:studentController
+ * @param {Object} req - Express request object with session user ID.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Renders 'student/messaging' view.
+ *
+ * @throws Will send a 500 response if data fetch fails.
+ */
 exports.showMessagingHub = async (req, res) => {
   try {
     const userId = req.session.user.user_id;
@@ -78,13 +122,25 @@ exports.showMessagingHub = async (req, res) => {
 };
 
 
+/**
+ * Renders the student's profile with academic data, user info, and progression analysis.
+ *
+ * @route GET /student-dashboard/profile
+ * @function
+ * @memberof module:studentController
+ * @param {Object} req - Express request object with session data.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Renders 'student/profile' view.
+ *
+ * @throws Will send a 404 if the student is not found.
+ * @throws Will send a 500 response if data retrieval or analysis fails.
+ */
 exports.showProfile = async (req, res) => {
   try {
     const userId = req.session.user.user_id;
     const [studentData] = await studentModel.getStudentData(userId);
     console.log("student data ",studentData);
-    // const student = await studentModel.getStudentBySId(studentData.student_id);
-    // console.log("student", student);
     const user_data = await studentModel.getStudentUserData(studentData.user_id);
     console.log("USER DATA", user_data);
     const module_data = await studentModel.getModulesByStudentId(
@@ -122,6 +178,20 @@ exports.showProfile = async (req, res) => {
   }
 };
 
+/**
+ * Updates the student's secondary email address.
+ *
+ * @route POST /student-dashboard/profile/:id
+ * @function
+ * @memberof module:studentController
+ * @param {Object} req - Express request object with student ID param and secondary_email in body.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Redirects to the student profile page upon success.
+ *
+ * @throws Will send a 404 if the student is not found.
+ * @throws Will send a 500 response if update fails.
+ */
 exports.updateProfile = async (req, res) => {
   const student_id = req.params.id;
   const [userResult] = await connection.query(
