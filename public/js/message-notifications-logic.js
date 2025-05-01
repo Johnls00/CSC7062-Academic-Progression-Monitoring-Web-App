@@ -1,5 +1,15 @@
-// show the conversation and messages
-//view selected message logic
+/**
+ * Controls messaging and notification logic for the admin and student dashboard views.
+ * Handles:
+ * - Viewing conversation threads and notifications.
+ * - Composing and submitting new messages or notifications.
+ * - Replying to messages.
+ * - Toggling message/notification tabs and clearing UI containers.
+ *
+ * @file public/js/message-notifications-logic.js
+ * @module messageNotificationsLogic
+ * @description This script handles all client-side logic for the messaging and notifications interface.
+ */
 document
   .querySelectorAll(".panel-block[data-conversation-id]")
   .forEach((link) => {

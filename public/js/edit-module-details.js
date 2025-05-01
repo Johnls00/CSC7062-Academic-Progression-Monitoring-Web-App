@@ -1,3 +1,14 @@
+/**
+ * Handles interactivity for managing modules in the admin view.
+ * Includes logic for:
+ * - Submitting the "Add Module" form.
+ * - Deleting modules via fetch with confirmation prompts.
+ * - Toggling visibility of the new module form.
+ *
+ * @file public/js/edit-module-details.js
+ * @module editModuleDetails
+ * @description Binds event listeners to add/delete buttons and form toggles for module management.
+ */
 document.addEventListener("DOMContentLoaded", function () {
   const deleteModuleBtns = document.querySelectorAll(".delete-module-btn");
   const addModuleBtn = document.getElementById("add-module-btn");

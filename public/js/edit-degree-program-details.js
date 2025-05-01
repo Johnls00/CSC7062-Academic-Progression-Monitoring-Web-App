@@ -1,3 +1,12 @@
+/**
+ * Handles interactivity for editing a degree program's modules on the degree details page.
+ * Includes logic for showing and hiding the "Add Module" form, validating input,
+ * submitting new module entries, and deleting existing modules.
+ *
+ * @file public/js/edit-degree-program-details.js
+ * @description Provides frontend event listeners for module form toggling, form submission,
+ * and DELETE requests for program modules using Fetch API.
+ */
 document.addEventListener("DOMContentLoaded", () => {
   const revealAddModuleFormBtn = document.getElementById(
     "reveal-add-module-form-btn"
@@ -5,7 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const addModuleForm = document.getElementById("add-module-form");
   const addModuleBtn = document.getElementById("add-module-btn");
   const cancelModulesBtn = document.getElementById("cancel-modules-btn");
-  const deleteProgramModuleBtns = document.querySelectorAll(".delete-program-module-btn");
+  const deleteProgramModuleBtns = document.querySelectorAll(
+    ".delete-program-module-btn"
+  );
 
   revealAddModuleFormBtn.addEventListener("click", () => {
     addModuleForm.classList.remove("is-hidden");

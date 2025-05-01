@@ -1,3 +1,14 @@
+/**
+ * Handles student-side interactivity for editing personal profile information.
+ * Includes logic for:
+ * - Enabling and disabling input fields.
+ * - Showing and hiding Edit, Save, and Cancel buttons.
+ * - Submitting the updated form data.
+ *
+ * @file public/js/edit-student-details-student.js
+ * @module editStudentDetailsStudent
+ * @description Binds event listeners for editing a student's personal details.
+ */
 document.addEventListener("DOMContentLoaded", () => {
   const editBtn = document.getElementById("edit-btn");
   const saveBtn = document.getElementById("save-btn");

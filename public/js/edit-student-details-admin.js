@@ -1,3 +1,14 @@
+/**
+ * Handles admin-side interactivity for editing a student's personal and academic records.
+ * Includes logic for:
+ * - Toggling form inputs for student and module edits.
+ * - Submitting updates and additions.
+ * - Deleting individual modules or entire student records via fetch API.
+ *
+ * @file public/js/edit-student-details-admin.js
+ * @module editStudentDetailsAdmin
+ * @description Binds event listeners to admin view buttons and forms for managing student records.
+ */
 document.addEventListener("DOMContentLoaded", () => {
   const editBtn = document.getElementById("edit-btn");
   const saveBtn = document.getElementById("save-btn");

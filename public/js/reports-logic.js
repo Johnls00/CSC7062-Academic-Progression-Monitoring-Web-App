@@ -1,7 +1,106 @@
+/**
+ * Provides all interactive logic for the Reports dashboard, including:
+ * - Loading and displaying degree program progression statistics.
+ * - Loading pass/fail rates by program or module and visualizing with Chart.js.
+ * - Handling dropdown interactions and chart rendering logic.
+ *
+ * @file public/js/reports-logic.js
+ * @module reportsLogic
+ * @description Manages all charting, dropdown selection, and fetch-driven reporting features for the admin Reports view.
+ */
+let selectedProgramId = null;
+let selectedProgramName = null;
 let selectedId = null;
 let selectedName = null;
 let modulesGroupedByLevel = {};
 let selectedLevel = null;
+
+async function loadDegreePrograms() {
+  try {
+    console.log("Fetching degree programs...");
+    const results = await fetch("/reports/getDegreePrograms");
+    const programs = await results.json();
+    console.log("results", programs);
+
+    const dropdownContent = document.getElementById(
+      "progression-left-dropdown-content"
+    );
+    dropdownContent.innerHTML = "";
+
+    programs.forEach((program) => {
+      console.log("Creating item for:", program);
+      const a = document.createElement("a");
+      a.className = "dropdown-item";
+      a.textContent = program.name;
+      a.onclick = () => {
+        document.getElementById(
+          "progression-left-dropdown-button-text"
+        ).textContent = program.name;
+        selectedProgram(program.program_id, program.name);
+      };
+      dropdownContent.appendChild(a);
+    });
+  } catch (err) {
+    console.error("Failed to load degree programs:", err);
+  }
+}
+
+function selectedProgram(id, name) {
+  selectedProgramId = id;
+  selectedProgramName = name;
+  loadProgressionStats(id);
+}
+
+async function loadProgressionStats(programId) {
+  try {
+    const response = await fetch(
+      `/reports/getProgressionRatesByProgram/${programId}`
+    );
+    const data = await response.json();
+    console.log(data);
+
+    document.getElementById("Program-name").textContent = selectedProgramName;
+    document.getElementById("total-enrolled").textContent = data.totalEnrolled;
+    document.getElementById("level1-enrolled").textContent =
+      data.levelStats["L1"].totalEnrolled + " / " + data.totalEnrolled;
+    document.getElementById("level1-progressing").textContent =
+      data.levelStats["L1"].progress +
+      " / " +
+      data.levelStats["L1"].totalEnrolled;
+    document.getElementById("level1-not-progressing").textContent =
+      data.levelStats["L1"].notProgress +
+      " / " +
+      data.levelStats["L1"].totalEnrolled;
+    document.getElementById("level1-passing-percentage").textContent =
+      Math.round(
+        100 -
+          (data.levelStats["L1"].notProgress /
+            data.levelStats["L1"].totalEnrolled) *
+            100
+      ) + "%";
+    document.getElementById("level2-enrolled").textContent =
+      data.levelStats["L2"].totalEnrolled + " / " + data.totalEnrolled;
+    document.getElementById("level2-progressing").textContent =
+      data.levelStats["L2"].progress +
+      " / " +
+      data.levelStats["L2"].totalEnrolled;
+    document.getElementById("level2-not-progressing").textContent =
+      data.levelStats["L2"].notProgress +
+      " / " +
+      data.levelStats["L2"].totalEnrolled;
+    document.getElementById("level2-passing-percentage").textContent =
+      Math.round(
+        100 -
+          (data.levelStats["L2"].notProgress /
+            data.levelStats["L2"].totalEnrolled) *
+            100
+      ) + "%";
+    document.getElementById("null-data").textContent =
+      data.levelStats["null"].totalEnrolled + " / " + data.totalEnrolled;
+  } catch (err) {
+    console.error("Failed to load progression stats", err);
+  }
+}
 
 async function selectType(type) {
   try {
@@ -69,9 +168,9 @@ async function loadModulesGroupedByLevel(programId) {
   data.forEach((module) => {
     const level = module.level;
     if (!modulesGroupedByLevel[level]) {
-      modulesGroupedByLevel[level] = []; 
+      modulesGroupedByLevel[level] = [];
     }
-    modulesGroupedByLevel[level].push(module); 
+    modulesGroupedByLevel[level].push(module);
   });
 
   console.log(modulesGroupedByLevel);
@@ -86,7 +185,7 @@ function populateLevelDropdown(modulesGroupedByLevel) {
   levelDropdown.style.display = "block";
   levelDropdown.innerHTML = "";
 
-   // Get the levels from the grouped data
+  // Get the levels from the grouped data
   const levels = Object.keys(modulesGroupedByLevel);
   levels.forEach((level) => {
     const a = document.createElement("a");
@@ -110,7 +209,7 @@ function drawChartForLevel(level) {
   const ctx = document.getElementById("progressionRatesChart").getContext("2d");
 
   if (window.myChart) {
-    window.myChart.destroy(); 
+    window.myChart.destroy();
   }
 
   window.myChart = new Chart(ctx, {
@@ -147,49 +246,59 @@ function drawChartForLevel(level) {
 async function loadModuleResultsData(moduleId) {
   console.log("Loading module results:", moduleId);
 
-  const response = await fetch(
-    `/reports/getModuleResults/${moduleId}`
-  );
+  const response = await fetch(`/reports/getModuleResults/${moduleId}`);
 
   const data = await response.json();
 
   console.log("Module fetched:", data);
 
-  //generate chart 
+  //generate chart
   drawChartForModule(data);
 }
 
 function drawChartForModule(moduleData) {
-    const module = moduleData[0];
-  
-    const labels = ["Pass %", "Fail %"];
-    const data = [module.pass_percentage, module.fail_percentage];
-  
-    const ctx = document.getElementById("progressionRatesChart");
-  
-    if (window.myChart) {
-      window.myChart.destroy();
-    }
-  
-    window.myChart = new Chart(ctx, {
-      type: "pie",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: "Pass vs Fail",
-            data: data,
-            backgroundColor: ["green", "red"],
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-      },
-    });
+  const module = moduleData[0];
+
+  const labels = ["Pass %", "Fail %"];
+  const data = [module.pass_percentage, module.fail_percentage];
+
+  const ctx = document.getElementById("progressionRatesChart");
+
+  if (window.myChart) {
+    window.myChart.destroy();
   }
 
+  window.myChart = new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Pass vs Fail",
+          data: data,
+          backgroundColor: ["green", "red"],
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    },
+  });
+}
+
+// Left Dropdown program selector
+const progressionDegreeButton = document.getElementById(
+  "progression-left-dropdown-button"
+);
+const progressionDegreeDropdown = document.getElementById(
+  "progression-left-dropdown-wrapper"
+);
+const progressionDegreeDropdownContent = document.getElementById(
+  "progression-left-dropdown-menu"
+);
+
+// Pass and fail rates dropdown
 // Left Dropdown
 const leftButton = document.querySelector(
   '[aria-controls="left-dropdown-menu"]'
@@ -221,7 +330,6 @@ function setupDropdown(button, dropdown, menu) {
     dropdown.classList.remove("is-active");
   });
 
- 
   button.addEventListener("mouseleave", () => {
     setTimeout(() => {
       if (!keepOpen) {
@@ -231,6 +339,14 @@ function setupDropdown(button, dropdown, menu) {
   });
 }
 
-
+setupDropdown(
+  progressionDegreeButton,
+  progressionDegreeDropdown,
+  progressionDegreeDropdownContent
+);
 setupDropdown(leftButton, leftDropdown, leftDropdownContent);
 setupDropdown(rightButton, rightDropdown, rightDropdownContent);
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadDegreePrograms();
+});
