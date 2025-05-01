@@ -12,6 +12,7 @@
   "description": "",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "chart.js": "^4.4.9",
     "cookie-parser": "^1.4.7",
     "csv-parser": "^3.2.0",
     "dotenv": "^16.4.7",
@@ -20,6 +21,8 @@
     "express-session": "^1.18.1",
     "gauge": "^5.0.2",
     "glob": "^11.0.1",
+    "html-pdf": "^3.0.1",
+    "html-pdf-node": "^1.0.8",
     "http-errors": "^2.0.0",
     "inflight": "^1.0.6",
     "morgan": "^1.10.0",
@@ -28,6 +31,8 @@
     "mysql2": "^3.13.0",
     "nodemon": "^3.1.9",
     "npmlog": "^7.0.1",
+    "pdf-creator-node": "^2.3.5",
+    "puppeteer": "^24.7.2",
     "rimraf": "^6.0.1",
     "strip-bom-stream": "^5.0.0"
   }
