@@ -11,6 +11,19 @@ const connection = require("../config/config");
 // scripts
 const { determineProgression } = require("../utils/progression-logic");
 
+/**
+ * Renders the Admin Dashboard view.
+ * 
+ * @route GET /admin/dashboard
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object containing session data.
+ * @param {Object} res - Express response object used to render the dashboard.
+ * 
+ * @returns {void} Renders the 'admin/admin-dashboard' EJS view with user data.
+ * 
+ * @throws Will send a 500 response if an internal error occurs.
+ */
 exports.showDashboard = async (req, res) => {
   try {
     const userId = req.session.user.user_id;
@@ -25,6 +38,20 @@ exports.showDashboard = async (req, res) => {
   }
 };
 
+/**
+ * Displays a list of all students along with their associated degree program details.
+ * Extracts the program code from each student's ID and attaches student data with program info.
+ *
+ * @route GET /admin/students
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object containing session and user data.
+ * @param {Object} res - Express response object used to render the view.
+ *
+ * @returns {void} Renders the 'admin/students' view with the list of students and their degree programs.
+ *
+ * @throws Will send a 500 response if an error occurs while retrieving or processing student data.
+ */
 exports.showStudents = async (req, res) => {
   try {
     const students = await studentModel.getAllStudents();
@@ -64,6 +91,20 @@ exports.showStudents = async (req, res) => {
   }
 };
 
+/**
+ * Displays detailed student information for a specific student including user data, modules, academic record, and progression status.
+ *
+ * @route GET /admin/student/:id
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object containing the student ID in params.
+ * @param {Object} res - Express response object used to render the student details view.
+ *
+ * @returns {void} Renders the 'admin/student-details' view with detailed student information.
+ *
+ * @throws Will send a 404 response if the student is not found.
+ * @throws Will send a 500 response if an error occurs during data retrieval or rendering.
+ */
 exports.viewStudent = async (req, res) => {
   try {
     const studentId = req.params.id;
@@ -104,6 +145,19 @@ exports.viewStudent = async (req, res) => {
   }
 };
 
+/**
+ * Displays a list of all available degree programs.
+ *
+ * @route GET /admin/degree-programs
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object used to render the view.
+ *
+ * @returns {void} Renders the 'admin/degree-programs' view with the list of programs.
+ *
+ * @throws Will send a 500 response if an error occurs while fetching data.
+ */
 exports.showDegreePrograms = async (req, res) => {
   try {
     const degrees = await programModels.getAllPrograms();
@@ -120,6 +174,19 @@ exports.showDegreePrograms = async (req, res) => {
   }
 };
 
+/**
+ * Adds a new degree program to the system.
+ *
+ * @route POST /admin/degree-programs/add
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object containing programCode and programName in body.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Redirects to the degree programs page upon success.
+ *
+ * @throws Will send a 500 response if insertion fails.
+ */
 exports.addProgram = async (req, res) => {
   try {
     const { programCode, programName } = req.body;
@@ -137,6 +204,19 @@ exports.addProgram = async (req, res) => {
   }
 };
 
+/**
+ * Deletes a degree program and its module associations.
+ *
+ * @route DELETE /admin/degree-programs/:id
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object containing program ID in params.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {Object} JSON response indicating success.
+ *
+ * @throws Will send a 500 response if transaction fails.
+ */
 exports.deleteProgram = async (req, res) => {
   const  programId = req.params.id;
   console.log(programId);
@@ -171,6 +251,19 @@ exports.deleteProgram = async (req, res) => {
   }
 };
 
+/**
+ * Displays details and modules of a specific degree program.
+ *
+ * @route GET /admin/degree-details/:id
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object containing program ID.
+ * @param {Object} res - Express response object used to render the view.
+ *
+ * @returns {void} Renders the 'admin/degree-details' view.
+ *
+ * @throws Will send a 500 response if data retrieval fails.
+ */
 exports.showDegreeDetails = async (req, res) => {
   try {
     const program_id = req.params.id;
@@ -194,6 +287,19 @@ exports.showDegreeDetails = async (req, res) => {
   }
 };
 
+/**
+ * Adds a module to a specific degree program.
+ *
+ * @route POST /admin/degree-details/:id/add-module
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object with module data.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Redirects to the updated degree details page.
+ *
+ * @throws Will send a 500 response if module addition fails.
+ */
 exports.addProgramModule = async (req, res) => {
   try {
     const program_id = req.params.id;
@@ -232,6 +338,19 @@ exports.addProgramModule = async (req, res) => {
   }
 };
 
+/**
+ * Deletes a module from a specific degree program.
+ *
+ * @route DELETE /admin/program-module/:id
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object with program module ID.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {Object} JSON response indicating success.
+ *
+ * @throws Will send a 500 response if transaction fails.
+ */
 exports.deleteProgramModule = async (req, res) => {
   const programModuleId = req.params.id;
   
@@ -260,6 +379,19 @@ exports.deleteProgramModule = async (req, res) => {
   }
 };
 
+/**
+ * Displays a list of all modules available in the system.
+ *
+ * @route GET /admin/modules
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object used to render the modules view.
+ *
+ * @returns {void} Renders the 'admin/modules' view with the list of modules.
+ *
+ * @throws Will send a 500 response if data retrieval fails.
+ */
 exports.showModules = async (req, res) => {
   try {
     const modules = await moduleModel.getAllModules();
@@ -275,6 +407,19 @@ exports.showModules = async (req, res) => {
   }
 };
 
+/**
+ * Adds a new module to the system.
+ *
+ * @route POST /admin/modules/add
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object containing module details.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Redirects to the module list page upon success.
+ *
+ * @throws Will send a 500 response if insertion fails.
+ */
 exports.addModule = async (req, res) => {
   try {
     const { subjectCode, subjectCatalog, moduleTitle, credits } = req.body;
@@ -290,6 +435,19 @@ exports.addModule = async (req, res) => {
   }
 };
 
+/**
+ * Deletes a module from the system.
+ *
+ * @route DELETE /admin/modules/:id
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object containing the module ID.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {Object} JSON response indicating success.
+ *
+ * @throws Will send a 500 response if deletion fails.
+ */
 exports.deleteModule = async (req, res) => {
   console.log("in delete module controller");
   const moduleId = req.params.id;
@@ -318,6 +476,19 @@ exports.deleteModule = async (req, res) => {
   }
 };
 
+/**
+ * Adds a new student to the system using submitted form data.
+ *
+ * @route POST /admin/students/add
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object containing student details.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Redirects to the students list view upon success.
+ *
+ * @throws Will send a 500 response if student addition fails.
+ */
 exports.addStudent = async (req, res) => {
   // Logic to add a new student
   try {
@@ -332,6 +503,20 @@ exports.addStudent = async (req, res) => {
   }
 };
 
+/**
+ * Updates existing student and user details.
+ *
+ * @route POST /admin/student/:id/update
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object with updated student/user data.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Redirects to the updated student detail view upon success.
+ *
+ * @throws Will send a 404 if student is not found.
+ * @throws Will send a 500 response if update fails.
+ */
 exports.updateStudent = async (req, res) => {
   const studentId = req.params.id;
   const [userResult] = await connection.query(
@@ -376,6 +561,20 @@ exports.updateStudent = async (req, res) => {
   }
 };
 
+/**
+ * Deletes a student and all related records from the system.
+ *
+ * @route DELETE /admin/student/:id
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object containing student sId.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {Object} JSON response indicating deletion success.
+ *
+ * @throws Will send a 404 if student is not found.
+ * @throws Will send a 500 response if transaction fails.
+ */
 exports.deleteStudent = async (req, res) => {
   const sId = req.params.id;
 
@@ -419,6 +618,20 @@ exports.deleteStudent = async (req, res) => {
   }
 };
 
+/**
+ * Adds a module to a student's record.
+ *
+ * @route POST /admin/student/:id/add-module
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object containing module name and student ID.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Redirects to the student's detail view upon success.
+ *
+ * @throws Will send a 404 response if module or student is not found.
+ * @throws Will send a 500 response if insertion fails.
+ */
 exports.addStudentModule = async (req, res) => {
   try {
     const sId = req.params.id;
@@ -451,6 +664,19 @@ exports.addStudentModule = async (req, res) => {
   }
 };
 
+/**
+ * Updates grades and results for a student's modules.
+ *
+ * @route POST /admin/student/:id/update-modules
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object containing module result data.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Redirects to the student's detail page upon success.
+ *
+ * @throws Will send a 500 response if update fails.
+ */
 //update student modules grades and results
 exports.updateStudentModules = async (req, res) => {
   const sId = req.params.id;
@@ -488,6 +714,19 @@ exports.updateStudentModules = async (req, res) => {
   }
 };
 
+/**
+ * Deletes a specific module record from a student's academic history.
+ *
+ * @route DELETE /admin/student-module/:userModuleId
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object with userModuleId in params.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {Object} JSON response indicating deletion success.
+ *
+ * @throws Will send a 500 response if deletion fails.
+ */
 exports.deleteStudentModule = async (req, res) => {
   const { userModuleId } = req.params;
 
@@ -515,10 +754,34 @@ exports.deleteStudentModule = async (req, res) => {
   }
 };
 
+/**
+ * Displays the Reports dashboard view.
+ *
+ * @route GET /admin/reports
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Renders the 'admin/reports' view.
+ */
 exports.generateReports = (req, res) => {
   res.render("admin/reports", { title: "Reports", user: req.session.user });
 };
 
+/**
+ * Displays the Messaging Hub with all conversations and notifications.
+ *
+ * @route GET /admin/messaging
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object used to render the messaging view.
+ *
+ * @returns {void} Renders the 'admin/messaging' view.
+ *
+ * @throws Will send a 500 response if message or notification retrieval fails.
+ */
 exports.showMessagingHub = async (req, res) => {
   try {
     const allConversationsForAdmin =
@@ -538,6 +801,19 @@ exports.showMessagingHub = async (req, res) => {
   }
 };
 
+/**
+ * Displays the mass upload interface for batch student record management.
+ *
+ * @route GET /admin/mass-upload
+ * @function
+ * @memberof module:adminController
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Renders the 'admin/mass-upload' view.
+ *
+ * @throws Will send a 500 response if the view fails to load.
+ */
 exports.showMassUpload = (req, res) => {
   try {
     res.render("admin/mass-upload", {
