@@ -1,7 +1,16 @@
+/**
+ * Routes for handling CSV file uploads and processing student academic records.
+ * Uses multer for in-memory file storage and csv-parser to read the uploaded file.
+ * Handles:
+ * - Uploading and parsing a CSV of student and module data
+ * - Updating or inserting student, module, and student_module records
+ *
+ * @file routes/uploadHandler.js
+ * @module routes/uploadHandler
+ */
+// routes/uploadHandler.js
 const express = require("express");
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
 const csv = require("csv-parser");
 const { Readable } = require("stream");
 
@@ -32,12 +41,18 @@ router.post("/", upload.single("studentData"), (req, res) => {
         res.setHeader("Content-Type", "application/json"); // optional but safe
         try {
           const processed = [];
-      
+
           for (const record of results) {
-            const { studentId, userId } = await massUploadHandlerModel.updateStudentFromRecord(record);
-            const moduleId = await massUploadHandlerModel.updateModuleFromRecord(record);
-            await massUploadHandlerModel.updateStudentModule({ studentId, moduleId, record })
-            processed.push({ studentId, userId, moduleId});
+            const { studentId, userId } =
+              await massUploadHandlerModel.updateStudentFromRecord(record);
+            const moduleId =
+              await massUploadHandlerModel.updateModuleFromRecord(record);
+            await massUploadHandlerModel.updateStudentModule({
+              studentId,
+              moduleId,
+              record,
+            });
+            processed.push({ studentId, userId, moduleId });
           }
           console.log(processed);
           res.json({ processed });
@@ -56,7 +71,7 @@ router.post("/", upload.single("studentData"), (req, res) => {
   }
 });
 
-// student record details handler 
+// student record details handler
 router.post("/studentDataHandler", async (req, res) => {
   try {
     //get all existing student details

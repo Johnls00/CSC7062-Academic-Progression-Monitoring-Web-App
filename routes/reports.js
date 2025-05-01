@@ -1,3 +1,14 @@
+/**
+ * Defines routes for generating student academic reports and progression analytics.
+ * Handles:
+ * - Generating and downloading PDF summary reports for individual students
+ * - Fetching program progression data (enrollment and advancement)
+ * - Retrieving pass/fail statistics by module or program
+ * - Providing available options for charts and reports
+ *
+ * @file routes/reports.js
+ * @module routes/reports
+ */
 // routes/reports.js
 const express = require("express");
 const router = express.Router();

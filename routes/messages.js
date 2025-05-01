@@ -1,12 +1,20 @@
+/**
+ * Routes for sending new messages and replies between users in the system.
+ * Used by both admin and student roles for messaging functionality.
+ * Handles:
+ * - Creating a new conversation and sending the first message.
+ * - Sending a reply within an existing conversation.
+ *
+ * @file routes/messages.js
+ * @module routes/messages
+ */
+// routes/messages.js
 const express = require("express");
 const router = express.Router();
-
 const userModel = require("../models/userModel");
-
 const connection = require("../config/config");
-const session = require("express-session");
 
-// sending a new message logic 
+// sending a new message logic
 router.post("/send-new-message", async (req, res) => {
   //  contents of the new message
   const { email, subject, message } = req.body;
@@ -50,15 +58,14 @@ router.post("/send-new-message", async (req, res) => {
 });
 // sending replys in a converstion logic
 router.post("/send-reply", async (req, res) => {
-    //  contents of the new message
-  const { replyMessage, conversationId, recipientUserId} =
-    req.body;
-    // check the message has a content
+  //  contents of the new message
+  const { replyMessage, conversationId, recipientUserId } = req.body;
+  // check the message has a content
   if (!replyMessage) {
     return res.status(400).json({ message: "A message is required." });
   }
 
-  // inserting the message to the db 
+  // inserting the message to the db
   try {
     const senderUserId = req.session.user.user_id;
     console.log("sender id ", senderUserId);
@@ -67,7 +74,7 @@ router.post("/send-reply", async (req, res) => {
       "INSERT INTO `message`(`sender_user_id`, `recipient_user_id`, `content`, `conversation_id`, `timestamp`) VALUES (?, ?, ?, ?, NOW())",
       [senderUserId, recipientUserId, replyMessage, conversationId]
     );
-    
+
     res.json({ message: "Reply sent successfully!" });
   } catch (err) {
     console.error(err);
