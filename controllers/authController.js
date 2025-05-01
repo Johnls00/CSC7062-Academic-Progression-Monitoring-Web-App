@@ -1,23 +1,65 @@
+// required 
 const bcrypt = require("bcryptjs");
-const connection = require("../config/config"); // Ensure this path is correct
+const connection = require("../config/config");
 
-// Home page
+/**
+ * Renders the login page as the home route.
+ *
+ * @route GET /
+ * @function
+ * @memberof module:authController
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Renders the 'public/login' view.
+ */
 exports.showHome = (req, res) => {
   res.render("public/login", { title: "Login" });
 };
 
-// Contact page
+/**
+ * Renders the contact us page.
+ *
+ * @route GET /contact
+ * @function
+ * @memberof module:authController
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Renders the 'public/contact' view.
+ */
 exports.showContact = (req, res) => {
-  console.log("Routing to contact"); // Debugging line
   res.render("public/contact", { title: "Contact Us" });
 };
 
-// Login page (GET)
+/**
+ * Renders the login form.
+ *
+ * @route GET /login
+ * @function
+ * @memberof module:authController
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Renders the 'public/login' view.
+ */
 exports.showLogin = (req, res) => {
   res.render("public/login", { title: "Login" });
 };
 
-// Handle login (POST)
+/**
+ * Handles login form submission, verifies credentials and sets session.
+ *
+ * @route POST /login
+ * @function
+ * @memberof module:authController
+ * @param {Object} req - Express request object containing email and password.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Redirects to user dashboard based on role, or renders error.
+ *
+ * @throws Will render login page with error on failure to authenticate or save session.
+ */
 exports.handleLogin = async (req, res) => {
   try {
     console.log("Request body:", req.body); // Debugging line
@@ -49,7 +91,6 @@ exports.handleLogin = async (req, res) => {
         .status(400)
         .render("public/login", { title: "Login", error: "Invalid password" });
     }
-    console.log("Session user before redirect:", req.session); // Debugging line
 
     // Set session and redirect based on role
     req.session.user = {
@@ -68,13 +109,11 @@ exports.handleLogin = async (req, res) => {
             error: "Session save failed",
           });
       }
-      console.log("Session saved successfully:", req.session); // Debugging line
       // Redirect based on user role
 
       if (user.role === "admin") {
         return res.redirect("/admin/admin-dashboard");
       } else if (user.role === "student") {
-        console.log("Redirecting to student dashboard"); // Debugging line
         return res.redirect("/student-dashboard");
       }
 
@@ -97,8 +136,19 @@ exports.handleLogin = async (req, res) => {
   }
 };
 
-
-// Logout route
+/**
+ * Logs out the user and destroys the session.
+ *
+ * @route GET /logout
+ * @function
+ * @memberof module:authController
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ *
+ * @returns {void} Redirects to login page on success.
+ *
+ * @throws Will render login view with error message if session destruction fails.
+ */
 exports.handleLogout = (req, res) => {
   console.log("Logging out user:", req.session.user); // Debugging line
   req.session.destroy((err) => {
