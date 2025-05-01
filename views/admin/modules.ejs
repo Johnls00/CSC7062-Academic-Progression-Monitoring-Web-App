@@ -23,17 +23,15 @@
 
       <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
         <div class="columns is-multiline">
-
-          <div class="column is-full"> 
+          <div class="column is-full">
             <div class="notification">
               <p><strong>Module Management:</strong></p>
               <ul style="margin-top: 0.5rem">
                 <li>
-                  Use the the add new Module button to access the form to add Modules and details.
+                  Use the the add new Module button to access the form to add
+                  Modules and details.
                 </li>
-                <li>
-                  Use the delete Module button to delete module.
-                </li>
+                <li>Use the delete Module button to delete module.</li>
               </ul>
             </div>
           </div>
@@ -138,20 +136,23 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% let count = 0; %> <% modules.forEach((module) => { count++; %>
+                  <% let count = 0; %> <% modules.forEach((module) => { count++;
+                  %>
                   <tr>
                     <td><%= count %></td>
                     <td><%= module.subject_code %></td>
                     <td><%= module.subject_catalog %></td>
                     <td><%= module.module_title %></td>
                     <td><%= module.credit_value %></td>
-                    <td><button
-                      type="button"
-                      class="delete-module-btn button is-danger"
-                      data-module-id="<%= module.module_id %>"
-                    >
-                      Delete Module
-                    </button></td>
+                    <td>
+                      <button
+                        type="button"
+                        class="delete-module-btn button is-danger"
+                        data-module-id="<%= module.module_id %>"
+                      >
+                        Delete Module
+                      </button>
+                    </td>
                   </tr>
                   <% }); %>
                 </tbody>

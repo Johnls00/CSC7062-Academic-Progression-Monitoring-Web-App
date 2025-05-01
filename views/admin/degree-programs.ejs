@@ -23,20 +23,18 @@
 
       <div class="main has-background-white p-6 mtopclear mybk3 rounded-box">
         <div class="columns is-multiline">
-
-          <div class="column is-full"> 
+          <div class="column is-full">
             <div class="notification">
               <p><strong>Degree Management:</strong></p>
               <ul style="margin-top: 0.5rem">
                 <li>
-                  Use the the add new Degree Program button to access the form to add Degrees.
+                  Use the the add new Degree Program button to access the form
+                  to add Degrees.
                 </li>
                 <li>
                   Use the view details button to manage Degree modules details.
                 </li>
-                <li>
-                  Use the delete Degree Program button to Delete Degree.
-                </li>
+                <li>Use the delete Degree Program button to Delete Degree.</li>
               </ul>
             </div>
           </div>
@@ -110,8 +108,10 @@
           </div>
         </div>
 
-        <div class="column is-full is-flex is-justify-content-center is-align-items-center">
-          <div class="scroll-table-container ">
+        <div
+          class="column is-full is-flex is-justify-content-center is-align-items-center"
+        >
+          <div class="scroll-table-container">
             <table class="table is-fullwidth is-hoverable sticky-header">
               <thead>
                 <tr>
@@ -135,13 +135,15 @@
                       >View details</a
                     >
                   </td>
-                  <td><button
-                    type="button"
-                    class="delete-program-btn button is-danger"
-                    data-program_id="<%= degree.program_id %>"
-                  >
-                    Delete Degree Program
-                  </button></td>
+                  <td>
+                    <button
+                      type="button"
+                      class="delete-program-btn button is-danger"
+                      data-program_id="<%= degree.program_id %>"
+                    >
+                      Delete Degree Program
+                    </button>
+                  </td>
                 </tr>
                 <% }); %>
               </tbody>

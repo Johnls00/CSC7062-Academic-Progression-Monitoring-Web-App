@@ -259,7 +259,7 @@
                   </tr>
                   <% studentRecord.creditsPassed.forEach((level) => { %>
                   <tr>
-                    <th>Credits - <%= level.module_level %></th>
+                    <th>Credits Earned - <%= level.module_level %>:</th>
                     <td><%= level.credits_passed %></td>
                   </tr>
                   <% }) %>
@@ -268,7 +268,7 @@
                   </tr>
 
                   <tr>
-                    <th>Average - <%= level.level %></th>
+                    <th>Average Grade - <%= level.level %>:</th>
                     <td><%= parseFloat(level.avg_mark).toFixed(2)%></td>
                   </tr>
                   <% }) %>
