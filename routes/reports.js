@@ -1,3 +1,4 @@
+// routes/reports.js
 const express = require("express");
 const router = express.Router();
 const ejs = require("ejs");
@@ -97,6 +98,90 @@ router.get("/generateReport/studentSummary/:id", async (req, res) => {
   }
 });
 
+router.get('/getDegreePrograms', async (req, res) => {
+  try {
+    const programs = await programModel.getAllPrograms();
+    res.json(programs);
+  } catch (err) {
+    console.error('Error in /getDegreePrograms:', err);
+    res.status(500).send('Server error while fetching programs');
+  }
+});
+
+router.get("/getProgressionRatesByProgram/:id", async (req, res) => {
+  try {
+    // program details fetch 
+    const programId = req.params.id;
+    console.log("programs id ", programId);
+    const programDetails = await programModel.getProgramInfoWithProgramId(programId);
+
+    const programCode = programDetails[0].program_code;
+    console.log("program code ", programCode);
+    // get students enrolled on program 
+    const programEnrolledStudents = await studentModel.getStudentByProgramCode(
+      programCode
+    );
+
+    let enrolledStudentsProgression = [];
+    // get student progression and record for each student 
+    for (const student of programEnrolledStudents) {
+      student.program_id = programId;
+      const studentRecord = await studentRecordModel.getStudentRecord(
+        [student]
+      );
+      const studentProgression = await determineProgression(studentRecord);
+
+      enrolledStudentsProgression.push({
+        studentId: student.student_id,
+        record: studentRecord,
+        progression: studentProgression,
+      });
+    }
+
+    console.log("enrolledStudentsProgression", enrolledStudentsProgression);
+
+    // get student progresion details for the degree program 
+    const totalEnrolled = enrolledStudentsProgression.length;
+    const levelStats = {};
+
+    // count the student progressing and no progressing per level
+    for (const student of enrolledStudentsProgression) {
+      const level = student.record.studentLevel;
+      console.log("student level: ", level);
+
+      if (!levelStats[level]) {
+        levelStats[level] = {
+          totalEnrolled: 0,
+          progress: 0,
+          notProgress: 0,
+        };
+      }
+
+      levelStats[level].totalEnrolled += 1;
+      if (student.progression.canProgress === true) {
+        console.log("student can progress ", student.progression.canProgress);
+        levelStats[level].progress += 1;
+      } else {
+        levelStats[level].notProgress += 1;
+        console.log("student can progress ", student.progression.canProgress);
+      }
+    }
+
+    res.json({
+      totalEnrolled,
+      levelStats,
+    });
+
+
+  } catch (err) {
+    console.error("Failed to get students for degree Program:", err);
+    res
+      .status(500)
+      .json({ message: "Failed to get students for degree Program" });
+  }
+});
+
+// chart type option getter
 router.get("/getOptions", async (req, res) => {
   const type = req.query.type;
 
@@ -234,7 +319,6 @@ WHERE
     );
 
     res.json(ModuleResult);
-
   } catch (error) {
     console.error("Error fetching modules:", error);
     res.status(500).json({ message: "Server error" });

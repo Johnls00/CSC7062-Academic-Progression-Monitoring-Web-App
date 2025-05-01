@@ -24,9 +24,107 @@
         class="has-background-white p-6 mtopclear mybk3 rounded-box"
         style="margin-bottom: 2rem !important"
       >
+      <div class="columns is-multiline">
+        <div class="column is-full">
+          <p class="title">Degree Program Progression Rates</p>
+        </div>
+
+        <div class="column is-full"> 
+          <div class="notification">
+            <ul style="margin-top: 0.5rem">
+              <li>
+                Use the the left drop down to select the Degree Program you want to view progressioin statistic for.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <%# LEFT: Program selector %> 
+        <div class="column is-full has-text-left">
+          <div class="dropdown is-right" id="progression-left-dropdown-wrapper">
+            <div class="dropdown-trigger">
+              <button
+                class="button"
+                id="progression-left-dropdown-button"
+                aria-haspopup="true"
+                aria-controls="progression-left-dropdown-menu"
+              >
+                <span id="progression-left-dropdown-button-text">Select Degree Program</span>
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="progression-left-dropdown-menu" role="menu">
+              <div
+                class="dropdown-content"
+                id="progression-left-dropdown-content"
+                style="padding: 0.5rem 1rem; max-height: calc(2.5rem * 10); overflow-y: auto;"
+              >
+                <!-- Dynamic options will be inserted here --> 
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <%# Progression rates  %>
+        <div class="column is-full">
+            <div class="box" style="margin: 0 auto; width: 100%">
+              <table class="table is-striped is-fullwidth">
+                <tbody>
+                  <tr>
+                    <th>Degree Program Name:</th>
+                    <td id="Program-name"></td>
+                  </tr>
+                  <tr>
+                    <th>Total number of Students Enrolled:</th>
+                    <td id="total-enrolled"></td>
+                  </tr>
+                  <tr>
+                    <th>Number Students Enrolled on level 1 :</th>
+                    <td id="level1-enrolled"></td>
+                  </tr>
+                  <tr>
+                    <th>Number of Students progressing to level 2:</th>
+                    <td id="level1-progressing"></td>
+                  </tr>
+                  <tr>
+                    <th>Number of Students that fail to progress to level 2:</th>
+                    <td id="level1-not-progressing"></td>
+                  </tr>
+                  <tr>
+                    <th>Percentage Passing L1:</th>
+                    <td id="level1-passing-percentage"></td>
+                  </tr>
+                  <tr>
+                    <th>Number Students Enrolled on level 2:</th>
+                    <td id="level2-enrolled"></td>
+                  </tr>
+                  <tr>
+                    <th>Number of Students progressing to level 3:</th>
+                    <td id="level2-progressing"></td>
+                  </tr>
+                  <tr>
+                    <th>Number of Students that fail to progress to level 3:</th>
+                    <td id="level2-not-progressing"></td>
+                  </tr>
+                  <tr>
+                    <th>Percentage Passing L2:</th>
+                    <td id="level2-passing-percentage"></td>
+                  </tr>
+                  <tr>
+                    <th>Student with no Degree module data:</th>
+                    <td id="null-data"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <hr>
+        </div>
+
         <div class="columns is-multiline">
           <div class="column is-full">
-            <p class="title">Progression Rates</p>
+            <p class="title">Pass and Fail Rates</p>
           </div>
 
           <div class="column is-full"> 
@@ -41,6 +139,7 @@
               </ul>
             </div>
           </div>
+
 
           <%# LEFT: Program or Module Selection  %>
           <div class="column is-half">
@@ -126,7 +225,8 @@
             <p class="subtitle" style="text-align: right;" id="progressionChartSubtitle"></p>
           </div>
 
-          <div class="column is-half"></div>
+          <%# pass fail rates chart %>
+          <div class="column is-full"></div>
           <div class="box" style="margin: 0 auto; width: 100%">
             <canvas
               id="progressionRatesChart"

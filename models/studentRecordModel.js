@@ -130,6 +130,7 @@ async function getStudentRecord(student) {
         `,
     [studentId]
   );
+  
   //   mapping results to student record
   studentRecord.moduleAttempts = moduleAttempts.map((module) => ({
     module_id: module.module_id,
