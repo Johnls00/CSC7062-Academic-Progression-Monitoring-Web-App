@@ -1,3 +1,5 @@
+const { level } = require("npmlog");
+
 /**
  * a function that will determine the progression decision for a student based on student record object gathered by studentRecordModel
  * @param {*} record - example student record =
@@ -30,6 +32,7 @@ async function determineProgression(record) {
   // required models
   const moduleModel = require("../models/moduleModel");
   // constants for progression rules
+  const MIN_L1_CREDITS_TO_PASS = 120;
   const MIN_CREDITS_TO_PASS = 100;
   const MIN_MARK_TO_PASS = 40;
   const MAX_MODULE_ATTEMPTS = 4;
@@ -55,7 +58,7 @@ async function determineProgression(record) {
       console.log("level credits", levelCredits);
 
       // Progression rule 1 - Pass at least 100 credits
-      if (levelCredits.creditsPassed < MIN_CREDITS_TO_PASS && levelCredits) {
+      if (levelCredits.credits_passed < MIN_CREDITS_TO_PASS && levelCredits) {
         progression.reason.push(
           "Insufficient credits achieved at " +
             record.studentLevel +
