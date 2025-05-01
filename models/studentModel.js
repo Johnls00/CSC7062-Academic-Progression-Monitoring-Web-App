@@ -1,8 +1,20 @@
+// models/studentModel.js
+// required models
 const connection = require("../config/config");
 const moduleModel = require("../models/moduleModel");
 const programModel = require("../models/programModels");
 
 
+/**
+ * Retrieves user data for a given user ID from the user table.
+ *
+ * @function
+ * @memberof module:studentModel
+ * @param {number} userId - The user ID of the student.
+ * @returns {Promise<Object|null>} The user data or null if not found.
+ *
+ * @throws Will throw an error if the query fails.
+ */
 //Get student user data by user ID
 async function getStudentUserData(userId) {
   const [userData] = await connection.query(
@@ -20,6 +32,16 @@ async function getStudentUserData(userId) {
   return userData; // Return the first student found
 }
 
+/**
+ * Retrieves student data from the student table for a given user ID.
+ *
+ * @function
+ * @memberof module:studentModel
+ * @param {number} userId - The user ID of the student.
+ * @returns {Promise<Object|null>} The student data or null if not found.
+ *
+ * @throws Will throw an error if the query fails.
+ */
 //Get student data by user ID
 async function getStudentData(userId) {
   const [studentData] = await connection.query(
@@ -37,6 +59,16 @@ async function getStudentData(userId) {
   return studentData; // Return the first student found
 }
 
+/**
+ * Retrieves student data using the student id (sId).
+ *
+ * @function
+ * @memberof module:studentModel
+ * @param {string} sId - The student identifier.
+ * @returns {Promise<Object|null>} The student data or null if not found.
+ *
+ * @throws Will throw an error if the query fails.
+ */
 //Get student data by `student_id`
 async function getStudentBySId(sId) {
   const [studentData] = await connection.query(
@@ -54,6 +86,17 @@ async function getStudentBySId(sId) {
   return studentData; // Return the first student found
 }
 
+/**
+ * Retrieves all modules linked to a student by their student ID.
+ * attaches to each student_module the full module details.
+ *
+ * @function
+ * @memberof module:studentModel
+ * @param {number} studentId - The student ID.
+ * @returns {Promise<Array>} An array of enriched student module records.
+ *
+ * @throws Will throw an error if the query or enrichment fails.
+ */
 // Get courses by student ID
 async function getModulesByStudentId(studentId) {
   try {
@@ -87,6 +130,15 @@ async function getModulesByStudentId(studentId) {
   }
 }
 
+/**
+ * Retrieves all student records from the database.
+ *
+ * @function
+ * @memberof module:studentModel
+ * @returns {Promise<Array>} An array of all student records.
+ *
+ * @throws Will throw an error if the query fails.
+ */
 // Get all students
 async function getAllStudents() {
   try {
@@ -97,6 +149,16 @@ async function getAllStudents() {
   }
 }
 
+/**
+ * Extracts the program code from a student sId and attaches corresponding program details.
+ *
+ * @function
+ * @memberof module:studentModel
+ * @param {Array} student - An array containing a single student object.
+ * @returns {Promise<Array>} The updated student array with program_id, code, and name.
+ *
+ * @throws Will assign "Unknown" values if fetching program info fails.
+ */
 // get the students degree program info and attach it to the students details array 
 async function attachProgramDetails(student) {
   const program_code = student[0].sId.substring(3, 7);
@@ -123,6 +185,22 @@ async function attachProgramDetails(student) {
   return student;
 }
 
+/**
+ * Creates a new student record in the database.
+ *
+ * @function
+ * @memberof module:studentModel
+ * @param {Object} param0 - An object containing student details.
+ * @param {number} param0.userId - Linked user ID.
+ * @param {string} param0.sId - Student identifier.
+ * @param {string} param0.firstName - Student's first name.
+ * @param {string} param0.lastName - Student's last name.
+ * @param {string} param0.statusStudy - Student's study status.
+ * @param {string} param0.entryLevel - Level at which the student entered the degree program.
+ * @returns {Promise<Object>} The ID of the created student.
+ *
+ * @throws Will throw an error if the insert fails.
+ */
 // create new student 
 async function createStudent({ userId, sId, firstName, lastName, statusStudy, entryLevel}) {
   try {
@@ -135,6 +213,16 @@ async function createStudent({ userId, sId, firstName, lastName, statusStudy, en
   }
 }
 
+/**
+ * Retrieves all students whose sId contains the given program code.
+ *
+ * @function
+ * @memberof module:studentModel
+ * @param {string} programCode - The program code to match against student sIds.
+ * @returns {Promise<Array>} An array of matching student records.
+ *
+ * @throws Will throw an error if the query fails.
+ */
 async function getStudentByProgramCode(programCode) {
   try {
     const [ProgramStudents] = await connection.query(

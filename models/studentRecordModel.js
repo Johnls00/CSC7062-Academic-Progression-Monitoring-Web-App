@@ -1,8 +1,24 @@
+// models/studentRecordModel.js
+// required models
 const connection = require("../config/config");
 
+
 /**
- * This function will gather a student records and return an object with the calculated details
- * @param {*} studentId
+ * Generates a comprehensive student academic record including averages, level, attempts, and grades.
+ *
+ * @function
+ * @memberof module:studentRecordModel
+ * @param {Array} student - An array containing a single student object with student_id and program_id.
+ * @returns {Promise<Object>} An object with computed academic metrics:
+ * - averageMark: overall average across all modules
+ * - averageMarkPerYear: average marks grouped by level
+ * - coreModulesPassed: whether all core modules have been passed
+ * - studentLevel: highest module level attempted
+ * - moduleAttempts: number of non-excused attempts per module
+ * - modules: latest results and grades per module
+ * - creditsPassed: credit totals for each level where modules were passed
+ *
+ * @throws Will throw an error if any SQL queries fail.
  */
 async function getStudentRecord(student) {
   // gather the required data to get records for each student using the sId

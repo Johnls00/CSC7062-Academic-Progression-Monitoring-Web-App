@@ -1,7 +1,18 @@
 // File: models/programModels.js
+// required models
 const connection = require("../config/config");
 const moduleModel = require("../models/moduleModel");
 
+/**
+ * Retrieves program details using the program code given.
+ *
+ * @function
+ * @memberof module:programModel
+ * @param {string} programCode - The code of the program to retrieve.
+ * @returns {Promise<Array>} An array of program records.
+ *
+ * @throws Will throw an error if the query fails.
+ */
 async function getProgramInfo(programCode) {
   try {
     const [results] = await connection.query(
@@ -14,6 +25,16 @@ async function getProgramInfo(programCode) {
   }
 }
 
+/**
+ * Retrieves program details using the given program ID.
+ *
+ * @function
+ * @memberof module:programModel
+ * @param {number} programId - The ID of the program to retrieve.
+ * @returns {Promise<Array>} An array of program records.
+ *
+ * @throws Will throw an error if the query fails.
+ */
 async function getProgramInfoWithProgramId(programId) {
   try {
     const [results] = await connection.query(
@@ -26,6 +47,15 @@ async function getProgramInfoWithProgramId(programId) {
   }
 }
 
+/**
+ * Retrieves all degree programs from the database.
+ *
+ * @function
+ * @memberof module:programModel
+ * @returns {Promise<Array>} An array of all program records.
+ *
+ * @throws Will throw an error if the query fails.
+ */
 async function getAllPrograms() {
   try {
     const [results] = await connection.query("SELECT * FROM `program`");
@@ -35,6 +65,16 @@ async function getAllPrograms() {
   }
 }
 
+/**
+ * Retrieves all modules associated with a given program ID and attaches the module details.
+ *
+ * @function
+ * @memberof module:programModel
+ * @param {number} programCode - The ID of the program.
+ * @returns {Promise<Array>} An array of enriched module details for the program.
+ *
+ * @throws Will throw an error if module or program data retrieval fails.
+ */
 async function getProgramModulesDetails(programCode) {
   try {
     const [programModules] = await connection.query(
@@ -45,7 +85,6 @@ async function getProgramModulesDetails(programCode) {
     for (let i = 0; i < programModules.length; i++) {
       const moduleId = programModules[i].module_id;
       const module_Info = await moduleModel.getModuleInfo(moduleId);
-      // console.log(`Module Info for module_id ${moduleId}:`, module_Info);
 
       if (module_Info && module_Info.length > 0) {
         programModules[i].module_id = module_Info[0].moduleId;
@@ -67,9 +106,6 @@ async function getProgramModulesDetails(programCode) {
     throw new Error("Failed to fetch program module data");
   }
 }
-
-
-
 
 module.exports = {
   getProgramInfo,
