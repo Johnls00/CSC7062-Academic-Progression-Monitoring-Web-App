@@ -1,3 +1,16 @@
+/**
+ * Logic for evaluating academic progression based on a student's performance record.
+ * Applies institutional rules including:
+ * - Minimum credits passed at current level
+ * - Minimum grades across all modules
+ * - Completion of core modules
+ * - Maximum allowed module attempts
+ *
+ * Returns a progression decision object with detailed reasoning and recommended actions.
+ *
+ * @file utils/progression-logic.js
+ * @module utils/progressionLogic
+ */
 const { level } = require("npmlog");
 
 /**
