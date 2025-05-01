@@ -1,6 +1,18 @@
+// models/messageModel.js
+// required models
 const connection = require("../config/config");
 const userModel = require("../models/userModel");
 
+/**
+ * Retrieves and organizes all messages for admin users into conversations.
+ * Each conversation has sender email and subject attached and sorted by latest timestamp.
+ *
+ * @function
+ * @memberof module:messageModel
+ * @returns {Promise<Object>} A dictionary of conversations with message arrays sorted by timestamp.
+ *
+ * @throws Will throw an error if querying messages or related data fails.
+ */
 async function getAllStudentConversationsForAdmin() {
   const admin_user_ids = await userModel.getAllAdminUserIds();
 
@@ -64,6 +76,18 @@ async function getAllStudentConversationsForAdmin() {
   return conversations;
 }
 
+/**
+ * Retrieves and organizes all messages for a specific user into conversations.
+ * Each message includes sender email and conversation subject, sorted by most recent timestamp.
+ *
+ * @function
+ * @memberof module:messageModel
+ * @param {number} userId - The user ID to retrieve messages for.
+ *
+ * @returns {Promise<Object>} A dictionary of conversations sorted by latest message timestamp.
+ *
+ * @throws Will throw an error if querying messages or related data fails.
+ */
 async function getAllUserConversations(userId) {
   let allMessages = [];
 
