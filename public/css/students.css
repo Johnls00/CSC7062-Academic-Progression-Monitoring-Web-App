@@ -1,24 +1,22 @@
 @import url("variables.css");
 
-
 .main {
-    margin-bottom : 2rem;
+  margin-bottom: 2rem;
 }
 
-
 .field {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 .subtitle {
-    vertical-align: middle;
-    text-align: center;
-    font-size: 1.3rem;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 1.3rem;
 }
 
 .sticky-header th td {
   align-self: center;
-  margin : 1rem;
+  margin: 1rem;
 }
 
 .scroll-table-container {

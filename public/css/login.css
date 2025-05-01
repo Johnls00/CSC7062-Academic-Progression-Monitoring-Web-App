@@ -1,125 +1,122 @@
-@import url('variables.css');
-
+@import url("variables.css");
 
 form.box {
-    width: 100%; 
-    max-width: 500px; 
-    padding: 20px; 
-    border-radius: 12px;
-    box-shadow: 0 6px 15px var(--shadow-color);
-    background-color: var(--white);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px var(--shadow-color);
+  background-color: var(--white);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 form.box:hover {
-    /* transform: translateY(-2px); */
-    box-shadow: 0 10px 20px var(--shadow-color);
+  box-shadow: 0 10px 20px var(--shadow-color);
 }
 
 h1.title {
-    text-align: center;
-    font-size: 2rem; 
-    color: var(--blue-colour);
-    margin-bottom: 8px;
+  text-align: center;
+  font-size: 2rem;
+  color: var(--blue-colour);
+  margin-bottom: 8px;
 }
 
 h2.title {
-    text-align: center;
-    font-size: 1.2rem; 
-    color: var(--pastel-pink-colour);
-    margin-bottom: 15px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--pastel-pink-colour);
+  margin-bottom: 15px;
 }
 
 .field {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .label {
-    font-weight: 600;
-    color: var(--blue-colour);
-    font-size: 1rem;
+  font-weight: 600;
+  color: var(--blue-colour);
+  font-size: 1rem;
 }
 
 .input {
-    width: 100%;
-    padding: 10px; 
-    border: 2px solid var(--light-gray);
-    border-radius: 8px;
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: var(--light-gray);
-    color: var(--dark-gray);
+  width: 100%;
+  padding: 10px;
+  border: 2px solid var(--light-gray);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--light-gray);
+  color: var(--dark-gray);
 }
 
 .input:focus {
-    border-color: var(--yellow-colour);
-    box-shadow: 0 0 8px rgba(249, 201, 43, 0.3);
-    background-color: var(--white);
-    
+  border-color: var(--yellow-colour);
+  box-shadow: 0 0 8px rgba(249, 201, 43, 0.3);
+  background-color: var(--white);
 }
 
 .button.is-primary {
-    width: 100%;
-    padding: 12px;
-    background: var(--blue-colour);
-    color: var(--white);
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  padding: 12px;
+  background: var(--blue-colour);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .button.is-primary:hover {
-    background: var(--yellow-colour);
-    color: var(--blue-colour);
-    box-shadow: 0 4px 8px rgba(249, 201, 43, 0.4);
+  background: var(--yellow-colour);
+  color: var(--blue-colour);
+  box-shadow: 0 4px 8px rgba(249, 201, 43, 0.4);
 }
 
 .register-text {
-    text-align: center;
-    margin-top: 20px;
-    color: var(--dark-gray);
-    font-size: 1rem;
+  text-align: center;
+  margin-top: 20px;
+  color: var(--dark-gray);
+  font-size: 1rem;
 }
 
 .register-text a {
-    color: var(--red-colour);
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease, text-decoration 0.3s ease;
+  color: var(--red-colour);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
 .register-text a:hover {
-    color: var(--yellow-colour);
-    text-decoration: underline;
+  color: var(--yellow-colour);
+  text-decoration: underline;
 }
 
 .main-content {
-    max-width: 90%; 
-    margin: 0 auto; 
+  max-width: 90%;
+  margin: 0 auto;
 }
 
 @media screen and (max-width: 480px) {
-    h1.title {
-        font-size: 1.5rem;
-    }
+  h1.title {
+    font-size: 1.5rem;
+  }
 
-    h2.title {
-        font-size: 1rem;
-    }
+  h2.title {
+    font-size: 1rem;
+  }
 
-    .button.is-primary {
-        font-size: 1rem;
-        padding: 10px;
-    }
+  .button.is-primary {
+    font-size: 1rem;
+    padding: 10px;
+  }
 
-    .input {
-        padding: 8px;
-    }
+  .input {
+    padding: 8px;
+  }
 
-    form.box {
-        padding: 15px;
-    }
+  form.box {
+    padding: 15px;
+  }
 }

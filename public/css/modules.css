@@ -34,7 +34,6 @@ p {
   table-layout: fixed; /* Ensure fixed column width for consistency */
   width: 100%; /* Ensure the table stretches across the full width of its container */
   background-color: white;
-  
 }
 
 th,

@@ -7,10 +7,8 @@
   align-items: center;
   text-align: center;
   width: 90vw;
-  /* Stretch box to full width */
   padding: 20px;
   box-sizing: border-box;
-  /* Ensures padding doesn't affect the width */
 }
 
 .box {
@@ -57,7 +55,6 @@
 }
 
 .title {
-  /* font-size: 1.5rem; */
   font-weight: bold;
-  color: var(--pastel-pink-colour) !important; ;
+  color: var(--pastel-pink-colour) !important;
 }

@@ -1,21 +1,21 @@
 /* Footer styling */
 footer {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    align-content: center;
-    background-color: --light-gray;
-    color: --light-gray;
-    height: 2vh;
-    width: 90vw;
-    border-radius: 1rem;
-    -webkit-border-radius: 1rem;
-    -moz-border-radius: 1rem;
-    -ms-border-radius: 1rem;
-    -o-border-radius: 1rem;
-    margin: 0 auto;
-    margin-bottom: 1rem;
-    padding: 0%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  background-color: --light-gray;
+  color: --light-gray;
+  height: 2vh;
+  width: 90vw;
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  padding: 0%;
 }

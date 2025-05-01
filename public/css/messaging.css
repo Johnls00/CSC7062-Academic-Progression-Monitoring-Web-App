@@ -26,7 +26,7 @@
 .panel-fixed-height {
   display: flex;
   flex-direction: column;
-  height: 100%; 
+  height: 100%;
   max-height: 600px;
   overflow: hidden;
 }
@@ -35,22 +35,3 @@
   flex: 1;
   overflow-y: auto;
 }
-
-/* .column {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-} */
-/*  
-.panel {
-  display: flex;
-  flex-direction: column;
-     flex: 1; 
-  overflow: hidden;
-}
-
-.scroll-panel-content {
-  overflow-y: auto;
-  padding-right: 0.5rem; 
-  max-height: 60vh;
-} */
