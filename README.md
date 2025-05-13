@@ -13,6 +13,8 @@ An academic dashboard and management system that enables university administrato
 
 ## Screenshots
 
+Below are a selection of some of the main pages of the web app, illustrating some of the main features.
+
 ### Login Page
 ![Screenshot 2025-05-13 at 12 58 15](https://github.com/user-attachments/assets/050a020f-3dea-42a5-a1eb-b546f910a3b6)
 
