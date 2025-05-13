@@ -13,7 +13,9 @@ An academic dashboard and management system that enables university administrato
 
 ## Screenshots
 
-> Include screenshots or GIFs here if available
+# Login Page
+![Screenshot 2025-05-13 at 12 58 15](https://github.com/user-attachments/assets/050a020f-3dea-42a5-a1eb-b546f910a3b6)
+
 
 ## Tech Stack
 
