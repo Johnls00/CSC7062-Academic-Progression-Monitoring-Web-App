@@ -16,7 +16,29 @@ An academic dashboard and management system that enables university administrato
 ### Login Page
 ![Screenshot 2025-05-13 at 12 58 15](https://github.com/user-attachments/assets/050a020f-3dea-42a5-a1eb-b546f910a3b6)
 
-###
+### Contact Page
+![Screenshot 2025-05-13 at 12 58 38](https://github.com/user-attachments/assets/80e2b129-a82b-4a3e-9da5-aa1150baef35)
+
+### Admin Dashboard
+![Screenshot 2025-05-13 at 12 59 04](https://github.com/user-attachments/assets/2bed53b4-ea01-4d72-91b3-46e0731ea097)
+
+### Messaging Hub
+![Screenshot 2025-05-13 at 12 59 24](https://github.com/user-attachments/assets/302ad22e-746c-4e87-90cd-883fd2c2cd0c)
+
+### Mass Record Upload Page
+![Screenshot 2025-05-13 at 12 59 36](https://github.com/user-attachments/assets/16cfd64c-df5e-4f7e-88e7-1b2946c62065)
+
+### All Students Page
+![Screenshot 2025-05-13 at 13 03 35](https://github.com/user-attachments/assets/26f559a5-0a8c-4a48-be27-851ffd54e96c)
+
+### Student Details Page
+![Screenshot 2025-05-13 at 13 04 03](https://github.com/user-attachments/assets/1dbc1c3b-1fb9-458b-9b74-2920df047f91)
+![Screenshot 2025-05-13 at 13 04 16](https://github.com/user-attachments/assets/d441a967-baba-4cc4-bc1c-8b923a869c91)
+![Screenshot 2025-05-13 at 13 04 24](https://github.com/user-attachments/assets/86128640-5d4d-49ed-a8fd-a9ef7827a12d)
+
+### Student Dashboard
+![Screenshot 2025-05-13 at 13 04 45](https://github.com/user-attachments/assets/80e183aa-cadf-4ebb-a4c9-09062f24df39)
+
 
 ## Tech Stack
 
